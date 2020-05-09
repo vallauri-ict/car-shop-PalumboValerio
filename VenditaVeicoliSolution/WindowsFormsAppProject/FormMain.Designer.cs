@@ -35,6 +35,7 @@
             this.tsbApri = new System.Windows.Forms.ToolStripButton();
             this.tsbSalva = new System.Windows.Forms.ToolStripButton();
             this.tsbStampa = new System.Windows.Forms.ToolStripButton();
+            this.tsbCancella = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +57,7 @@
             this.tsbNuovo,
             this.tsbApri,
             this.tsbSalva,
+            this.tsbCancella,
             this.tsbStampa});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -103,6 +105,16 @@
             this.tsbStampa.Text = "&Stampa";
             this.tsbStampa.Click += new System.EventHandler(this.tsbStampa_Click);
             // 
+            // tsbCancella
+            // 
+            this.tsbCancella.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbCancella.Image = ((System.Drawing.Image)(resources.GetObject("tsbCancella.Image")));
+            this.tsbCancella.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbCancella.Name = "tsbCancella";
+            this.tsbCancella.Size = new System.Drawing.Size(29, 24);
+            this.tsbCancella.Text = "&Cancella";
+            this.tsbCancella.Click += new System.EventHandler(this.tsbCancella_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -128,6 +140,7 @@
         private System.Windows.Forms.ToolStripButton tsbApri;
         private System.Windows.Forms.ToolStripButton tsbSalva;
         private System.Windows.Forms.ToolStripButton tsbStampa;
+        private System.Windows.Forms.ToolStripButton tsbCancella;
     }
 }
 

@@ -70,7 +70,7 @@
             "AUTO",
             "MOTO"});
             this.cmbTipoVeicolo.Location = new System.Drawing.Point(109, 42);
-            this.cmbTipoVeicolo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbTipoVeicolo.Margin = new System.Windows.Forms.Padding(4);
             this.cmbTipoVeicolo.Name = "cmbTipoVeicolo";
             this.cmbTipoVeicolo.Size = new System.Drawing.Size(160, 24);
             this.cmbTipoVeicolo.TabIndex = 0;
@@ -80,7 +80,7 @@
             // 
             this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnAnnulla.Location = new System.Drawing.Point(169, 463);
-            this.btnAnnulla.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAnnulla.Margin = new System.Windows.Forms.Padding(4);
             this.btnAnnulla.Name = "btnAnnulla";
             this.btnAnnulla.Size = new System.Drawing.Size(100, 28);
             this.btnAnnulla.TabIndex = 1;
@@ -91,7 +91,7 @@
             // btnAggiungi
             // 
             this.btnAggiungi.Location = new System.Drawing.Point(277, 463);
-            this.btnAggiungi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAggiungi.Margin = new System.Windows.Forms.Padding(4);
             this.btnAggiungi.Name = "btnAggiungi";
             this.btnAggiungi.Size = new System.Drawing.Size(100, 28);
             this.btnAggiungi.TabIndex = 2;
@@ -112,7 +112,7 @@
             // txtMarca
             // 
             this.txtMarca.Location = new System.Drawing.Point(169, 98);
-            this.txtMarca.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMarca.Margin = new System.Windows.Forms.Padding(4);
             this.txtMarca.Name = "txtMarca";
             this.txtMarca.Size = new System.Drawing.Size(132, 22);
             this.txtMarca.TabIndex = 4;
@@ -121,7 +121,7 @@
             // txtModello
             // 
             this.txtModello.Location = new System.Drawing.Point(169, 133);
-            this.txtModello.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtModello.Margin = new System.Windows.Forms.Padding(4);
             this.txtModello.Name = "txtModello";
             this.txtModello.Size = new System.Drawing.Size(132, 22);
             this.txtModello.TabIndex = 6;
@@ -140,7 +140,7 @@
             // txtColore
             // 
             this.txtColore.Location = new System.Drawing.Point(169, 167);
-            this.txtColore.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtColore.Margin = new System.Windows.Forms.Padding(4);
             this.txtColore.Name = "txtColore";
             this.txtColore.Size = new System.Drawing.Size(132, 22);
             this.txtColore.TabIndex = 8;
@@ -174,7 +174,7 @@
             0,
             0});
             this.nmuCilindrata.Location = new System.Drawing.Point(169, 201);
-            this.nmuCilindrata.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nmuCilindrata.Margin = new System.Windows.Forms.Padding(4);
             this.nmuCilindrata.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -203,7 +203,7 @@
             0,
             0});
             this.nmuPotenza.Location = new System.Drawing.Point(169, 235);
-            this.nmuPotenza.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nmuPotenza.Margin = new System.Windows.Forms.Padding(4);
             this.nmuPotenza.Maximum = new decimal(new int[] {
             500,
             0,
@@ -248,7 +248,7 @@
             // 
             this.dtpImmatricolazione.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpImmatricolazione.Location = new System.Drawing.Point(169, 270);
-            this.dtpImmatricolazione.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpImmatricolazione.Margin = new System.Windows.Forms.Padding(4);
             this.dtpImmatricolazione.MaxDate = new System.DateTime(2019, 12, 13, 0, 0, 0, 0);
             this.dtpImmatricolazione.Name = "dtpImmatricolazione";
             this.dtpImmatricolazione.Size = new System.Drawing.Size(132, 22);
@@ -268,7 +268,7 @@
             // nmuAirbag
             // 
             this.nmuAirbag.Location = new System.Drawing.Point(169, 370);
-            this.nmuAirbag.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nmuAirbag.Margin = new System.Windows.Forms.Padding(4);
             this.nmuAirbag.Maximum = new decimal(new int[] {
             10,
             0,
@@ -292,7 +292,7 @@
             // txtMarcaSella
             // 
             this.txtMarcaSella.Location = new System.Drawing.Point(169, 404);
-            this.txtMarcaSella.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMarcaSella.Margin = new System.Windows.Forms.Padding(4);
             this.txtMarcaSella.Name = "txtMarcaSella";
             this.txtMarcaSella.Size = new System.Drawing.Size(132, 22);
             this.txtMarcaSella.TabIndex = 21;
@@ -358,7 +358,7 @@
             // nmuKmPercorsi
             // 
             this.nmuKmPercorsi.Location = new System.Drawing.Point(169, 336);
-            this.nmuKmPercorsi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nmuKmPercorsi.Margin = new System.Windows.Forms.Padding(4);
             this.nmuKmPercorsi.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -409,8 +409,10 @@
             this.Controls.Add(this.btnAnnulla);
             this.Controls.Add(this.cmbTipoVeicolo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormDialogAggiungiVeicolo";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "AGGIUNGI VEICOLO";
             ((System.ComponentModel.ISupportInitialize)(this.nmuCilindrata)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmuPotenza)).EndInit();

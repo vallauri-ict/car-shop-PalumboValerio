@@ -92,7 +92,7 @@ namespace VenditaVeicoliDLLProject
             
 
             string aus = "<h3> LISTA DEI VEICOLI DISPONIBILI </h3>";
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < lista.Count; i++)
                 createBody(ref aus, lista, i);
 
             html = html.Replace("{{main-content}}", aus);

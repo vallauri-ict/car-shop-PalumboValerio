@@ -45,12 +45,19 @@ namespace WindowsFormsAppProject
 
         private void tsbApri_Click(object sender, EventArgs e)
         {
+            listaVeicoli.Clear();
             Utils.ParseJsonToObject(@".\Veicoli.json", listaVeicoli);
         }
 
         private void tsbSalva_Click(object sender, EventArgs e)
         {
             Utils.SerializeToJson(listaVeicoli, @".\Veicoli.json");
+        }
+
+        private void tsbCancella_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Sei sicuro di voler eliminare l'elemento selezionato?", "CANCELLA VEICOLO", MessageBoxButtons.YesNo, MessageBoxIcon.Question)==DialogResult.Yes)
+                listaVeicoli.RemoveAt(listBoxVeicoli.SelectedIndex);
         }
 
         private void tsbStampa_Click(object sender, EventArgs e)
