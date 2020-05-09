@@ -1,9 +1,9 @@
 # CarShop 
 
-A console project with a dll for manegement of a car shop
+A carshop menagement software
 
 --------------------------------
-*Project version: __1.3.0__*
+*Project version: __5.4.1__*
 
 *Project specifics:*
 1. Create a table in an Access project with a default datas;

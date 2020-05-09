@@ -1,0 +1,24 @@
+﻿body{
+    background-color: lightcoral;
+    padding: 30px;
+}
+h2, h5{
+    text-align: center;
+}
+img {
+    width: 150px;
+    height: 150px;
+    border: 5px solid black;
+}
+.veicolo{
+    display: inline-block;
+    width: 150px;
+    margin: 10px;
+}
+.titolo{
+    font-size: 14pt;
+}
+.didascalia{
+    font-size: 9pt;
+	border: 5px solid red;
+}
