@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region Using
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,33 +11,23 @@ using System.Windows.Forms;
 using VenditaVeicoliDLLProject;
 using System.IO;
 using System.Diagnostics;
+#endregion
 
 namespace WindowsFormsAppProject
 {
     public partial class FormMain : Form
     {
-        public SerializableBindingList<Veicoli> listaVeicoli; // La BindingList sente i cambiamenti durante il codice
+        #region Initializations
+        public SerializableBindingList<Veicoli> listaVeicoli; // The BindingList hears the changes during the code
         public FormMain()
         {
             InitializeComponent();
             listaVeicoli = new SerializableBindingList<Veicoli>();
             listBoxVeicoli.DataSource = listaVeicoli;
         }
+        #endregion
 
-        /*private void CaricaDatiDiTest()
-        {
-            Moto m = new Moto();
-            Auto a = new Auto();
-
-
-            listaVeicoli.Add(m);
-            m = new Moto("Honda", "Tsunami", "Rosso", 1000, 120, DateTime.Now, false, false, 0, "Quintino");
-            listaVeicoli.Add(m);
-            listaVeicoli.Add(a);
-            a = new Auto("Fiat", "Panda", "Nero", 1000, 75.20, DateTime.Now, false, false, 0, 8);
-            listaVeicoli.Add(a);
-        }*/
-
+        #region Events
         private void tsmNuovo_Click(object sender, EventArgs e)
         {
             FormDialogAggiungiVeicolo dialogAggiungi = new FormDialogAggiungiVeicolo(this);
@@ -46,12 +37,12 @@ namespace WindowsFormsAppProject
         private void tsbApri_Click(object sender, EventArgs e)
         {
             listaVeicoli.Clear();
-            Utils.ParseJsonToObject(@".\Veicoli.json", listaVeicoli);
+            Utilities.ParseJsonToObject(@".\Veicoli.json", listaVeicoli);
         }
 
         private void tsbSalva_Click(object sender, EventArgs e)
         {
-            Utils.SerializeToJson(listaVeicoli, @".\Veicoli.json");
+            Utilities.SerializeToJson(listaVeicoli, @".\Veicoli.json");
         }
 
         private void tsbCancella_Click(object sender, EventArgs e)
@@ -65,11 +56,12 @@ namespace WindowsFormsAppProject
             if (listaVeicoli.Count > 0)
             {
                 string homepagePath = @".\www\index.html";
-                Utils.CreateHtml(listaVeicoli, homepagePath);
+                Utilities.CreateHtml(listaVeicoli, homepagePath);
                 Process.Start(homepagePath);
             }
             else
                 MessageBox.Show("Inserisci almeno un veicolo prima di visualizzare!");
         }
+        #endregion
     }
 }

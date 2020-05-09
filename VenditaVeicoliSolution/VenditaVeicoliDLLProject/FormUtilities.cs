@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region Using
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -7,12 +8,16 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+#endregion
 
 namespace VenditaVeicoliDLLProject
 {
+    #region SerializableBindingList
     [Serializable]
     public class SerializableBindingList<T> : BindingList<T> { }
+    #endregion
 
+    #region Utilities
     public class Utilities
     {
         /// <summary>
@@ -111,4 +116,5 @@ namespace VenditaVeicoliDLLProject
             mainContent += "</div>";
         }
     }
+    #endregion
 }

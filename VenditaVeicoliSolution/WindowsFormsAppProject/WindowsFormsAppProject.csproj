@@ -56,12 +56,6 @@
     <Compile Include="FormDialogAggiungiVeicolo.Designer.cs">
       <DependentUpon>FormDialogAggiungiVeicolo.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDialogCancellaVeicolo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormDialogCancellaVeicolo.Designer.cs">
-      <DependentUpon>FormDialogCancellaVeicolo.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,9 +66,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormDialogAggiungiVeicolo.resx">
       <DependentUpon>FormDialogAggiungiVeicolo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormDialogCancellaVeicolo.resx">
-      <DependentUpon>FormDialogCancellaVeicolo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
