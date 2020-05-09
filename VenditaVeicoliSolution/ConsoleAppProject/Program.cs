@@ -91,11 +91,11 @@ namespace ConsoleAppProject
         {
             Console.Clear();
             Console.WriteLine("*** CAR SHOP - DB MANAGEMENT ***\n");
-            Console.WriteLine("1 - CREATE TABLE: Cars");
-            Console.WriteLine("2 - ADD NEW ITEM: Cars");
-            Console.WriteLine("3 - LIST: Cars");
-            Console.WriteLine("4 - DROP TABLE: Cars");
-            Console.WriteLine("5 - MODIFY ITEMS: Cars");
+            Console.WriteLine("1 - CREATE TABLE");
+            Console.WriteLine("2 - ADD NEW ITEM");
+            Console.WriteLine("3 - LIST");
+            Console.WriteLine("4 - DROP TABLE");
+            Console.WriteLine("5 - MODIFY ITEMS");
             Console.WriteLine("\nX - END\n\n");
         }
 

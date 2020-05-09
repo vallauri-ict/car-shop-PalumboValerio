@@ -132,7 +132,7 @@ namespace VenditaVeicoliDLLProject
             }
         }
 
-        public static void Insert(OleDbConnection con, string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmPercorsi, int price, int numAirbag, string saddleBrand)
+        private static void Insert(OleDbConnection con, string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmPercorsi, int price, int numAirbag, string saddleBrand)
         {
             OleDbCommand cmd = new OleDbCommand();
             cmd.Connection = con;
