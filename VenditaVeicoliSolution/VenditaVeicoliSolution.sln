@@ -5,14 +5,14 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenditaVeicoliDLLProject", "VenditaVeicoliDLLProject\VenditaVeicoliDLLProject.csproj", "{E7BB3EF0-9DC3-41EC-891B-2BC2BD7FE6BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppProject", "ConsoleAppProject\ConsoleAppProject.csproj", "{948732FA-2767-4B1A-ABDE-56D274CC35A4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsAppProject", "WindowsFormsAppProject\WindowsFormsAppProject.csproj", "{BC963412-6D09-4628-BFF7-1772C13A725C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C5AFF658-F38A-48F0-BD31-027146D2AE0C}"
 	ProjectSection(SolutionItems) = preProject
 		Veicoli.dat.txt = Veicoli.dat.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppProject", "ConsoleAppProject\ConsoleAppProject.csproj", "{CE0B86E9-D89C-49BE-BAFE-F4A869BEF04B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,14 +24,14 @@ Global
 		{E7BB3EF0-9DC3-41EC-891B-2BC2BD7FE6BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7BB3EF0-9DC3-41EC-891B-2BC2BD7FE6BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7BB3EF0-9DC3-41EC-891B-2BC2BD7FE6BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{948732FA-2767-4B1A-ABDE-56D274CC35A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{948732FA-2767-4B1A-ABDE-56D274CC35A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{948732FA-2767-4B1A-ABDE-56D274CC35A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{948732FA-2767-4B1A-ABDE-56D274CC35A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC963412-6D09-4628-BFF7-1772C13A725C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC963412-6D09-4628-BFF7-1772C13A725C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC963412-6D09-4628-BFF7-1772C13A725C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC963412-6D09-4628-BFF7-1772C13A725C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE0B86E9-D89C-49BE-BAFE-F4A869BEF04B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE0B86E9-D89C-49BE-BAFE-F4A869BEF04B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE0B86E9-D89C-49BE-BAFE-F4A869BEF04B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE0B86E9-D89C-49BE-BAFE-F4A869BEF04B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

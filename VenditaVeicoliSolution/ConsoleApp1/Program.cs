@@ -30,11 +30,46 @@ namespace ConsoleAppProject
                         break;
                     case '2':
                         table = vehicle();
-                        takeParameters(table);                       
+                        Console.Write("\nmarca: ");
+                        string brand = Console.ReadLine();
+
+                        Console.Write("modello: ");
+                        string model = Console.ReadLine();
+
+                        Console.Write("colore: ");
+                        string color = Console.ReadLine();
+
+                        int displacement = Convert.ToInt32(typeVerifier("cilindrata: "));
+
+                        double powerKw = Convert.ToDouble(typeVerifier("potenzaKw: ", "double"));
+
+                        Console.Write("immatricolazione: ");
+                        DateTime matriculation = Convert.ToDateTime(Console.ReadLine());
+
+                        bool isUsed = boolRequest("usato");
+
+                        bool isKm0 = boolRequest("kmZero");
+
+                        int kmPercorsi= Convert.ToInt32(typeVerifier("kmPercorsi: "));
+
+                        int price = Convert.ToInt32(typeVerifier("prezzo: "));
+
+                        int numAirbag = -1;
+                        string saddleBrand = string.Empty;
+                        if (table == "Auto")
+                        {
+                            numAirbag = Convert.ToInt32(typeVerifier("numAirbag: "));
+                        }
+                        else
+                        {
+                            Console.Write("marcaSella: ");
+                            saddleBrand = Console.ReadLine();
+                        }
+
+                        ConsoleUtilities.AddNewCar(table, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmPercorsi, price, numAirbag, saddleBrand);
                         break;
                     case '3':
-                        table = vehicle();
-                        ConsoleUtilities.ListCars(table);
+                        ConsoleUtilities.ListCars();
                         break;
                     case '4':
                         table = vehicle();
@@ -45,46 +80,6 @@ namespace ConsoleAppProject
                 }
             }
             while (choice != 'X' && choice != 'x');
-        }
-
-        private static void takeParameters(string table)
-        {
-            Console.Write("\nmarca: ");
-            string brand = Console.ReadLine();
-
-            Console.Write("modello: ");
-            string model = Console.ReadLine();
-
-            Console.Write("colore: ");
-            string color = Console.ReadLine();
-
-            int displacement = Convert.ToInt32(typeVerifier("cilindrata: "));
-
-            double powerKw = Convert.ToDouble(typeVerifier("potenzaKw: ", "double"));
-
-            DateTime matriculation = dateVerifier("immatricolazione: ");
-
-            bool isUsed = boolRequest("usato");
-
-            bool isKm0 = boolRequest("kmZero");
-
-            int kmPercorsi = Convert.ToInt32(typeVerifier("kmPercorsi: "));
-
-            int price = Convert.ToInt32(typeVerifier("prezzo: "));
-
-            int numAirbag = -1;
-            string saddleBrand = string.Empty;
-            if (table == "Auto")
-            {
-                numAirbag = Convert.ToInt32(typeVerifier("numAirbag: "));
-            }
-            else
-            {
-                Console.Write("marcaSella: ");
-                saddleBrand = Console.ReadLine();
-            }
-
-            ConsoleUtilities.AddNewCar(table, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmPercorsi, price, numAirbag, saddleBrand);
         }
 
         private static void menu()
@@ -157,24 +152,20 @@ namespace ConsoleAppProject
                 return false;
         }
 
-        private static DateTime dateVerifier(string consoleWrite)
+        /*private static double doubleVerifier()
         {
-            DateTime verifier = DateTime.Now;
-            bool correct = true;
-            do
+            double verifier;
+            try
             {
-                Console.Write(consoleWrite);
-                try
-                {
-                    verifier = Convert.ToDateTime(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    correct = false;
-                }
-            } while (!correct);
+                verifier = Convert.ToDouble(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("This input must be a double!");
+                return -1;
+            }
 
             return verifier;
-        }
+        }*/
     }
 }

@@ -7,13 +7,13 @@ namespace VenditaVeicoliDLLProject
     public class Auto : Veicoli
     {
         private int numAirbag;
-        public Auto() : base("Fiat", "Panda", "Nero", 1000, 75.20, DateTime.Now, false, false, 0) 
+        public Auto() : base("Fiat", "Panda", "Nero", 1000, 75.20, DateTime.Now, false, false, 321567, 0) 
         {
             NumAirbag = 6;
         }
         public Auto(string marca, string modello, string colore, int cilindrata, double potenzaKw, 
-            DateTime immatricolazione, bool isUsato, bool isKmZero, int kmPercorsi, int numAirbag) : base(marca, modello, colore, 
-                cilindrata, potenzaKw, immatricolazione, isUsato, isKmZero, kmPercorsi)
+            DateTime immatricolazione, bool isUsato, bool isKmZero, int kmPercorsi, int prezzo, int numAirbag) : base(marca, modello, colore, 
+                cilindrata, potenzaKw, immatricolazione, isUsato, isKmZero, kmPercorsi, prezzo)
         {
             NumAirbag = numAirbag;
         }

@@ -18,7 +18,7 @@ namespace VenditaVeicoliDLLProject
     #endregion
 
     #region Utilities
-    public class Utilities
+    public class FormUtilities
     {
         /// <summary>
         /// Serialize an object list into Json string
@@ -111,7 +111,7 @@ namespace VenditaVeicoliDLLProject
             mainContent += "<div class = \"veicolo\">";
             mainContent += $"<img src = \"img/{veicolo}\">";
             mainContent += $"<div class = \"titolo\">{objectList[i].Marca} {objectList[i].Modello}";
-            mainContent += $"<div class = \"didascalia\"> Colore: {objectList[i].Colore}<br> Cilindrata: {objectList[i].Cilindrata}<br> Immatricolazione: {objectList[i].Immatricolazione}<br> {km0} {usato}<br> Chilometri percorsi: {objectList[i].KmPercorsi}<br> Potenza: {objectList[i].PotenzaKw} </div>";
+            mainContent += $"<div class = \"didascalia\"> Colore: {objectList[i].Colore}<br> Cilindrata: {objectList[i].Cilindrata}<br> Immatricolazione: {objectList[i].Immatricolazione}<br> {km0} {usato}<br> Chilometri percorsi: {objectList[i].KmPercorsi}<br> Potenza: {objectList[i].PotenzaKw} <br> Prezzo: {objectList[i].Prezzo} </div>";
             mainContent += "</div>";
             mainContent += "</div>";
         }

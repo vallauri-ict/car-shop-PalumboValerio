@@ -37,12 +37,12 @@ namespace WindowsFormsAppProject
         private void tsbApri_Click(object sender, EventArgs e)
         {
             listaVeicoli.Clear();
-            Utilities.ParseJsonToObject(@".\Veicoli.json", listaVeicoli);
+            FormUtilities.ParseJsonToObject(@".\Veicoli.json", listaVeicoli);
         }
 
         private void tsbSalva_Click(object sender, EventArgs e)
         {
-            Utilities.SerializeToJson(listaVeicoli, @".\Veicoli.json");
+            FormUtilities.SerializeToJson(listaVeicoli, @".\Veicoli.json");
         }
 
         private void tsbCancella_Click(object sender, EventArgs e)
@@ -56,7 +56,7 @@ namespace WindowsFormsAppProject
             if (listaVeicoli.Count > 0)
             {
                 string homepagePath = @".\www\index.html";
-                Utilities.CreateHtml(listaVeicoli, homepagePath);
+                FormUtilities.CreateHtml(listaVeicoli, homepagePath);
                 Process.Start(homepagePath);
             }
             else

@@ -25,7 +25,7 @@ namespace WindowsFormsAppProject
         public FormDialogAggiungiVeicolo(FormMain formMain)
         {
             InitializeComponent();
-            Control[] aus = { txtMarca, txtModello, txtColore, nmuCilindrata, nmuPotenza, nmuKmPercorsi, nmuAirbag };
+            Control[] aus = { txtMarca, txtModello, txtColore, nmuCilindrata, nmuPotenza, nmuKmPercorsi, nmuPrezzo, nmuAirbag };
             controls = new List<Control>(aus);
             this.formMain = formMain;
             veicolo = "AUTO";
@@ -49,7 +49,7 @@ namespace WindowsFormsAppProject
             {
                 corretto = controllo(controls[i]);
                 if (!corretto)
-                    ErProv.setError(error, controls[i], "Devi compilare tutti i campi richiesti!");
+                    ErProv.setError(error, controls[i], "You must fill in all the required fields!");
             }
             
             if (corretto)
@@ -61,6 +61,7 @@ namespace WindowsFormsAppProject
                                                        Convert.ToDouble(nmuPotenza.Value),
                                                        dtpImmatricolazione.Value, chkUsato.Checked,
                                                        chkKmZero.Checked, Convert.ToInt32(nmuKmPercorsi.Value),
+                                                       Convert.ToInt32(nmuPrezzo.Value),
                                                        Convert.ToInt32(nmuAirbag.Value)));
                 }
                 else
@@ -70,6 +71,7 @@ namespace WindowsFormsAppProject
                                                        Convert.ToDouble(nmuPotenza.Value),
                                                        dtpImmatricolazione.Value, chkUsato.Checked,
                                                        chkKmZero.Checked, Convert.ToInt32(nmuKmPercorsi.Value),
+                                                       Convert.ToInt32(nmuPrezzo.Value),
                                                        txtMarcaSella.Text));
                 }
                 Close();

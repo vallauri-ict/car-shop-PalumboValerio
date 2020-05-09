@@ -55,11 +55,14 @@
             this.label7 = new System.Windows.Forms.Label();
             this.nmuKmPercorsi = new System.Windows.Forms.NumericUpDown();
             this.printDocument = new System.Drawing.Printing.PrintDocument();
+            this.label8 = new System.Windows.Forms.Label();
+            this.nmuPrezzo = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.nmuCilindrata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmuPotenza)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmuAirbag)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.error)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmuKmPercorsi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmuPrezzo)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbTipoVeicolo
@@ -79,22 +82,22 @@
             // btnAnnulla
             // 
             this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(169, 463);
+            this.btnAnnulla.Location = new System.Drawing.Point(169, 484);
             this.btnAnnulla.Margin = new System.Windows.Forms.Padding(4);
             this.btnAnnulla.Name = "btnAnnulla";
             this.btnAnnulla.Size = new System.Drawing.Size(100, 28);
-            this.btnAnnulla.TabIndex = 1;
+            this.btnAnnulla.TabIndex = 10;
             this.btnAnnulla.Text = "ANNULLA";
             this.btnAnnulla.UseVisualStyleBackColor = true;
             this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
             // 
             // btnAggiungi
             // 
-            this.btnAggiungi.Location = new System.Drawing.Point(277, 463);
+            this.btnAggiungi.Location = new System.Drawing.Point(277, 484);
             this.btnAggiungi.Margin = new System.Windows.Forms.Padding(4);
             this.btnAggiungi.Name = "btnAggiungi";
             this.btnAggiungi.Size = new System.Drawing.Size(100, 28);
-            this.btnAggiungi.TabIndex = 2;
+            this.btnAggiungi.TabIndex = 11;
             this.btnAggiungi.Text = "AGGIUNGI";
             this.btnAggiungi.UseVisualStyleBackColor = true;
             this.btnAggiungi.Click += new System.EventHandler(this.btnAggiungi_Click);
@@ -106,7 +109,7 @@
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 17);
-            this.label1.TabIndex = 3;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Marca:";
             // 
             // txtMarca
@@ -115,7 +118,7 @@
             this.txtMarca.Margin = new System.Windows.Forms.Padding(4);
             this.txtMarca.Name = "txtMarca";
             this.txtMarca.Size = new System.Drawing.Size(132, 22);
-            this.txtMarca.TabIndex = 4;
+            this.txtMarca.TabIndex = 1;
             this.txtMarca.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // txtModello
@@ -124,7 +127,7 @@
             this.txtModello.Margin = new System.Windows.Forms.Padding(4);
             this.txtModello.Name = "txtModello";
             this.txtModello.Size = new System.Drawing.Size(132, 22);
-            this.txtModello.TabIndex = 6;
+            this.txtModello.TabIndex = 2;
             this.txtModello.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // label2
@@ -134,7 +137,7 @@
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 17);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Modello:";
             // 
             // txtColore
@@ -143,7 +146,7 @@
             this.txtColore.Margin = new System.Windows.Forms.Padding(4);
             this.txtColore.Name = "txtColore";
             this.txtColore.Size = new System.Drawing.Size(132, 22);
-            this.txtColore.TabIndex = 8;
+            this.txtColore.TabIndex = 3;
             this.txtColore.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // label3
@@ -153,7 +156,7 @@
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 17);
-            this.label3.TabIndex = 7;
+            this.label3.TabIndex = 0;
             this.label3.Text = "Colore:";
             // 
             // label4
@@ -163,7 +166,7 @@
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 17);
-            this.label4.TabIndex = 9;
+            this.label4.TabIndex = 0;
             this.label4.Text = "Cilindrata:";
             // 
             // nmuCilindrata
@@ -187,7 +190,7 @@
             0});
             this.nmuCilindrata.Name = "nmuCilindrata";
             this.nmuCilindrata.Size = new System.Drawing.Size(132, 22);
-            this.nmuCilindrata.TabIndex = 10;
+            this.nmuCilindrata.TabIndex = 4;
             this.nmuCilindrata.Value = new decimal(new int[] {
             50,
             0,
@@ -216,7 +219,7 @@
             0});
             this.nmuPotenza.Name = "nmuPotenza";
             this.nmuPotenza.Size = new System.Drawing.Size(132, 22);
-            this.nmuPotenza.TabIndex = 12;
+            this.nmuPotenza.TabIndex = 5;
             this.nmuPotenza.Value = new decimal(new int[] {
             10,
             0,
@@ -231,7 +234,7 @@
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 17);
-            this.label5.TabIndex = 11;
+            this.label5.TabIndex = 0;
             this.label5.Text = "Potenza:";
             // 
             // label6
@@ -241,7 +244,7 @@
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(117, 17);
-            this.label6.TabIndex = 13;
+            this.label6.TabIndex = 0;
             this.label6.Text = "Immatricolazione:";
             // 
             // dtpImmatricolazione
@@ -252,22 +255,22 @@
             this.dtpImmatricolazione.MaxDate = new System.DateTime(2019, 12, 13, 0, 0, 0, 0);
             this.dtpImmatricolazione.Name = "dtpImmatricolazione";
             this.dtpImmatricolazione.Size = new System.Drawing.Size(132, 22);
-            this.dtpImmatricolazione.TabIndex = 14;
+            this.dtpImmatricolazione.TabIndex = 6;
             this.dtpImmatricolazione.Value = new System.DateTime(2019, 12, 4, 0, 0, 0, 0);
             // 
             // lblNAirbag
             // 
             this.lblNAirbag.AutoSize = true;
-            this.lblNAirbag.Location = new System.Drawing.Point(37, 370);
+            this.lblNAirbag.Location = new System.Drawing.Point(36, 401);
             this.lblNAirbag.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNAirbag.Name = "lblNAirbag";
             this.lblNAirbag.Size = new System.Drawing.Size(107, 17);
-            this.lblNAirbag.TabIndex = 18;
+            this.lblNAirbag.TabIndex = 0;
             this.lblNAirbag.Text = "Numero Airbag:";
             // 
             // nmuAirbag
             // 
-            this.nmuAirbag.Location = new System.Drawing.Point(169, 370);
+            this.nmuAirbag.Location = new System.Drawing.Point(169, 399);
             this.nmuAirbag.Margin = new System.Windows.Forms.Padding(4);
             this.nmuAirbag.Maximum = new decimal(new int[] {
             10,
@@ -281,7 +284,7 @@
             0});
             this.nmuAirbag.Name = "nmuAirbag";
             this.nmuAirbag.Size = new System.Drawing.Size(132, 22);
-            this.nmuAirbag.TabIndex = 19;
+            this.nmuAirbag.TabIndex = 9;
             this.nmuAirbag.Value = new decimal(new int[] {
             1,
             0,
@@ -291,21 +294,21 @@
             // 
             // txtMarcaSella
             // 
-            this.txtMarcaSella.Location = new System.Drawing.Point(169, 404);
+            this.txtMarcaSella.Location = new System.Drawing.Point(169, 427);
             this.txtMarcaSella.Margin = new System.Windows.Forms.Padding(4);
             this.txtMarcaSella.Name = "txtMarcaSella";
             this.txtMarcaSella.Size = new System.Drawing.Size(132, 22);
-            this.txtMarcaSella.TabIndex = 21;
+            this.txtMarcaSella.TabIndex = 9;
             this.txtMarcaSella.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // lblMarcaSella
             // 
             this.lblMarcaSella.AutoSize = true;
-            this.lblMarcaSella.Location = new System.Drawing.Point(37, 402);
+            this.lblMarcaSella.Location = new System.Drawing.Point(37, 427);
             this.lblMarcaSella.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMarcaSella.Name = "lblMarcaSella";
             this.lblMarcaSella.Size = new System.Drawing.Size(84, 17);
-            this.lblMarcaSella.TabIndex = 20;
+            this.lblMarcaSella.TabIndex = 0;
             this.lblMarcaSella.Text = "Marca sella:";
             // 
             // error
@@ -320,7 +323,7 @@
             this.chkUsato.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkUsato.Name = "chkUsato";
             this.chkUsato.Size = new System.Drawing.Size(67, 21);
-            this.chkUsato.TabIndex = 24;
+            this.chkUsato.TabIndex = 0;
             this.chkUsato.Text = "Usato";
             this.chkUsato.UseVisualStyleBackColor = true;
             // 
@@ -332,18 +335,18 @@
             this.chkKmZero.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkKmZero.Name = "chkKmZero";
             this.chkKmZero.Size = new System.Drawing.Size(129, 21);
-            this.chkKmZero.TabIndex = 25;
+            this.chkKmZero.TabIndex = 0;
             this.chkKmZero.Text = "Chilometro zero";
             this.chkKmZero.UseVisualStyleBackColor = true;
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(39, 427);
+            this.progressBar.Location = new System.Drawing.Point(39, 455);
             this.progressBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.progressBar.Maximum = 7;
+            this.progressBar.Maximum = 8;
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(253, 23);
-            this.progressBar.TabIndex = 26;
+            this.progressBar.TabIndex = 0;
             // 
             // label7
             // 
@@ -352,7 +355,7 @@
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(129, 17);
-            this.label7.TabIndex = 27;
+            this.label7.TabIndex = 0;
             this.label7.Text = "Chilometri percorsi:";
             // 
             // nmuKmPercorsi
@@ -371,9 +374,42 @@
             0});
             this.nmuKmPercorsi.Name = "nmuKmPercorsi";
             this.nmuKmPercorsi.Size = new System.Drawing.Size(132, 22);
-            this.nmuKmPercorsi.TabIndex = 28;
+            this.nmuKmPercorsi.TabIndex = 7;
             this.nmuKmPercorsi.Value = new decimal(new int[] {
             1,
+            0,
+            0,
+            0});
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(36, 372);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(56, 17);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Prezzo:";
+            // 
+            // nmuPrezzo
+            // 
+            this.nmuPrezzo.Location = new System.Drawing.Point(169, 369);
+            this.nmuPrezzo.Margin = new System.Windows.Forms.Padding(4);
+            this.nmuPrezzo.Maximum = new decimal(new int[] {
+            500000,
+            0,
+            0,
+            0});
+            this.nmuPrezzo.Minimum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.nmuPrezzo.Name = "nmuPrezzo";
+            this.nmuPrezzo.Size = new System.Drawing.Size(132, 22);
+            this.nmuPrezzo.TabIndex = 8;
+            this.nmuPrezzo.Value = new decimal(new int[] {
+            4000,
             0,
             0,
             0});
@@ -383,7 +419,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnAnnulla;
-            this.ClientSize = new System.Drawing.Size(379, 506);
+            this.ClientSize = new System.Drawing.Size(379, 525);
+            this.Controls.Add(this.nmuPrezzo);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.nmuKmPercorsi);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.progressBar);
@@ -419,6 +457,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nmuAirbag)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.error)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmuKmPercorsi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmuPrezzo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -452,5 +491,7 @@
         private System.Windows.Forms.NumericUpDown nmuKmPercorsi;
         private System.Windows.Forms.Label label7;
         private System.Drawing.Printing.PrintDocument printDocument;
+        private System.Windows.Forms.NumericUpDown nmuPrezzo;
+        private System.Windows.Forms.Label label8;
     }
 }
