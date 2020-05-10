@@ -13,9 +13,13 @@ namespace ConsoleAppProject
 {
     class Program
     {
+        public static string table, brand, model, color, saddleBrand;
+        public static int id, displacement, kmDone, price, numAirbag;
+        public static double powerKw;
+        public static bool isUsed, isKm0;
+        public static DateTime matriculation;
         static void Main(string[] args)
-        {
-            Console.WriteLine("*** SALONE VENDITA VEICOLI NUOVI E USATI ***");
+        {            
             char choice;
             do
             {
@@ -25,18 +29,31 @@ namespace ConsoleAppProject
                 switch (choice)
                 {
                     case '1':
-                        string table = vehicle();
-                        ConsoleUtilities.CreateTableCars(table);
+                        table = vehicle();
+                        ConsoleUtilities.CreateTable(table);
                         break;
                     case '2':
                         table = vehicle();
-                        takeParameters(table);                       
+                        takeParameters();
+                        ConsoleUtilities.AddNewItem(table, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price, numAirbag, saddleBrand);
                         break;
                     case '3':
                         table = vehicle();
-                        ConsoleUtilities.ListCars(table);
+                        ConsoleUtilities.ListTable(table);
                         break;
                     case '4':
+                        table = vehicle();
+                        id = takeId(table);
+                        takeParameters();
+                        ConsoleUtilities.Update(table, id, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price, numAirbag, saddleBrand);
+                        id = 0;
+                        break;
+                    case '5':
+                        table = vehicle();
+                        id = takeId(table);
+                        ConsoleUtilities.Delete(table, id);
+                        break;
+                    case '6':
                         table = vehicle();
                         ConsoleUtilities.DropTable(table);
                         break;
@@ -47,58 +64,78 @@ namespace ConsoleAppProject
             while (choice != 'X' && choice != 'x');
         }
 
-        private static void takeParameters(string table)
+        private static int takeId(string table)
         {
-            Console.Write("\nmarca: ");
-            string brand = Console.ReadLine();
-
-            Console.Write("modello: ");
-            string model = Console.ReadLine();
-
-            Console.Write("colore: ");
-            string color = Console.ReadLine();
-
-            int displacement = Convert.ToInt32(typeVerifier("cilindrata: "));
-
-            double powerKw = Convert.ToDouble(typeVerifier("potenzaKw: ", "double"));
-
-            DateTime matriculation = dateVerifier("immatricolazione: ");
-
-            bool isUsed = boolRequest("usato");
-
-            bool isKm0 = boolRequest("kmZero");
-
-            int kmPercorsi = Convert.ToInt32(typeVerifier("kmPercorsi: "));
-
-            int price = Convert.ToInt32(typeVerifier("prezzo: "));
-
-            int numAirbag = -1;
-            string saddleBrand = string.Empty;
-            if (table == "Auto")
+            int maxId = ConsoleUtilities.ItemsCounter(table);
+            int id;
+            do
             {
-                numAirbag = Convert.ToInt32(typeVerifier("numAirbag: "));
-            }
+                id = Convert.ToInt32(typeVerifier($"\nInsert a number form 1 to {maxId}: "));
+            } while (id < 1 || id > maxId);
+
+            return id;
+        }
+
+        /// <summary>
+        /// Create the menù list
+        /// </summary>
+        private static void menu()
+        {
+            Console.Clear();
+            Console.WriteLine("*** SALONE VENDITA VEICOLI NUOVI E USATI - DB MANAGEMENT ***\n");
+            Console.WriteLine("1 - CREATE TABLE");
+            Console.WriteLine("2 - ADD NEW ITEM");
+            Console.WriteLine("3 - LIST");
+            Console.WriteLine("4 - UPDATE ITEM");
+            Console.WriteLine("5 - DELETE ITEM");
+            Console.WriteLine("6 - DROP TABLE");
+            Console.WriteLine("\nX - END\n\n");
+        }
+
+        /// <summary>
+        /// Take all the needed parameters - useful to streamline the main -
+        /// </summary>
+        /// <param name="table"> Table name where user wants to add new item </param>
+        private static void takeParameters()
+        {
+            // Take brand parameter - string -
+            Console.Write("\nmarca: ");
+            brand = Console.ReadLine();
+            // Take model parameter - string -
+            Console.Write("modello: ");
+            model = Console.ReadLine();
+            // Take color parameter - string -
+            Console.Write("colore: ");
+            color = Console.ReadLine();
+            // Take displacement parameter with a type controll - integer -
+            displacement = Convert.ToInt32(typeVerifier("cilindrata: "));
+            // Take powerKw parameter with a type controll - double -
+            powerKw = Convert.ToDouble(typeVerifier("potenzaKw: ", "double"));
+            // Take matriculation parameter with a type controll - date -
+            matriculation = dateVerifier("immatricolazione: ");
+            // Take isUsed parameter with a type controll - bool -
+            isUsed = boolRequest("usato");
+            // Take isKm0 parameter with a type controll - bool -
+            isKm0 = boolRequest("kmZero");
+            // Take kmPercorsi parameter with a type controll - integer -
+            kmDone = Convert.ToInt32(typeVerifier("kmPercorsi: "));
+            // Take price parameter with a type controll - integer -
+            price = Convert.ToInt32(typeVerifier("prezzo: "));
+            // Take the specific parameter depending on the type of vehicle - Auto/Moto -
+            numAirbag = -1;
+            saddleBrand = string.Empty;
+            if (table == "Auto") numAirbag = Convert.ToInt32(typeVerifier("numAirbag: "));
             else
             {
                 Console.Write("marcaSella: ");
                 saddleBrand = Console.ReadLine();
             }
-
-            ConsoleUtilities.AddNewCar(table, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmPercorsi, price, numAirbag, saddleBrand);
         }
 
-        private static void menu()
-        {
-            Console.Clear();
-            Console.WriteLine("*** CAR SHOP - DB MANAGEMENT ***\n");
-            Console.WriteLine("1 - CREATE TABLE");
-            Console.WriteLine("2 - ADD NEW ITEM");
-            Console.WriteLine("3 - LIST");
-            Console.WriteLine("4 - DROP TABLE");
-            Console.WriteLine("5 - MODIFY ITEMS");
-            Console.WriteLine("\nX - END\n\n");
-        }
-
+        /// <summary>
+        /// Table/Vehicle type choice
+        /// </summary>
+        /// <returns> "Auto"/"Moto" </returns>
         private static string vehicle()
         {
             char table;
@@ -114,6 +151,12 @@ namespace ConsoleAppProject
             else return "Moto";
         }
 
+        /// <summary>
+        /// Verifier if the user input data type is correct or not
+        /// </summary>
+        /// <param name="consoleWrite"> String in the Console.Write </param>
+        /// <param name="verifier"> Type to check - int or double - </param>
+        /// <returns></returns>
         private static object typeVerifier(string consoleWrite, string verifier = "integer")
         {
             int iVerifier = 0;
@@ -123,18 +166,16 @@ namespace ConsoleAppProject
                 Console.Write(consoleWrite);
                 try
                 {
-                    if (verifier == "integer")
-                        iVerifier = Convert.ToInt32(Console.ReadLine());
-                    else
-                        dVerifier = Convert.ToDouble(Console.ReadLine());
+                    if (verifier == "integer") iVerifier = Convert.ToInt32(Console.ReadLine());
+                    else dVerifier = Convert.ToDouble(Console.ReadLine());
                 }
                 catch (Exception)
                 {
                     Console.WriteLine($"This input must be an {verifier}!");
-                    iVerifier = -1;
-                    dVerifier = -1;
+                    if (verifier == "integer") iVerifier = -2;
+                    else dVerifier = -2;
                 }
-            } while (iVerifier == -1 && dVerifier == -1);
+            } while (iVerifier == -2 || dVerifier == -2);
 
             if (verifier == "integer")
                 return iVerifier;
@@ -142,6 +183,11 @@ namespace ConsoleAppProject
                 return dVerifier;
         }
 
+        /// <summary>
+        /// Type bool data verification
+        /// </summary>
+        /// <param name="consoleWrite"> String in the Console.Write </param>
+        /// <returns> true/false </returns>
         private static bool boolRequest(string consoleWrite)
         {
             string answer;
@@ -149,14 +195,18 @@ namespace ConsoleAppProject
             {
                 Console.Write($"{consoleWrite} Y/N: ");
                 answer = Console.ReadLine();
-            } while (answer != "Y" && answer != "N" && answer != "y" && answer != "n");
+            } while (answer != "Y" && answer != "N" && answer != "y" && answer != "n" && answer != "-1");
 
-            if (answer == "Y" || answer == "y")
-                return true;
-            else
-                return false;
+            if (answer == "Y" || answer == "y") return true;
+            else if (answer == "N" || answer == "n") return false;
+            else return ConsoleUtilities.takeActualValue(consoleWrite, table, id);
         }
 
+        /// <summary>
+        /// Type DateTime data verification
+        /// </summary>
+        /// <param name="consoleWrite"> String in the Console.Write </param>
+        /// <returns> User input date </returns>
         private static DateTime dateVerifier(string consoleWrite)
         {
             DateTime verifier = DateTime.Now;
@@ -166,7 +216,9 @@ namespace ConsoleAppProject
                 Console.Write(consoleWrite);
                 try
                 {
-                    verifier = Convert.ToDateTime(Console.ReadLine());
+                    string aus = Console.ReadLine();
+                    if (aus == "-1") aus = "01/01/9999";
+                    verifier = Convert.ToDateTime(aus);
                 }
                 catch (Exception)
                 {
