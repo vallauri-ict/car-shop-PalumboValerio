@@ -7,19 +7,23 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using VenditaVeicoliDLLProject;
 
 namespace ConsoleAppProject
 {
     class Program
     {
+        public static SerializableBindingList<Veicoli> listaVeicoli = new SerializableBindingList<Veicoli>();
         public static string table, brand, model, color, saddleBrand;
         public static int id, displacement, kmDone, price, numAirbag;
         public static double powerKw;
         public static bool isUsed, isKm0;
         public static DateTime matriculation;
         static void Main(string[] args)
-        {            
+        {
+            string aus = Directory.GetCurrentDirectory();
+            FormUtilities.ParseJsonToObject(@".\Veicoli.json", listaVeicoli);
             char choice;
             do
             {

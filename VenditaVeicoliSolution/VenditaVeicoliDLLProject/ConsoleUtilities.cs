@@ -79,7 +79,7 @@ namespace VenditaVeicoliDLLProject
         }
 
         /// <summary>
-        /// Insert command
+        /// Insert sql command
         /// </summary>
         private static void Insert(OleDbConnection con, string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, int price, int numAirbag, string saddleBrand)
         {
@@ -167,7 +167,7 @@ namespace VenditaVeicoliDLLProject
         }
 
         /// <summary>
-        /// Update command
+        /// Update sql command
         /// </summary>
         /// <param name="id"> Identifier of the record that user wants to update </param>
         public static void Update(string tableName, int id, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, int price, int numAirbag, string saddleBrand)
