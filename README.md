@@ -6,11 +6,11 @@ A carshop menagement software
 *Project version: __6.0.3__*
 
 *Project specifics:*
-1. Windows Forms Project
+* Windows Forms Project
 	1. Add, Delete, Modify and Save the vehicles datas
     2. Open a json file with vehicles datas;
 	3. Create html with vehicles datas.
-2. Console Project
+* Console Project
 	1. Create two tables in an Access project;
 	2. You can insert in the tables more personal datas;
 	3. You can visualize the tables in console;
