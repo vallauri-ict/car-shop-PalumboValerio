@@ -19,6 +19,7 @@ namespace WindowsFormsAppProject
         List<Control> controls;
         string veicolo;
         FormMain formMain;
+        private int selectedIndex;
         #endregion
 
         #region Form
@@ -30,12 +31,40 @@ namespace WindowsFormsAppProject
             this.formMain = formMain;
             veicolo = "AUTO";
 
+            Text = "AGGIUNGI VEICOLO";
+            btnAggiungi.Text = "AGGIUNGI";
+            cmbTipoVeicolo.Enabled = true;
             cmbTipoVeicolo.SelectedIndex = 0;
             lblMarcaSella.Location = lblNAirbag.Location;
             txtMarcaSella.Location = nmuAirbag.Location;
             dtpImmatricolazione.MaxDate = DateTime.Today;
             dtpImmatricolazione.Value = DateTime.Today;
             txtMarcaSella.Visible = lblMarcaSella.Visible = false;
+        }
+
+        public FormDialogAggiungiVeicolo(FormMain formMain, int selectedIndex) : this(formMain)
+        {
+            Text = "MODIFICA VEICOLO";
+            cmbTipoVeicolo.Enabled = false;
+            txtMarca.Text = formMain.listaVeicoli[selectedIndex].Marca;
+            txtModello.Text = formMain.listaVeicoli[selectedIndex].Modello;
+            txtColore.Text = formMain.listaVeicoli[selectedIndex].Colore;
+            nmuCilindrata.Value = formMain.listaVeicoli[selectedIndex].Cilindrata;
+            nmuPotenza.Value = Convert.ToDecimal(formMain.listaVeicoli[selectedIndex].PotenzaKw);
+            dtpImmatricolazione.Value = formMain.listaVeicoli[selectedIndex].Immatricolazione;
+            chkUsato.Checked = formMain.listaVeicoli[selectedIndex].IsUsato;
+            chkKmZero.Checked = formMain.listaVeicoli[selectedIndex].IsKmZero;
+            nmuKmPercorsi.Value = formMain.listaVeicoli[selectedIndex].KmPercorsi;
+            nmuPrezzo.Value = formMain.listaVeicoli[selectedIndex].Prezzo;
+            if (formMain.listaVeicoli[selectedIndex] is Moto)
+            {
+                cmbTipoVeicolo.SelectedIndex = 1;
+                txtMarcaSella.Text = (formMain.listaVeicoli[selectedIndex] as Moto).MarcaSella;
+            }
+            else
+                nmuAirbag.Value= (formMain.listaVeicoli[selectedIndex] as Auto).NumAirbag;
+            btnAggiungi.Text = "MODIFICA";
+            this.selectedIndex = selectedIndex;
         }
         #endregion
 
@@ -51,30 +80,54 @@ namespace WindowsFormsAppProject
                 if (!corretto)
                     ErProv.setError(error, controls[i], "You must fill in all the required fields!");
             }
-            
-            if (corretto)
+            if (btnAggiungi.Text == "AGGIUNGI")
             {
-                if (veicolo == "AUTO")
+                if (corretto)
                 {
-                    formMain.listaVeicoli.Add(new Auto(txtMarca.Text, txtModello.Text, txtColore.Text,
-                                                       Convert.ToInt32(nmuCilindrata.Value),
-                                                       Convert.ToDouble(nmuPotenza.Value),
-                                                       dtpImmatricolazione.Value, chkUsato.Checked,
-                                                       chkKmZero.Checked, Convert.ToInt32(nmuKmPercorsi.Value),
-                                                       Convert.ToInt32(nmuPrezzo.Value),
-                                                       Convert.ToInt32(nmuAirbag.Value)));
+                    if (veicolo == "AUTO")
+                    {
+                        formMain.listaVeicoli.Add(new Auto(txtMarca.Text, txtModello.Text, txtColore.Text,
+                                                           Convert.ToInt32(nmuCilindrata.Value),
+                                                           Convert.ToDouble(nmuPotenza.Value),
+                                                           dtpImmatricolazione.Value, chkUsato.Checked,
+                                                           chkKmZero.Checked, Convert.ToInt32(nmuKmPercorsi.Value),
+                                                           Convert.ToInt32(nmuPrezzo.Value),
+                                                           Convert.ToInt32(nmuAirbag.Value)));
+                    }
+                    else
+                    {
+                        formMain.listaVeicoli.Add(new Moto(txtMarca.Text, txtModello.Text, txtColore.Text,
+                                                           Convert.ToInt32(nmuCilindrata.Value),
+                                                           Convert.ToDouble(nmuPotenza.Value),
+                                                           dtpImmatricolazione.Value, chkUsato.Checked,
+                                                           chkKmZero.Checked, Convert.ToInt32(nmuKmPercorsi.Value),
+                                                           Convert.ToInt32(nmuPrezzo.Value),
+                                                           txtMarcaSella.Text));
+                    }
+                    Close();
                 }
-                else
+            
+            }
+            else
+            {
+                if(corretto)
                 {
-                    formMain.listaVeicoli.Add(new Moto(txtMarca.Text, txtModello.Text, txtColore.Text,
-                                                       Convert.ToInt32(nmuCilindrata.Value),
-                                                       Convert.ToDouble(nmuPotenza.Value),
-                                                       dtpImmatricolazione.Value, chkUsato.Checked,
-                                                       chkKmZero.Checked, Convert.ToInt32(nmuKmPercorsi.Value),
-                                                       Convert.ToInt32(nmuPrezzo.Value),
-                                                       txtMarcaSella.Text));
-                }
-                Close();
+                    formMain.listaVeicoli[selectedIndex].Marca = txtMarca.Text;
+                    formMain.listaVeicoli[selectedIndex].Modello = txtModello.Text;
+                    formMain.listaVeicoli[selectedIndex].Colore = txtColore.Text;
+                    formMain.listaVeicoli[selectedIndex].Cilindrata = Convert.ToInt32(nmuCilindrata.Value);
+                    formMain.listaVeicoli[selectedIndex].PotenzaKw = Convert.ToDouble(nmuPotenza.Value);
+                    formMain.listaVeicoli[selectedIndex].Immatricolazione = dtpImmatricolazione.Value;
+                    formMain.listaVeicoli[selectedIndex].IsUsato = chkUsato.Checked;
+                    formMain.listaVeicoli[selectedIndex].IsKmZero = chkKmZero.Checked;
+                    formMain.listaVeicoli[selectedIndex].KmPercorsi = Convert.ToInt32(nmuKmPercorsi.Value);
+                    formMain.listaVeicoli[selectedIndex].Prezzo = Convert.ToInt32(nmuPrezzo.Value);
+                    if (formMain.listaVeicoli[selectedIndex] is Moto)
+                        (formMain.listaVeicoli[selectedIndex] as Moto).MarcaSella = txtMarcaSella.Text;
+                    else
+                        (formMain.listaVeicoli[selectedIndex] as Auto).NumAirbag = Convert.ToInt32(nmuAirbag.Value);
+                    Close();
+                }               
             }
         }
 

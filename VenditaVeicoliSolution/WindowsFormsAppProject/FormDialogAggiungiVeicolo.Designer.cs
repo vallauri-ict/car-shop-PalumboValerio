@@ -367,19 +367,9 @@
             0,
             0,
             0});
-            this.nmuKmPercorsi.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.nmuKmPercorsi.Name = "nmuKmPercorsi";
             this.nmuKmPercorsi.Size = new System.Drawing.Size(132, 22);
             this.nmuKmPercorsi.TabIndex = 7;
-            this.nmuKmPercorsi.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // label8
             // 

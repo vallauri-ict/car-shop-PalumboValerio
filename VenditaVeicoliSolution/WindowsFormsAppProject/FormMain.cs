@@ -51,6 +51,15 @@ namespace WindowsFormsAppProject
                 listaVeicoli.RemoveAt(listBoxVeicoli.SelectedIndex);
         }
 
+        private void tsbModifica_Click(object sender, EventArgs e)
+        {
+            FormDialogAggiungiVeicolo dialogAggiungi = new FormDialogAggiungiVeicolo(this, listBoxVeicoli.SelectedIndex);
+            dialogAggiungi.ShowDialog();
+            FormUtilities.SerializeToJson(listaVeicoli, @".\Veicoli.json");
+            listaVeicoli.Clear();
+            FormUtilities.ParseJsonToObject(@".\Veicoli.json", listaVeicoli);
+        }
+
         private void tsbStampa_Click(object sender, EventArgs e)
         {
             if (listaVeicoli.Count > 0)
