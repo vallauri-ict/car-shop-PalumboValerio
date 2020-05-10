@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsAppProject
 {
-    partial class FormDialogAggiungiVeicolo
+    partial class FormDialogAggiungiModificaVeicolo
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.cmbTipoVeicolo = new System.Windows.Forms.ComboBox();
             this.btnAnnulla = new System.Windows.Forms.Button();
-            this.btnAggiungi = new System.Windows.Forms.Button();
+            this.btnAggiungiModifica = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMarca = new System.Windows.Forms.TextBox();
             this.txtModello = new System.Windows.Forms.TextBox();
@@ -91,16 +91,16 @@
             this.btnAnnulla.UseVisualStyleBackColor = true;
             this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
             // 
-            // btnAggiungi
+            // btnAggiungiModifica
             // 
-            this.btnAggiungi.Location = new System.Drawing.Point(277, 484);
-            this.btnAggiungi.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAggiungi.Name = "btnAggiungi";
-            this.btnAggiungi.Size = new System.Drawing.Size(100, 28);
-            this.btnAggiungi.TabIndex = 11;
-            this.btnAggiungi.Text = "AGGIUNGI";
-            this.btnAggiungi.UseVisualStyleBackColor = true;
-            this.btnAggiungi.Click += new System.EventHandler(this.btnAggiungi_Click);
+            this.btnAggiungiModifica.Location = new System.Drawing.Point(277, 484);
+            this.btnAggiungiModifica.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAggiungiModifica.Name = "btnAggiungiModifica";
+            this.btnAggiungiModifica.Size = new System.Drawing.Size(100, 28);
+            this.btnAggiungiModifica.TabIndex = 11;
+            this.btnAggiungiModifica.Text = "AGGIUNGI";
+            this.btnAggiungiModifica.UseVisualStyleBackColor = true;
+            this.btnAggiungiModifica.Click += new System.EventHandler(this.btnAggiungiModifica_Click);
             // 
             // label1
             // 
@@ -404,7 +404,7 @@
             0,
             0});
             // 
-            // FormDialogAggiungiVeicolo
+            // FormDialogAggiungiModificaVeicolo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -433,12 +433,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtMarca);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnAggiungi);
+            this.Controls.Add(this.btnAggiungiModifica);
             this.Controls.Add(this.btnAnnulla);
             this.Controls.Add(this.cmbTipoVeicolo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FormDialogAggiungiVeicolo";
+            this.Name = "FormDialogAggiungiModificaVeicolo";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "AGGIUNGI VEICOLO";
@@ -457,7 +457,7 @@
 
         private System.Windows.Forms.ComboBox cmbTipoVeicolo;
         private System.Windows.Forms.Button btnAnnulla;
-        private System.Windows.Forms.Button btnAggiungi;
+        private System.Windows.Forms.Button btnAggiungiModifica;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMarca;
         private System.Windows.Forms.TextBox txtModello;

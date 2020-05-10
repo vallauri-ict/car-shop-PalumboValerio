@@ -13,7 +13,7 @@ using VenditaVeicoliDLLProject;
 
 namespace WindowsFormsAppProject
 {
-    public partial class FormDialogAggiungiVeicolo : Form
+    public partial class FormDialogAggiungiModificaVeicolo : Form
     {
         #region Dichiarazioni
         List<Control> controls;
@@ -23,7 +23,7 @@ namespace WindowsFormsAppProject
         #endregion
 
         #region Form
-        public FormDialogAggiungiVeicolo(FormMain formMain)
+        public FormDialogAggiungiModificaVeicolo(FormMain formMain)
         {
             InitializeComponent();
             Control[] aus = { txtMarca, txtModello, txtColore, nmuCilindrata, nmuPotenza, nmuKmPercorsi, nmuPrezzo, nmuAirbag };
@@ -32,7 +32,7 @@ namespace WindowsFormsAppProject
             veicolo = "AUTO";
 
             Text = "AGGIUNGI VEICOLO";
-            btnAggiungi.Text = "AGGIUNGI";
+            btnAggiungiModifica.Text = "AGGIUNGI";
             cmbTipoVeicolo.Enabled = true;
             cmbTipoVeicolo.SelectedIndex = 0;
             lblMarcaSella.Location = lblNAirbag.Location;
@@ -42,7 +42,7 @@ namespace WindowsFormsAppProject
             txtMarcaSella.Visible = lblMarcaSella.Visible = false;
         }
 
-        public FormDialogAggiungiVeicolo(FormMain formMain, int selectedIndex) : this(formMain)
+        public FormDialogAggiungiModificaVeicolo(FormMain formMain, int selectedIndex) : this(formMain)
         {
             Text = "MODIFICA VEICOLO";
             cmbTipoVeicolo.Enabled = false;
@@ -63,7 +63,7 @@ namespace WindowsFormsAppProject
             }
             else
                 nmuAirbag.Value= (formMain.listaVeicoli[selectedIndex] as Auto).NumAirbag;
-            btnAggiungi.Text = "MODIFICA";
+            btnAggiungiModifica.Text = "MODIFICA";
             this.selectedIndex = selectedIndex;
         }
         #endregion
@@ -71,7 +71,7 @@ namespace WindowsFormsAppProject
         #region Eventi
         private void btnAnnulla_Click(object sender, EventArgs e) { Close(); }
 
-        private void btnAggiungi_Click(object sender, EventArgs e)
+        private void btnAggiungiModifica_Click(object sender, EventArgs e)
         {
             bool corretto = true;
             for (int i = 0; i < controls.Count && corretto; i++)
@@ -80,7 +80,7 @@ namespace WindowsFormsAppProject
                 if (!corretto)
                     ErProv.setError(error, controls[i], "You must fill in all the required fields!");
             }
-            if (btnAggiungi.Text == "AGGIUNGI")
+            if (btnAggiungiModifica.Text == "AGGIUNGI")
             {
                 if (corretto)
                 {

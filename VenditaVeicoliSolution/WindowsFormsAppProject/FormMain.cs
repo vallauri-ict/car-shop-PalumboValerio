@@ -30,7 +30,7 @@ namespace WindowsFormsAppProject
         #region Events
         private void tsmNuovo_Click(object sender, EventArgs e)
         {
-            FormDialogAggiungiVeicolo dialogAggiungi = new FormDialogAggiungiVeicolo(this);
+            FormDialogAggiungiModificaVeicolo dialogAggiungi = new FormDialogAggiungiModificaVeicolo(this);
             dialogAggiungi.ShowDialog();
         }
 
@@ -53,7 +53,7 @@ namespace WindowsFormsAppProject
 
         private void tsbModifica_Click(object sender, EventArgs e)
         {
-            FormDialogAggiungiVeicolo dialogAggiungi = new FormDialogAggiungiVeicolo(this, listBoxVeicoli.SelectedIndex);
+            FormDialogAggiungiModificaVeicolo dialogAggiungi = new FormDialogAggiungiModificaVeicolo(this, listBoxVeicoli.SelectedIndex);
             dialogAggiungi.ShowDialog();
             FormUtilities.SerializeToJson(listaVeicoli, @".\Veicoli.json");
             listaVeicoli.Clear();
