@@ -64,18 +64,6 @@ namespace ConsoleAppProject
             while (choice != 'X' && choice != 'x');
         }
 
-        private static int takeId(string table)
-        {
-            int maxId = ConsoleUtilities.ItemsCounter(table);
-            int id;
-            do
-            {
-                id = Convert.ToInt32(typeVerifier($"\nInsert a number form 1 to {maxId}: "));
-            } while (id < 1 || id > maxId);
-
-            return id;
-        }
-
         /// <summary>
         /// Create the menù list
         /// </summary>
@@ -227,6 +215,23 @@ namespace ConsoleAppProject
             } while (!correct);
 
             return verifier;
+        }
+
+        /// <summary>
+        /// Take the id of a record
+        /// </summary>
+        /// <param name="table"> Auto/Moto </param>
+        /// <returns></returns>
+        private static int takeId(string table)
+        {
+            int maxId = ConsoleUtilities.ItemsCounter(table);
+            int id;
+            do
+            {
+                id = Convert.ToInt32(typeVerifier($"\nInsert a number form 1 to {maxId}: "));
+            } while (id < 1 || id > maxId);
+
+            return id;
         }
     }
 }
