@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
+using System.Data.OleDb;
 using Newtonsoft.Json;
 #endregion
 
@@ -29,6 +30,59 @@ namespace VenditaVeicoliDLLProject
         {
             string json = JsonConvert.SerializeObject(objectlist, Formatting.Indented);
             File.WriteAllText(pathName, json);            
+        }
+
+        /// <summary>
+        /// Update the json file from db
+        /// </summary>
+        /// <param name="connStr"> String of connection </param>
+        public static void UpdateJson(string jsonFilePath, string connStr)
+        {
+            SerializableBindingList<Veicoli> list = new SerializableBindingList<Veicoli>();
+            if (connStr != null)
+            {
+                OleDbConnection con = new OleDbConnection(connStr);
+                using (con)
+                {
+                    con.Open();
+
+                    InsertItemInList(list, con, "Auto");
+                    InsertItemInList(list, con, "Moto");
+                    SerializeToJson(list, jsonFilePath);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Take the item from the database in a list
+        /// </summary>
+        /// <param name="list"> Empty vehicles list </param>
+        /// <param name="con"> Connection to database </param>
+        private static void InsertItemInList(SerializableBindingList<Veicoli> list, OleDbConnection con, string tableName)
+        {
+            OleDbCommand command = new OleDbCommand($"SELECT * FROM {tableName}", con);
+
+            OleDbDataReader rdr = command.ExecuteReader();
+
+            if (rdr.HasRows)
+            {
+                while (rdr.Read())
+                {
+                    if (tableName == "Auto")
+                    {
+                        list.Add(new Auto(rdr.GetString(1), rdr.GetString(2), rdr.GetString(3),
+                            rdr.GetInt32(4), rdr.GetInt32(5), rdr.GetDateTime(6), rdr.GetBoolean(7),
+                            rdr.GetBoolean(8), rdr.GetInt32(9), rdr.GetInt32(10), rdr.GetInt32(11)));
+                    }
+                    else
+                    {
+                        list.Add(new Moto(rdr.GetString(1), rdr.GetString(2), rdr.GetString(3),
+                            rdr.GetInt32(4), rdr.GetInt32(5), rdr.GetDateTime(6), rdr.GetBoolean(7),
+                            rdr.GetBoolean(8), rdr.GetInt32(9), rdr.GetInt32(10), rdr.GetString(11)));
+                    }                        
+                }
+            }
+            rdr.Close();
         }
 
         /// <summary>
@@ -114,6 +168,115 @@ namespace VenditaVeicoliDLLProject
             mainContent += $"<div class = \"didascalia\"> Colore: {objectList[i].Colore}<br> Cilindrata: {objectList[i].Cilindrata}<br> Immatricolazione: {objectList[i].Immatricolazione}<br> {km0} {usato}<br> Chilometri percorsi: {objectList[i].KmPercorsi}<br> Potenza: {objectList[i].PotenzaKw} <br> Prezzo: {objectList[i].Prezzo} </div>";
             mainContent += "</div>";
             mainContent += "</div>";
+        }
+
+        /// <summary>
+        /// Update the db from json
+        /// </summary>
+        /// <param name="listaVeicoli"> List of vehicle </param>
+        /// <param name="connStr"> String of connection </param>
+        public static void UpdateDb(SerializableBindingList<Veicoli> listaVeicoli, string connStr)
+        {
+            if (connStr != null)
+            {
+                OleDbConnection con = new OleDbConnection(connStr);
+                using (con)
+                {
+                    int autoId = 0;
+                    int motoId = 0;
+                    con.Open();
+
+                    if (!ifExist("SELECT * FROM Auto", con)) DBUtilities.CreateTable("Auto");
+                    if (!ifExist("SELECT * FROM Moto", con)) DBUtilities.CreateTable("Moto");
+                    OleDbCommand cmd = new OleDbCommand();
+                    cmd.Connection = con;
+
+                    for (int i = 0; i < listaVeicoli.Count; i++)
+                    {
+                        if (listaVeicoli[i] is Auto)
+                        {
+                            autoId++;
+                            if (ifExist($"SELECT * FROM Auto WHERE id={autoId}", con, true))
+                            {
+                                DBUtilities.Update("Auto", autoId, listaVeicoli[i].Marca,
+                                    listaVeicoli[i].Modello, listaVeicoli[i].Colore, listaVeicoli[i].Cilindrata,
+                                    listaVeicoli[i].PotenzaKw, listaVeicoli[i].Immatricolazione,
+                                    listaVeicoli[i].IsUsato, listaVeicoli[i].IsKmZero, listaVeicoli[i].KmPercorsi,
+                                    listaVeicoli[i].Prezzo, (listaVeicoli[i] as Auto).NumAirbag, "");
+                            }
+                            else
+                            {
+                                DBUtilities.AddNewItem("Auto", listaVeicoli[i].Marca,
+                                    listaVeicoli[i].Modello, listaVeicoli[i].Colore, listaVeicoli[i].Cilindrata,
+                                    listaVeicoli[i].PotenzaKw, listaVeicoli[i].Immatricolazione,
+                                    listaVeicoli[i].IsUsato, listaVeicoli[i].IsKmZero, listaVeicoli[i].KmPercorsi,
+                                    listaVeicoli[i].Prezzo, (listaVeicoli[i] as Auto).NumAirbag, "");
+                            }
+                        }
+                        else
+                        {
+                            motoId++;
+                            if (ifExist($"SELECT * FROM Moto WHERE id={motoId}", con, true))
+                            {
+                                DBUtilities.Update("Moto", motoId, listaVeicoli[i].Marca,
+                                    listaVeicoli[i].Modello, listaVeicoli[i].Colore, listaVeicoli[i].Cilindrata,
+                                    listaVeicoli[i].PotenzaKw, listaVeicoli[i].Immatricolazione,
+                                    listaVeicoli[i].IsUsato, listaVeicoli[i].IsKmZero, listaVeicoli[i].KmPercorsi,
+                                    listaVeicoli[i].Prezzo, 0, (listaVeicoli[i] as Moto).MarcaSella);
+                            }
+                            else
+                            {
+                                DBUtilities.AddNewItem("Moto", listaVeicoli[i].Marca,
+                                    listaVeicoli[i].Modello, listaVeicoli[i].Colore, listaVeicoli[i].Cilindrata,
+                                    listaVeicoli[i].PotenzaKw, listaVeicoli[i].Immatricolazione,
+                                    listaVeicoli[i].IsUsato, listaVeicoli[i].IsKmZero, listaVeicoli[i].KmPercorsi,
+                                    listaVeicoli[i].Prezzo, 0, (listaVeicoli[i] as Moto).MarcaSella);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Check if table/record exists
+        /// </summary>
+        /// <param name="command"> Command string to execute </param>
+        /// <param name="con"> Coonection to database </param>
+        /// <param name="record"> true --> check the record existence; false --> check the table existence </param>
+        /// <returns> true --> table/record exists; false --> table/record not exists </returns>
+        private static bool ifExist(string command, OleDbConnection con, bool record = false)
+        {
+            try
+            {
+                OleDbCommand cmd = new OleDbCommand();
+                cmd.Connection = con;
+
+                cmd.CommandText = command;
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                if (record)
+                {
+                    OleDbDataReader rdr = cmd.ExecuteReader();
+
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            rdr.Close();
+                            return true;
+                        }
+                    }
+                    rdr.Close();
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
     #endregion

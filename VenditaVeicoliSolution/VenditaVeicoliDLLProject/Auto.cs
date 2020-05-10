@@ -1,11 +1,14 @@
-﻿using System;
+﻿#region Using
+using System;
 using System.Collections.Generic;
 using System.Text;
+#endregion
 
 namespace VenditaVeicoliDLLProject
 {
     public class Auto : Veicoli
     {
+        #region Auto
         private int numAirbag;
         public Auto() : base("Fiat", "Panda", "Nero", 1000, 75.20, DateTime.Now, false, false, 321567, 0) 
         {
@@ -21,5 +24,6 @@ namespace VenditaVeicoliDLLProject
         public int NumAirbag { get => numAirbag; set => numAirbag = value; }
 
         public override string ToString() { return $"Auto: {base.ToString()} - {NumAirbag} Airbag"; }
+        #endregion
     }
 }

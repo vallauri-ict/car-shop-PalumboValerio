@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VenditaVeicoliDLLProject;
+using System.Data.OleDb;
 using System.IO;
 using System.Diagnostics;
 #endregion
@@ -18,12 +19,16 @@ namespace WindowsFormsAppProject
     public partial class FormMain : Form
     {
         #region Initializations
+        public string jsonFilePath = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\Data\\Veicoli.json";
+        public static string dbFilePath = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\Data\\CarShop.accdb";
+        public static string connStr = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={dbFilePath}";
         public SerializableBindingList<Veicoli> listaVeicoli; // The BindingList hears the changes during the code
         public FormMain()
         {
             InitializeComponent();
             listaVeicoli = new SerializableBindingList<Veicoli>();
             listBoxVeicoli.DataSource = listaVeicoli;
+            FormUtilities.UpdateJson(jsonFilePath, connStr);
         }
         #endregion
 
@@ -37,12 +42,13 @@ namespace WindowsFormsAppProject
         private void tsbApri_Click(object sender, EventArgs e)
         {
             listaVeicoli.Clear();
-            FormUtilities.ParseJsonToObject(@".\Veicoli.json", listaVeicoli);
+            FormUtilities.ParseJsonToObject(jsonFilePath, listaVeicoli);
         }
 
         private void tsbSalva_Click(object sender, EventArgs e)
         {
-            FormUtilities.SerializeToJson(listaVeicoli, @".\Veicoli.json");
+            FormUtilities.SerializeToJson(listaVeicoli, jsonFilePath);
+            FormUtilities.UpdateDb(listaVeicoli, connStr);
         }
 
         private void tsbCancella_Click(object sender, EventArgs e)
@@ -55,16 +61,17 @@ namespace WindowsFormsAppProject
         {
             FormDialogAggiungiModificaVeicolo dialogAggiungi = new FormDialogAggiungiModificaVeicolo(this, listBoxVeicoli.SelectedIndex);
             dialogAggiungi.ShowDialog();
-            FormUtilities.SerializeToJson(listaVeicoli, @".\Veicoli.json");
+            FormUtilities.SerializeToJson(listaVeicoli, jsonFilePath);
             listaVeicoli.Clear();
-            FormUtilities.ParseJsonToObject(@".\Veicoli.json", listaVeicoli);
+            FormUtilities.ParseJsonToObject(jsonFilePath, listaVeicoli);
+            FormUtilities.UpdateDb(listaVeicoli, connStr);
         }
 
         private void tsbStampa_Click(object sender, EventArgs e)
         {
             if (listaVeicoli.Count > 0)
             {
-                string homepagePath = @".\www\index.html";
+                string homepagePath = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\Data\\www\\index.html";
                 FormUtilities.CreateHtml(listaVeicoli, homepagePath);
                 Process.Start(homepagePath);
             }

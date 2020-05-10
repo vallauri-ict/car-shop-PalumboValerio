@@ -15,7 +15,7 @@ namespace WindowsFormsAppProject
 {
     public partial class FormDialogAggiungiModificaVeicolo : Form
     {
-        #region Dichiarazioni
+        #region Declaration
         List<Control> controls;
         string veicolo;
         FormMain formMain;
@@ -55,7 +55,7 @@ namespace WindowsFormsAppProject
             chkUsato.Checked = formMain.listaVeicoli[selectedIndex].IsUsato;
             chkKmZero.Checked = formMain.listaVeicoli[selectedIndex].IsKmZero;
             nmuKmPercorsi.Value = formMain.listaVeicoli[selectedIndex].KmPercorsi;
-            nmuPrezzo.Value = formMain.listaVeicoli[selectedIndex].Prezzo;
+            nmuPrezzo.Value = Convert.ToDecimal(formMain.listaVeicoli[selectedIndex].Prezzo);
             if (formMain.listaVeicoli[selectedIndex] is Moto)
             {
                 cmbTipoVeicolo.SelectedIndex = 1;
@@ -68,7 +68,7 @@ namespace WindowsFormsAppProject
         }
         #endregion
 
-        #region Eventi
+        #region Events
         private void btnAnnulla_Click(object sender, EventArgs e) { Close(); }
 
         private void btnAggiungiModifica_Click(object sender, EventArgs e)
@@ -146,7 +146,7 @@ namespace WindowsFormsAppProject
         }
         #endregion
 
-        #region Metodi
+        #region Methods
         private void setControlloAggiuntivo(bool auto, bool moto, Control control)
         {
             nmuAirbag.Visible = lblNAirbag.Visible = auto;

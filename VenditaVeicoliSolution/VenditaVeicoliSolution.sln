@@ -8,9 +8,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsAppProject", "WindowsFormsAppProject\WindowsFormsAppProject.csproj", "{BC963412-6D09-4628-BFF7-1772C13A725C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C5AFF658-F38A-48F0-BD31-027146D2AE0C}"
-	ProjectSection(SolutionItems) = preProject
-		Veicoli.dat.txt = Veicoli.dat.txt
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppProject", "ConsoleAppProject\ConsoleAppProject.csproj", "{CE0B86E9-D89C-49BE-BAFE-F4A869BEF04B}"
 EndProject

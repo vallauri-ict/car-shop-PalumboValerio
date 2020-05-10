@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region Using
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.OleDb;
@@ -9,21 +10,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using VenditaVeicoliDLLProject;
+#endregion
 
 namespace ConsoleAppProject
 {
     class Program
     {
-        public static SerializableBindingList<Veicoli> listaVeicoli = new SerializableBindingList<Veicoli>();
+        #region Initializations
         public static string table, brand, model, color, saddleBrand;
-        public static int id, displacement, kmDone, price, numAirbag;
-        public static double powerKw;
+        public static int id, displacement, kmDone, numAirbag;
+        public static double powerKw, price;
         public static bool isUsed, isKm0;
         public static DateTime matriculation;
+        #endregion
         static void Main(string[] args)
         {
-            string aus = Directory.GetCurrentDirectory();
-            FormUtilities.ParseJsonToObject(@".\Veicoli.json", listaVeicoli);
+            #region Main
             char choice;
             do
             {
@@ -34,40 +36,42 @@ namespace ConsoleAppProject
                 {
                     case '1':
                         table = vehicle();
-                        ConsoleUtilities.CreateTable(table);
+                        DBUtilities.CreateTable(table);
                         break;
                     case '2':
                         table = vehicle();
                         takeParameters();
-                        ConsoleUtilities.AddNewItem(table, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price, numAirbag, saddleBrand);
+                        DBUtilities.AddNewItem(table, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price, numAirbag, saddleBrand);
                         break;
                     case '3':
                         table = vehicle();
-                        ConsoleUtilities.ListTable(table);
+                        DBUtilities.ListTable(table);
                         break;
                     case '4':
                         table = vehicle();
                         id = takeId(table);
                         takeParameters();
-                        ConsoleUtilities.Update(table, id, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price, numAirbag, saddleBrand);
+                        DBUtilities.Update(table, id, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price, numAirbag, saddleBrand);
                         id = 0;
                         break;
                     case '5':
                         table = vehicle();
                         id = takeId(table);
-                        ConsoleUtilities.Delete(table, id);
+                        DBUtilities.Delete(table, id);
                         break;
                     case '6':
                         table = vehicle();
-                        ConsoleUtilities.DropTable(table);
+                        DBUtilities.DropTable(table);
                         break;
                     default:
                         break;
                 }
             }
             while (choice != 'X' && choice != 'x');
+            #endregion
         }
 
+        #region methods
         /// <summary>
         /// Create the menù list
         /// </summary>
@@ -112,7 +116,7 @@ namespace ConsoleAppProject
             // Take kmPercorsi parameter with a type controll - integer -
             kmDone = Convert.ToInt32(typeVerifier("kmPercorsi: "));
             // Take price parameter with a type controll - integer -
-            price = Convert.ToInt32(typeVerifier("prezzo: "));
+            price = Convert.ToInt32(typeVerifier("prezzo: ", "double"));
             // Take the specific parameter depending on the type of vehicle - Auto/Moto -
             numAirbag = -1;
             saddleBrand = string.Empty;
@@ -191,7 +195,7 @@ namespace ConsoleAppProject
 
             if (answer == "Y" || answer == "y") return true;
             else if (answer == "N" || answer == "n") return false;
-            else return ConsoleUtilities.takeActualValue(consoleWrite, table, id);
+            else return DBUtilities.takeActualValue(consoleWrite, table, id);
         }
 
         /// <summary>
@@ -228,7 +232,7 @@ namespace ConsoleAppProject
         /// <returns></returns>
         private static int takeId(string table)
         {
-            int maxId = ConsoleUtilities.ItemsCounter(table);
+            int maxId = DBUtilities.ItemsCounter(table);
             int id;
             do
             {
@@ -237,5 +241,6 @@ namespace ConsoleAppProject
 
             return id;
         }
+        #endregion
     }
 }

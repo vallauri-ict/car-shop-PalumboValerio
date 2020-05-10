@@ -4,6 +4,7 @@ namespace VenditaVeicoliDLLProject
 {
     public class Moto : Veicoli
     {
+        #region Moto
         private string marcaSella;
         public Moto() : base("Ducati", "Squalo", "Nero", 1000, 75.20, DateTime.Now, false, false, 500012, 0) 
         {
@@ -20,5 +21,6 @@ namespace VenditaVeicoliDLLProject
         public string MarcaSella { get => marcaSella; set => marcaSella = value; }
 
         public override string ToString() { return $"Moto: {base.ToString()} - Sella {MarcaSella}"; }
+        #endregion
     }
 }

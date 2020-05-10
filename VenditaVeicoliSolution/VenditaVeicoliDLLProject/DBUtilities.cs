@@ -1,15 +1,19 @@
-﻿using System;
+﻿#region Using
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.OleDb;
+using System.IO;
+#endregion
 
 namespace VenditaVeicoliDLLProject
 {
-    public class ConsoleUtilities
+    public class DBUtilities
     {
-        public static string connStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=CarShop.accdb";
+        #region Utilities
+        public static string connStr = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\Data\\CarShop.accdb";
 
         /// <summary>
         /// Create Auto or Moto table
@@ -60,7 +64,7 @@ namespace VenditaVeicoliDLLProject
         /// <param name="tableName"> Auto/Moto </param>
         /// <param name="numAirbag"> Only for Auto </param>
         /// <param name="saddleBrand"> Only for Moto </param>
-        public static void AddNewItem(string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, int price, int numAirbag, string saddleBrand)
+        public static void AddNewItem(string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, int numAirbag, string saddleBrand)
         {
             if (connStr != null)
             {
@@ -69,46 +73,37 @@ namespace VenditaVeicoliDLLProject
                 {
                     con.Open();
 
-                    Insert(con, tableName, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price, numAirbag, saddleBrand);
+                    OleDbCommand cmd = new OleDbCommand();
+                    cmd.Connection = con;
+                    string command = string.Empty;
+                    if (tableName == "Auto")
+                        command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenzaKw, immatricolazione, usato, kmZero, kmPercorsi, prezzo, numAirbag) VALUES(@brand, @model, @color, @displacement, @powerKw, @matriculation, @isUsed, @isKm0, @kmDone, @price, @numAirbag)";
+                    else
+                        command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenzaKw, immatricolazione, usato, kmZero, kmPercorsi, prezzo, marcaSella) VALUES(@brand, @model, @color, @displacement, @powerKw, @matriculation, @isUsed, @isKm0, @kmDone, @price, @saddleBrand)";
+                    cmd.CommandText = command;
 
+                    cmd.Parameters.Add(new OleDbParameter("@brand", OleDbType.VarChar, 255)).Value = brand;
+                    cmd.Parameters.Add(new OleDbParameter("@model", OleDbType.VarChar, 255)).Value = model;
+                    cmd.Parameters.Add(new OleDbParameter("@color", OleDbType.VarChar, 255)).Value = color;
+                    cmd.Parameters.Add("@displacement", OleDbType.Integer).Value = displacement;
+                    cmd.Parameters.Add("@powerKw", OleDbType.Integer).Value = powerKw;
+                    cmd.Parameters.Add(new OleDbParameter("@matriculation", OleDbType.Date)).Value = matriculation.ToString("dd/MM/yyyy");
+                    cmd.Parameters.Add(new OleDbParameter("@isUsed", OleDbType.Boolean)).Value = isUsed;
+                    cmd.Parameters.Add(new OleDbParameter("@isKm0", OleDbType.Boolean)).Value = isKm0;
+                    cmd.Parameters.Add("@kmDone", OleDbType.Integer).Value = kmDone;
+                    cmd.Parameters.Add("@price", OleDbType.Double).Value = price;
+                    if (tableName == "Auto")
+                        cmd.Parameters.Add("@numAirbag", OleDbType.Integer).Value = numAirbag;
+                    else
+                        cmd.Parameters.Add(new OleDbParameter("@saddleBrand", OleDbType.VarChar, 255)).Value = saddleBrand;
+                    cmd.Prepare();
+
+                    cmd.ExecuteNonQuery();
                     Console.WriteLine("\nNew item added corectly");
                     System.Threading.Thread.Sleep(3000);
                 }
 
             }
-        }
-
-        /// <summary>
-        /// Insert sql command
-        /// </summary>
-        private static void Insert(OleDbConnection con, string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, int price, int numAirbag, string saddleBrand)
-        {
-            OleDbCommand cmd = new OleDbCommand();
-            cmd.Connection = con;
-            string command = string.Empty;
-            if (tableName == "Auto")
-                command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenzaKw, immatricolazione, usato, kmZero, kmPercorsi, prezzo, numAirbag) VALUES(@brand, @model, @color, @displacement, @powerKw, @matriculation, @isUsed, @isKm0, @kmDone, @price, @numAirbag)";
-            else
-                command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenzaKw, immatricolazione, usato, kmZero, kmPercorsi, prezzo, marcaSella) VALUES(@brand, @model, @color, @displacement, @powerKw, @matriculation, @isUsed, @isKm0, @kmDone, @price, @saddleBrand)";
-            cmd.CommandText = command;
-
-            cmd.Parameters.Add(new OleDbParameter("@brand", OleDbType.VarChar, 255)).Value = brand;
-            cmd.Parameters.Add(new OleDbParameter("@model", OleDbType.VarChar, 255)).Value = model;
-            cmd.Parameters.Add(new OleDbParameter("@color", OleDbType.VarChar, 255)).Value = color;
-            cmd.Parameters.Add("@displacement", OleDbType.Integer).Value = displacement;
-            cmd.Parameters.Add("@powerKw", OleDbType.Integer).Value = powerKw;
-            cmd.Parameters.Add(new OleDbParameter("@matriculation", OleDbType.Date)).Value = matriculation;
-            cmd.Parameters.Add(new OleDbParameter("@isUsed", OleDbType.Boolean)).Value = isUsed;
-            cmd.Parameters.Add(new OleDbParameter("@isKm0", OleDbType.Boolean)).Value = isKm0;
-            cmd.Parameters.Add("@kmDone", OleDbType.Integer).Value = kmDone;
-            cmd.Parameters.Add("@price", OleDbType.Integer).Value = price;
-            if (tableName == "Auto")
-                cmd.Parameters.Add("@numAirbag", OleDbType.Integer).Value = numAirbag;
-            else
-                cmd.Parameters.Add(new OleDbParameter("@saddleBrand", OleDbType.VarChar, 255)).Value = saddleBrand;
-            cmd.Prepare();
-
-            cmd.ExecuteNonQuery();
         }
 
         /// <summary>
@@ -170,7 +165,7 @@ namespace VenditaVeicoliDLLProject
         /// Update sql command
         /// </summary>
         /// <param name="id"> Identifier of the record that user wants to update </param>
-        public static void Update(string tableName, int id, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, int price, int numAirbag, string saddleBrand)
+        public static void Update(string tableName, int id, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, int numAirbag, string saddleBrand)
         {
             if (connStr != null)
             {
@@ -213,7 +208,7 @@ namespace VenditaVeicoliDLLProject
                     if (command.Contains("@powerKw"))
                         cmd.Parameters.Add("@powerKw", OleDbType.Integer).Value = powerKw;
                     if (command.Contains("@matriculation"))
-                        cmd.Parameters.Add(new OleDbParameter("@matriculation", OleDbType.Date)).Value = matriculation;
+                        cmd.Parameters.Add(new OleDbParameter("@matriculation", OleDbType.Date)).Value = matriculation.ToString("dd/MM/yyyy");
                     if (command.Contains("@isUsed"))
                         cmd.Parameters.Add(new OleDbParameter("@isUsed", OleDbType.Boolean)).Value = isUsed;
                     if (command.Contains("@isKm0"))
@@ -221,7 +216,7 @@ namespace VenditaVeicoliDLLProject
                     if (command.Contains("@kmDone"))
                         cmd.Parameters.Add("@kmDone", OleDbType.Integer).Value = kmDone;
                     if (command.Contains("@price"))
-                        cmd.Parameters.Add("@price", OleDbType.Integer).Value = price;
+                        cmd.Parameters.Add("@price", OleDbType.Double).Value = price;
                     if (command.Contains("@numAirbag"))
                         cmd.Parameters.Add("@numAirbag", OleDbType.Integer).Value = numAirbag;
                     if (command.Contains("@saddleBrand"))
@@ -361,5 +356,6 @@ namespace VenditaVeicoliDLLProject
                 }
             }
         }
+        #endregion
     }
 }

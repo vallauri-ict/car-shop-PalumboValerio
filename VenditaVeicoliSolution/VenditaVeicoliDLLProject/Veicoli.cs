@@ -1,6 +1,8 @@
-﻿using System;
+﻿#region Using
+using System;
 using System.Collections.Generic;
 using System.Text;
+#endregion
 
 namespace VenditaVeicoliDLLProject
 {
@@ -16,10 +18,11 @@ namespace VenditaVeicoliDLLProject
         private bool isUsato;
         private bool isKmZero;
         private int kmPercorsi;
-        private int prezzo;
+        private double prezzo;
         #endregion
 
-        public Veicoli(string marca, string modello, string colore, int cilindrata, double potenzaKw, DateTime immatricolazione, bool isUsato, bool isKmZero, int kmPercorsi, int prezzo)
+        #region Veicoli
+        public Veicoli(string marca, string modello, string colore, int cilindrata, double potenzaKw, DateTime immatricolazione, bool isUsato, bool isKmZero, int kmPercorsi, double prezzo)
         {
             Marca = marca;
             Modello = modello;
@@ -42,8 +45,9 @@ namespace VenditaVeicoliDLLProject
         public bool IsUsato { get => isUsato; set => isUsato = value; }
         public bool IsKmZero { get => isKmZero; set => isKmZero = value; }
         public int KmPercorsi { get => kmPercorsi; set => kmPercorsi = value; }
-        public int Prezzo { get => prezzo; set => prezzo = value; }
+        public double Prezzo { get => prezzo; set => prezzo = value; }
 
         public override string ToString() { return $" {Marca} - Modello: {Modello} ({Immatricolazione.Year})"; }
+        #endregion
     }
 }
