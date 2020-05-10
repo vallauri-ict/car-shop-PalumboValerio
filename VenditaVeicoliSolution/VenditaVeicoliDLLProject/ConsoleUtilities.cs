@@ -11,6 +11,10 @@ namespace VenditaVeicoliDLLProject
     {
         public static string connStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=CarShop.accdb";
 
+        /// <summary>
+        /// Create Auto or Moto table
+        /// </summary>
+        /// <param name="tableName"> Auto/Moto </param>
         public static void CreateTable(string tableName)
         {
             if (connStr != null)
@@ -44,41 +48,18 @@ namespace VenditaVeicoliDLLProject
                         return;
                     }
 
-                    /*Insert(con, "cars", "Audi", 52642);
-                    Insert(con, "cars", "Mercedes", 57127);
-                    Insert(con, "cars", "Skoda", 9000);
-                    Insert(con, "cars", "Volvo", 29000);
-                    Insert(con, "cars", "Bentley", 350000);
-                    Insert(con, "cars", "Citroen", 21000);
-                    Insert(con, "cars", "Hummer", 41400);
-                    Insert(con, "cars", "Volkswagen", 21600);*/
-
                     Console.WriteLine("\nTable created");
                     System.Threading.Thread.Sleep(3000);
                 }
             }
         }
 
-        public static void Delete(string tableName, int id)
-        {
-            if (connStr != null)
-            {
-                OleDbConnection con = new OleDbConnection(connStr);
-                using (con)
-                {
-                    con.Open();
-
-                    OleDbCommand cmd = new OleDbCommand($"DELETE FROM {tableName} WHERE id={id}", con);
-
-                    cmd.Prepare();
-
-                    cmd.ExecuteNonQuery();
-                    Console.WriteLine("\nItem removed corectly");
-                    System.Threading.Thread.Sleep(3000);
-                }
-            }
-        }
-
+        /// <summary>
+        /// Add new item in the correct table
+        /// </summary>
+        /// <param name="tableName"> Auto/Moto </param>
+        /// <param name="numAirbag"> Only for Auto </param>
+        /// <param name="saddleBrand"> Only for Moto </param>
         public static void AddNewItem(string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, int price, int numAirbag, string saddleBrand)
         {
             if (connStr != null)
@@ -97,6 +78,9 @@ namespace VenditaVeicoliDLLProject
             }
         }
 
+        /// <summary>
+        /// Insert command
+        /// </summary>
         private static void Insert(OleDbConnection con, string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, int price, int numAirbag, string saddleBrand)
         {
             OleDbCommand cmd = new OleDbCommand();
@@ -127,6 +111,10 @@ namespace VenditaVeicoliDLLProject
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Gave to the user the list of the element in the specific table
+        /// </summary>
+        /// <param name="tableName"> Auto/Moto </param>
         public static void ListTable(string tableName)
         {
             if (connStr != null)
@@ -165,12 +153,23 @@ namespace VenditaVeicoliDLLProject
             }
         }
 
+        /// <summary>
+        /// A simple method to avoid repetitions in the code
+        /// </summary>
+        /// <param name="condition"> The if condition </param>
+        /// <param name="trueStr"> Returned string if condition is true </param>
+        /// <param name="falseStr"> Returned string if condition is false </param>
+        /// <returns></returns>
         private static string ifElse(bool condition, string trueStr, string falseStr)
         {
             if (condition) return trueStr;
             else return falseStr;
-        }       
+        }
 
+        /// <summary>
+        /// Update command
+        /// </summary>
+        /// <param name="id"> Identifier of the record that user wants to update </param>
         public static void Update(string tableName, int id, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, int price, int numAirbag, string saddleBrand)
         {
             if (connStr != null)
@@ -236,12 +235,50 @@ namespace VenditaVeicoliDLLProject
             }
         }
 
+        /// <summary>
+        /// A simple method to avoid repetitions in the code
+        /// </summary>
+        /// <param name="condition"> The if condition </param>
+        /// <param name="rtn"> Returned string if condition is true  </param>
+        /// <returns></returns>
         private static string parametersControl(bool condition, string rtn)
         {
             if (condition) return rtn;
             else return "";
         }
 
+        /// <summary>
+        /// Delete sql command
+        /// </summary>
+        /// <param name="tableName"> Auto/Moto </param>
+        /// <param name="id"> Identifier of the record that user wants to delete </param>
+        public static void Delete(string tableName, int id)
+        {
+            if (connStr != null)
+            {
+                OleDbConnection con = new OleDbConnection(connStr);
+                using (con)
+                {
+                    con.Open();
+
+                    OleDbCommand cmd = new OleDbCommand($"DELETE FROM {tableName} WHERE id={id}", con);
+
+                    cmd.Prepare();
+
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("\nItem removed corectly");
+                    System.Threading.Thread.Sleep(3000);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Take the boolean fields actual velues
+        /// </summary>
+        /// <param name="parameter"> usato/kmZero </param>
+        /// <param name="tableName"> Auto/Moto </param>
+        /// <param name="id"> Identifier of the record that user wants to update </param>
+        /// <returns></returns>
         public static bool takeActualValue(string parameter, string tableName, int id)
         {
             if (connStr != null)
@@ -269,6 +306,11 @@ namespace VenditaVeicoliDLLProject
             return false;
         }
 
+        /// <summary>
+        /// Count the number of element in the specific table
+        /// </summary>
+        /// <param name="tableName"> Auto/Moto </param>
+        /// <returns></returns>
         public static int ItemsCounter(string tableName)
         {
             if (connStr != null)
@@ -296,6 +338,10 @@ namespace VenditaVeicoliDLLProject
             return -1;
         }
 
+        /// <summary>
+        /// Delete the all specific table
+        /// </summary>
+        /// <param name="tableName"> Auto/Moto </param>
         public static void DropTable(string tableName)
         {
             if (connStr != null)
