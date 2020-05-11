@@ -35,8 +35,10 @@
             this.tsbApri = new System.Windows.Forms.ToolStripButton();
             this.tsbSalva = new System.Windows.Forms.ToolStripButton();
             this.tsbCancella = new System.Windows.Forms.ToolStripButton();
-            this.tsbStampa = new System.Windows.Forms.ToolStripButton();
             this.tsbModifica = new System.Windows.Forms.ToolStripButton();
+            this.tsbStampa = new System.Windows.Forms.ToolStripButton();
+            this.tsbWord = new System.Windows.Forms.ToolStripButton();
+            this.tsbExcel = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +62,9 @@
             this.tsbSalva,
             this.tsbCancella,
             this.tsbModifica,
-            this.tsbStampa});
+            this.tsbStampa,
+            this.tsbWord,
+            this.tsbExcel});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(779, 27);
@@ -107,16 +111,6 @@
             this.tsbCancella.Text = "&Cancella";
             this.tsbCancella.Click += new System.EventHandler(this.tsbCancella_Click);
             // 
-            // tsbStampa
-            // 
-            this.tsbStampa.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbStampa.Image = ((System.Drawing.Image)(resources.GetObject("tsbStampa.Image")));
-            this.tsbStampa.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbStampa.Name = "tsbStampa";
-            this.tsbStampa.Size = new System.Drawing.Size(29, 24);
-            this.tsbStampa.Text = "S&tampa";
-            this.tsbStampa.Click += new System.EventHandler(this.tsbStampa_Click);
-            // 
             // tsbModifica
             // 
             this.tsbModifica.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -127,6 +121,36 @@
             this.tsbModifica.Text = "&Modifica";
             this.tsbModifica.Click += new System.EventHandler(this.tsbModifica_Click);
             // 
+            // tsbStampa
+            // 
+            this.tsbStampa.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbStampa.Image = ((System.Drawing.Image)(resources.GetObject("tsbStampa.Image")));
+            this.tsbStampa.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbStampa.Name = "tsbStampa";
+            this.tsbStampa.Size = new System.Drawing.Size(29, 24);
+            this.tsbStampa.Text = "S&tampa";
+            this.tsbStampa.Click += new System.EventHandler(this.tsbStampa_Click);
+            // 
+            // tsbWord
+            // 
+            this.tsbWord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbWord.Image = ((System.Drawing.Image)(resources.GetObject("tsbWord.Image")));
+            this.tsbWord.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbWord.Name = "tsbWord";
+            this.tsbWord.Size = new System.Drawing.Size(29, 24);
+            this.tsbWord.Text = "Create &Word Document";
+            this.tsbWord.Click += new System.EventHandler(this.tsbWord_Click);
+            // 
+            // tsbExcel
+            // 
+            this.tsbExcel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbExcel.Image = ((System.Drawing.Image)(resources.GetObject("tsbExcel.Image")));
+            this.tsbExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbExcel.Name = "tsbExcel";
+            this.tsbExcel.Size = new System.Drawing.Size(29, 24);
+            this.tsbExcel.Text = "Create &Excel Document";
+            this.tsbExcel.Click += new System.EventHandler(this.tsbExcel_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -134,6 +158,7 @@
             this.ClientSize = new System.Drawing.Size(779, 444);
             this.Controls.Add(this.listBoxVeicoli);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.Text = "SALONE VEICOLI NUOVI E USATI";
@@ -154,6 +179,8 @@
         private System.Windows.Forms.ToolStripButton tsbStampa;
         private System.Windows.Forms.ToolStripButton tsbCancella;
         private System.Windows.Forms.ToolStripButton tsbModifica;
+        private System.Windows.Forms.ToolStripButton tsbWord;
+        private System.Windows.Forms.ToolStripButton tsbExcel;
     }
 }
 

@@ -12,7 +12,7 @@ using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 #endregion
 
-namespace VenditaVeicoliDLLProject
+namespace CarShopDLLProject
 {
     public class OpenXMLWord
     {

@@ -8,10 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VenditaVeicoliDLLProject;
+using CarShopDLLProject;
 using System.Data.OleDb;
 using System.IO;
 using System.Diagnostics;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
 #endregion
 
 namespace WindowsFormsAppProject
@@ -79,5 +82,19 @@ namespace WindowsFormsAppProject
                 MessageBox.Show("Inserisci almeno un veicolo prima di visualizzare!");
         }
         #endregion
+
+        private void tsbWord_Click(object sender, EventArgs e)
+        {
+            //string filepath = OpenXmlGeneralUtilities.OutputFileName(OpenXmlGeneralUtilities.SelectPath(fbd), "docx");
+
+            /*using (WordprocessingDocument doc = WordprocessingDocument.Create(filepath, WordprocessingDocumentType.Document))
+            {
+            }*/
+        }
+
+        private void tsbExcel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
