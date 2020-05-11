@@ -21,8 +21,8 @@ namespace CarShopDLLProject
         {
             string path = string.Empty;
 
-            if (fbd.ShowDialog() == DialogResult.OK)
-                path = fbd.SelectedPath;
+            if (fbd.ShowDialog() == DialogResult.OK) path = fbd.SelectedPath;
+            else path = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\Data";
 
             return path;
         }

@@ -60,17 +60,19 @@ namespace CarShopDLLProject
             {
                 while (rdr.Read())
                 {
+                    bool used = rdr.GetString(7) == "Si" ? true : false;
+                    bool km0 = rdr.GetString(8) == "Si" ? true : false;
                     if (tableName == "Auto")
                     {
                         list.Add(new Cars(rdr.GetString(1), rdr.GetString(2), rdr.GetString(3),
-                            rdr.GetInt32(4), rdr.GetInt32(5), rdr.GetDateTime(6), rdr.GetBoolean(7),
-                            rdr.GetBoolean(8), rdr.GetInt32(9), rdr.GetInt32(10), rdr.GetInt32(11)));
+                            rdr.GetInt32(4), rdr.GetInt32(5), rdr.GetDateTime(6), used,
+                            km0, rdr.GetInt32(9), Convert.ToDouble(rdr.GetDecimal(10)), rdr.GetInt32(11)));
                     }
                     else
                     {
                         list.Add(new Motorbikes(rdr.GetString(1), rdr.GetString(2), rdr.GetString(3),
-                            rdr.GetInt32(4), rdr.GetInt32(5), rdr.GetDateTime(6), rdr.GetBoolean(7),
-                            rdr.GetBoolean(8), rdr.GetInt32(9), rdr.GetInt32(10), rdr.GetString(11)));
+                            rdr.GetInt32(4), rdr.GetInt32(5), rdr.GetDateTime(6), used,
+                            km0, rdr.GetInt32(9), Convert.ToDouble(rdr.GetDecimal(10)), rdr.GetString(11)));
                     }                        
                 }
             }

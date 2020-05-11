@@ -191,8 +191,7 @@ namespace CarShopDLLProject
         /// </summary>
         public void CreateBulletNumberingPart(MainDocumentPart mainPart, string bulletChar = "-")
         {
-            NumberingDefinitionsPart numberingPart =
-                        mainPart.AddNewPart<NumberingDefinitionsPart>("NDPBullet");
+            NumberingDefinitionsPart numberingPart = mainPart.AddNewPart<NumberingDefinitionsPart>("NDPBullet");
             Numbering element =
               new Numbering(
                 new AbstractNum(
@@ -216,7 +215,7 @@ namespace CarShopDLLProject
         /// <param name="paragraphs"> List of paragraphs </param>
         /// <param name="texts"> Text of the list </param>
         /// <param name="isBullet"> true --> Bullet list; false --> Numbered list </param>
-        public void CreateBulletOrNumberedList(int indentLeft, int indentHanging, List<Paragraph> paragraphs, int numberOfParagraph, string[] texts, bool isBullet = true)
+        public void CreateBulletOrNumberedList(int indentLeft, int indentHanging, List<Paragraph> paragraphs, string[] texts, bool isBullet = true)
         {
             int numberingLevelReference, numberingId;
             if (isBullet)
@@ -239,7 +238,7 @@ namespace CarShopDLLProject
             ParagraphProperties ppUnordered = new ParagraphProperties(np, sbl, indent);
             ppUnordered.ParagraphStyleId = new ParagraphStyleId() { Val = "ListParagraph" };
 
-            for (int i = 0; i < numberOfParagraph; i++)
+            for (int i = 0; i < texts.Length; i++)
                 InsertParagraphInList(paragraphs, ppUnordered, texts[i]);
         }
 

@@ -95,14 +95,31 @@ namespace WindowsFormsAppProject
                     mainPart.Document = new Document();
                     Body body = mainPart.Document.AppendChild(new Body());
 
-                    wordUtilities.AddStyle(mainPart, false, true, true, false, "MyHeading1", "Title", "Verdana", 30, "FF0000");
-                    wordUtilities.AddStyle(mainPart, false, true, true, false, "MyHeading2", "Subtitle", "Verdana", 20, "FF0000");
-                    wordUtilities.AddStyle(mainPart, false, true, true, false, "MyParagraph1", "First", "Calibri", 10, "000000");
+                    wordUtilities.AddStyle(mainPart, true, true, true, false, "MyHeading1", "Title", "Verdana", 20, "FF0000");
+                    wordUtilities.AddStyle(mainPart, true, false, false, false, "MyHeading2", "Subtitle", "Verdana", 20, "FF0000");
+                    wordUtilities.AddStyle(mainPart, false, false, false, false, "MyStartParagraph", "First", "Calibri", 15, "000000");
+                    wordUtilities.AddStyle(mainPart, false, false, false, false, "MyParagraph2", "Second", "Calibri", 12, "000000");
+
                     AddParagraph(body, "MyHeading1", "SALONE AUTOVALLAURI - VEICOLI NUOVI E USATI", JustificationValues.Center);
                     AddParagraph(body, "MyHeading2", "Le migliori occasioni al miglior prezzo!", JustificationValues.Center);
-                    AddParagraph(body, "MyParagraph1", "LISTA DEI VEICOLI DISPONIBILI:");
+                    AddParagraph(body, "MyStartParagraph", "LISTA DEI VEICOLI DISPONIBILI:");
 
-
+                    wordUtilities.CreateBulletNumberingPart(mainPart, "•");
+                    for (int i = 0; i < VehicleList.Count; i++)
+                    {
+                        AddParagraph(body, "MyParagraph2", $"{VehicleList[i].Brand} {VehicleList[i].Model}");
+                        string used = VehicleList[i].IsUsed ? "Si" : "No";
+                        string km0 = VehicleList[i].IsKm0 ? "Si" : "No";
+                        string[] elements = { $"Colore: {VehicleList[i].Color}", 
+                            $"Cilindrata: {VehicleList[i].Displacement}", $"Potenza: {VehicleList[i].Color} Kw",
+                            $"Immatricolazione: {VehicleList[i].Matriculation.ToShortDateString()}",
+                            $"Usato: {used}", $"Km zero: {km0}", $"Km Percorsi: {VehicleList[i].KmDone}",
+                            $"Prezzo: {VehicleList[i].Price} €"};
+                        List<Paragraph> bulletList = new List<Paragraph>();
+                        wordUtilities.CreateBulletOrNumberedList(100, 200, bulletList, elements);
+                        foreach (Paragraph paragraph in bulletList)
+                            body.Append(paragraph);
+                    }                  
                     ProcedureCompleted("Il documento è pronto!", filepath);
                 }
             }

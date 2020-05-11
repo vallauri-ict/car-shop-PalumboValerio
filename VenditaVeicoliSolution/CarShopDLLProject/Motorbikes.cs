@@ -11,7 +11,7 @@ namespace CarShopDLLProject
         }
 
         public Motorbikes(string brand, string model, string color, int displacement, double powerKw,
-            DateTime matriculation, bool isUsed, bool isKm0, int kmDone, int price, string saddleBrand)
+            DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, string saddleBrand)
             : base(brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price)
         {
             SaddleBrand = saddleBrand;

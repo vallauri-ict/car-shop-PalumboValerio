@@ -244,17 +244,17 @@ namespace CarShopDLLProject
         private Row GenerateRowForChildPartDetail(Vehicles v)
         {
             Row tRow = new Row();
-            string used="Non usato";
-            string km0="Non km zero";
+            string used="No";
+            string km0="No";
             tRow.Append(CreateCell(v.Brand));
             tRow.Append(CreateCell(v.Model));
             tRow.Append(CreateCell(v.Color));
             tRow.Append(CreateCell(v.Displacement.ToString()));
             tRow.Append(CreateCell(v.PowerKw.ToString() + " kw"));
             tRow.Append(CreateCell(v.Matriculation.ToShortDateString()));
-            if (v.IsUsed) used = "usato";
+            if (v.IsUsed) used = "Si";
             tRow.Append(CreateCell(used));
-            if (v.IsKm0) km0 = "km zero";
+            if (v.IsKm0) km0 = "Si";
             tRow.Append(CreateCell(km0));
             tRow.Append(CreateCell(v.KmDone.ToString()));
             tRow.Append(CreateCell(v.Price.ToString() + " €"));

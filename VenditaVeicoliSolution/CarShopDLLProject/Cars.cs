@@ -14,7 +14,7 @@ namespace CarShopDLLProject
             NumAirbag = 6;
         }
         public Cars(string brand, string model, string color, int displacement, double powerKw, 
-            DateTime matriculation, bool isUsed, bool isKm0, int kmDone, int price, int numAirbag) 
+            DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, int numAirbag) 
             : base(brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price)
         {
             NumAirbag = numAirbag;

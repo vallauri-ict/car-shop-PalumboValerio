@@ -39,8 +39,8 @@ namespace CarShopDLLProject
                                 id INT identity(1,1) NOT NULL PRIMARY KEY,
                                 marca VARCHAR(255) NOT NULL, modello VARCHAR(255) NOT NULL,
                                 colore VARCHAR(255), cilindrata INT, potenzaKw INT,
-                                immatricolazione DATE, usato BIT, kmZero BIT,
-                                kmPercorsi INT, prezzo INT,";
+                                immatricolazione DATE, usato VARCHAR(255), kmZero VARCHAR(255),
+                                kmPercorsi INT, prezzo MONEY,";
                         if (tableName == "Auto") command += " numAirbag INT)";
                         else command += " marcaSella VARCHAR(255))";
                         cmd.CommandText = command;
@@ -80,14 +80,16 @@ namespace CarShopDLLProject
                         command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenzaKw, immatricolazione, usato, kmZero, kmPercorsi, prezzo, marcaSella) VALUES(@brand, @model, @color, @displacement, @powerKw, @matriculation, @isUsed, @isKm0, @kmDone, @price, @saddleBrand)";
                     cmd.CommandText = command;
 
+                    string used = isUsed ? "Si" : "No";
+                    string km0 = isKm0 ? "Si" : "No";
                     cmd.Parameters.Add(new OleDbParameter("@brand", OleDbType.VarChar, 255)).Value = brand;
                     cmd.Parameters.Add(new OleDbParameter("@model", OleDbType.VarChar, 255)).Value = model;
                     cmd.Parameters.Add(new OleDbParameter("@color", OleDbType.VarChar, 255)).Value = color;
                     cmd.Parameters.Add("@displacement", OleDbType.Integer).Value = displacement;
                     cmd.Parameters.Add("@powerKw", OleDbType.Integer).Value = powerKw;
                     cmd.Parameters.Add(new OleDbParameter("@matriculation", OleDbType.Date)).Value = matriculation.ToString("dd/MM/yyyy");
-                    cmd.Parameters.Add(new OleDbParameter("@isUsed", OleDbType.Boolean)).Value = isUsed;
-                    cmd.Parameters.Add(new OleDbParameter("@isKm0", OleDbType.Boolean)).Value = isKm0;
+                    cmd.Parameters.Add(new OleDbParameter("@isUsed", OleDbType.VarChar, 255)).Value = used;
+                    cmd.Parameters.Add(new OleDbParameter("@isKm0", OleDbType.VarChar, 255)).Value = km0;
                     cmd.Parameters.Add("@kmDone", OleDbType.Integer).Value = kmDone;
                     cmd.Parameters.Add("@price", OleDbType.Double).Value = price;
                     if (tableName == "Auto")
@@ -193,7 +195,9 @@ namespace CarShopDLLProject
                     command += $" {set} WHERE id={id}";
                     cmd.CommandText = command;
 
-                    if(command.Contains("@brand"))
+                    string used = isUsed ? "Si" : "No";
+                    string km0 = isKm0 ? "Si" : "No";
+                    if (command.Contains("@brand"))
                         cmd.Parameters.Add(new OleDbParameter("@brand", OleDbType.VarChar, 255)).Value = brand;
                     if (command.Contains("@model"))
                         cmd.Parameters.Add(new OleDbParameter("@model", OleDbType.VarChar, 255)).Value = model;
@@ -206,9 +210,9 @@ namespace CarShopDLLProject
                     if (command.Contains("@matriculation"))
                         cmd.Parameters.Add(new OleDbParameter("@matriculation", OleDbType.Date)).Value = matriculation.ToString("dd/MM/yyyy");
                     if (command.Contains("@isUsed"))
-                        cmd.Parameters.Add(new OleDbParameter("@isUsed", OleDbType.Boolean)).Value = isUsed;
+                        cmd.Parameters.Add(new OleDbParameter("@isUsed", OleDbType.VarChar, 255)).Value = used;
                     if (command.Contains("@isKm0"))
-                        cmd.Parameters.Add(new OleDbParameter("@isKm0", OleDbType.Boolean)).Value = isKm0;
+                        cmd.Parameters.Add(new OleDbParameter("@isKm0", OleDbType.VarChar, 255)).Value = km0;
                     if (command.Contains("@kmDone"))
                         cmd.Parameters.Add("@kmDone", OleDbType.Integer).Value = kmDone;
                     if (command.Contains("@price"))
