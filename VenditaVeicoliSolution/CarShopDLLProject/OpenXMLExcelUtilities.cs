@@ -227,14 +227,14 @@ namespace CarShopDLLProject
             workRow.Append(CreateCell("Marca", 2U));
             workRow.Append(CreateCell("Modello", 2U));
             workRow.Append(CreateCell("Colore", 2U));
-            workRow.Append(CreateCell("Cilindrata", 4U));
+            workRow.Append(CreateCell("Cilindrata", 2U));
             workRow.Append(CreateCell("Potenza", 2U));
-            workRow.Append(CreateCell("Immatricolazione", 5U));
+            workRow.Append(CreateCell("Immatricolazione", 2U));
             workRow.Append(CreateCell("Usato", 2U));
             workRow.Append(CreateCell("Km Zero", 2U));
-            workRow.Append(CreateCell("Km Percorsi", 4U));
+            workRow.Append(CreateCell("Km Percorsi", 2U));
             workRow.Append(CreateCell("Prezzo", 2U));
-            workRow.Append(CreateCell("Numero Airbag/Marca sella", 7U));
+            workRow.Append(CreateCell("Numero Airbag/Marca sella", 2U));
             return workRow;
         }
 

@@ -102,6 +102,7 @@ namespace WindowsFormsAppProject
                     AddParagraph(body, "MyHeading2", "Le migliori occasioni al miglior prezzo!", JustificationValues.Center);
                     AddParagraph(body, "MyParagraph1", "LISTA DEI VEICOLI DISPONIBILI:");
 
+
                     ProcedureCompleted("Il documento è pronto!", filepath);
                 }
             }
