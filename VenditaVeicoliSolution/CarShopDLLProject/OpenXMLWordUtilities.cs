@@ -14,13 +14,14 @@ using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 
 namespace CarShopDLLProject
 {
-    public class OpenXMLWord
+    public class OpenXMLWordUtilities
     {
         #region Utilities
+        public OpenXMLWordUtilities() { }
         /// <summary>
         /// Set the program to add a picture in the document
         /// </summary>
-        public static void InsertPicture(WordprocessingDocument wordprocessingDocument, string fileName)
+        public void InsertPicture(WordprocessingDocument wordprocessingDocument, string fileName)
         {
             MainDocumentPart mainPart = wordprocessingDocument.MainDocumentPart;
             ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
@@ -35,7 +36,7 @@ namespace CarShopDLLProject
         /// Add a picture in the document
         /// </summary>
         /// <param name="relationshipId"> Image id </param>
-        private static void AddImageToBody(WordprocessingDocument wordDoc, string relationshipId)
+        private void AddImageToBody(WordprocessingDocument wordDoc, string relationshipId)
         {
             // Define the reference of the image.
             var element =
@@ -115,7 +116,7 @@ namespace CarShopDLLProject
         /// <param name="rgbColor"> Text color of the run </param>
         /// <param name="underline"> Underline style </param>
         /// <returns></returns>
-        public static RunProperties AddStyle(MainDocumentPart mainPart, bool isBold = false, bool isItalic = false, bool isUnderline = false, bool isOnlyRun = false, string styleId = "00", string styleName = "Default", string fontName = "Calibri", int fontSize = 12, string rgbColor = "000000", UnderlineValues underline = UnderlineValues.Single)
+        public RunProperties AddStyle(MainDocumentPart mainPart, bool isBold = false, bool isItalic = false, bool isUnderline = false, bool isOnlyRun = false, string styleId = "00", string styleName = "Default", string fontName = "Calibri", int fontSize = 12, string rgbColor = "000000", UnderlineValues underline = UnderlineValues.Single)
         {
             // we have to set the properties
             RunProperties rPr = new RunProperties();
@@ -156,7 +157,7 @@ namespace CarShopDLLProject
         /// </summary>
         /// <param name="justification"> Type of justification </param>
         /// <returns></returns>
-        public static Paragraph CreateParagraphWithStyle(string styleId, JustificationValues justification = JustificationValues.Left)
+        public Paragraph CreateParagraphWithStyle(string styleId, JustificationValues justification = JustificationValues.Left)
         {
             Paragraph paragraph = new Paragraph();
 
@@ -175,7 +176,7 @@ namespace CarShopDLLProject
         /// <param name="content"> Text </param>
         /// <param name="space"> Space style </param>
         /// <param name="rpr"> Run properties </param>
-        public static void AddTextToParagraph(Paragraph paragraph, string content, SpaceProcessingModeValues space = SpaceProcessingModeValues.Default, RunProperties rpr = null)
+        public void AddTextToParagraph(Paragraph paragraph, string content, SpaceProcessingModeValues space = SpaceProcessingModeValues.Default, RunProperties rpr = null)
         {
             Run r = new Run();
             // Always add properties first
@@ -188,7 +189,7 @@ namespace CarShopDLLProject
         /// <summary>
         /// Create bullet numbering part
         /// </summary>
-        public static void CreateBulletNumberingPart(MainDocumentPart mainPart, string bulletChar = "-")
+        public void CreateBulletNumberingPart(MainDocumentPart mainPart, string bulletChar = "-")
         {
             NumberingDefinitionsPart numberingPart =
                         mainPart.AddNewPart<NumberingDefinitionsPart>("NDPBullet");
@@ -215,7 +216,7 @@ namespace CarShopDLLProject
         /// <param name="paragraphs"> List of paragraphs </param>
         /// <param name="texts"> Text of the list </param>
         /// <param name="isBullet"> true --> Bullet list; false --> Numbered list </param>
-        public static void CreateBulletOrNumberedList(int indentLeft, int indentHanging, List<Paragraph> paragraphs, int numberOfParagraph, string[] texts, bool isBullet = true)
+        public void CreateBulletOrNumberedList(int indentLeft, int indentHanging, List<Paragraph> paragraphs, int numberOfParagraph, string[] texts, bool isBullet = true)
         {
             int numberingLevelReference, numberingId;
             if (isBullet)
@@ -247,7 +248,7 @@ namespace CarShopDLLProject
         /// </summary>
         /// <param name="paragraphs"> List of paragraphs </param>
         /// <param name="ppUnordered"> Property </param>
-        private static void InsertParagraphInList(List<Paragraph> paragraphs, ParagraphProperties ppUnordered, string text)
+        private void InsertParagraphInList(List<Paragraph> paragraphs, ParagraphProperties ppUnordered, string text)
         {
             Paragraph p = new Paragraph();
             p.ParagraphProperties = new ParagraphProperties(ppUnordered.OuterXml);
@@ -265,7 +266,7 @@ namespace CarShopDLLProject
         /// <param name="justifications"> Type of justification </param>
         /// <param name="borderValues"> Border style </param>
         /// <returns></returns>
-        public static Table createTable(MainDocumentPart mainPart, bool[] bolds, bool[] italics, bool[] underlines, string[] texts, JustificationValues[] justifications, int rows, int cell, string rgbColor = "000000", BorderValues borderValues = BorderValues.Thick)
+        public Table createTable(MainDocumentPart mainPart, bool[] bolds, bool[] italics, bool[] underlines, string[] texts, JustificationValues[] justifications, int rows, int cell, string rgbColor = "000000", BorderValues borderValues = BorderValues.Thick)
         {
             if (bolds.Length == italics.Length && italics.Length == underlines.Length && underlines.Length == texts.Length)
             {
@@ -303,7 +304,7 @@ namespace CarShopDLLProject
         /// </summary>
         /// <param name="borderValues"> Border style </param>
         /// <returns></returns>
-        private static TableProperties getTableProperties(string rgbColor, BorderValues borderValues)
+        private TableProperties getTableProperties(string rgbColor, BorderValues borderValues)
         {
             TableProperties tblProperties = new TableProperties();
             TableBorders tblBorders = new TableBorders();

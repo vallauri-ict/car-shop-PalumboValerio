@@ -13,13 +13,14 @@ namespace CarShopDLLProject
     public class DBUtilities
     {
         #region Utilities
-        public static string connStr = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\Data\\CarShop.accdb";
+        public DBUtilities() { }
+        public string connStr = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\Data\\CarShop.accdb";
 
         /// <summary>
         /// Create Auto or Moto table
         /// </summary>
         /// <param name="tableName"> Auto/Moto </param>
-        public static void CreateTable(string tableName)
+        public void CreateTable(string tableName)
         {
             if (connStr != null)
             {
@@ -50,10 +51,7 @@ namespace CarShopDLLProject
                         Console.WriteLine($"\n\n{ex.Message}");
                         System.Threading.Thread.Sleep(3000);
                         return;
-                    }
-
-                    Console.WriteLine("\nTable created");
-                    System.Threading.Thread.Sleep(3000);
+                    }                    
                 }
             }
         }
@@ -64,7 +62,7 @@ namespace CarShopDLLProject
         /// <param name="tableName"> Auto/Moto </param>
         /// <param name="numAirbag"> Only for Auto </param>
         /// <param name="saddleBrand"> Only for Moto </param>
-        public static void AddNewItem(string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, int numAirbag, string saddleBrand)
+        public void AddNewItem(string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, int numAirbag, string saddleBrand)
         {
             if (connStr != null)
             {
@@ -99,8 +97,6 @@ namespace CarShopDLLProject
                     cmd.Prepare();
 
                     cmd.ExecuteNonQuery();
-                    Console.WriteLine("\nNew item added corectly");
-                    System.Threading.Thread.Sleep(3000);
                 }
 
             }
@@ -110,7 +106,7 @@ namespace CarShopDLLProject
         /// Gave to the user the list of the element in the specific table
         /// </summary>
         /// <param name="tableName"> Auto/Moto </param>
-        public static void ListTable(string tableName)
+        public void ListTable(string tableName)
         {
             if (connStr != null)
             {
@@ -155,7 +151,7 @@ namespace CarShopDLLProject
         /// <param name="trueStr"> Returned string if condition is true </param>
         /// <param name="falseStr"> Returned string if condition is false </param>
         /// <returns></returns>
-        private static string ifElse(bool condition, string trueStr, string falseStr)
+        private string ifElse(bool condition, string trueStr, string falseStr)
         {
             if (condition) return trueStr;
             else return falseStr;
@@ -165,7 +161,7 @@ namespace CarShopDLLProject
         /// Update sql command
         /// </summary>
         /// <param name="id"> Identifier of the record that user wants to update </param>
-        public static void Update(string tableName, int id, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, int numAirbag, string saddleBrand)
+        public void Update(string tableName, int id, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, int numAirbag, string saddleBrand)
         {
             if (connStr != null)
             {
@@ -223,9 +219,7 @@ namespace CarShopDLLProject
                         cmd.Parameters.Add(new OleDbParameter("@saddleBrand", OleDbType.VarChar, 255)).Value = saddleBrand;
                     cmd.Prepare();
 
-                    cmd.ExecuteNonQuery();
-                    Console.WriteLine($"\nTable {tableName} updated");
-                    System.Threading.Thread.Sleep(3000);
+                    cmd.ExecuteNonQuery();                   
                 }
             }
         }
@@ -236,7 +230,7 @@ namespace CarShopDLLProject
         /// <param name="condition"> The if condition </param>
         /// <param name="rtn"> Returned string if condition is true  </param>
         /// <returns></returns>
-        private static string parametersControl(bool condition, string rtn)
+        private string parametersControl(bool condition, string rtn)
         {
             if (condition) return rtn;
             else return "";
@@ -247,7 +241,7 @@ namespace CarShopDLLProject
         /// </summary>
         /// <param name="tableName"> Auto/Moto </param>
         /// <param name="id"> Identifier of the record that user wants to delete </param>
-        public static void Delete(string tableName, int id)
+        public void Delete(string tableName, int id)
         {
             if (connStr != null)
             {
@@ -261,8 +255,6 @@ namespace CarShopDLLProject
                     cmd.Prepare();
 
                     cmd.ExecuteNonQuery();
-                    Console.WriteLine("\nItem removed corectly");
-                    System.Threading.Thread.Sleep(3000);
                 }
             }
         }
@@ -274,7 +266,7 @@ namespace CarShopDLLProject
         /// <param name="tableName"> Auto/Moto </param>
         /// <param name="id"> Identifier of the record that user wants to update </param>
         /// <returns></returns>
-        public static bool takeActualValue(string parameter, string tableName, int id)
+        public bool takeActualValue(string parameter, string tableName, int id)
         {
             if (connStr != null)
             {
@@ -306,7 +298,7 @@ namespace CarShopDLLProject
         /// </summary>
         /// <param name="tableName"> Auto/Moto </param>
         /// <returns></returns>
-        public static int ItemsCounter(string tableName)
+        public int ItemsCounter(string tableName)
         {
             if (connStr != null)
             {
@@ -337,7 +329,7 @@ namespace CarShopDLLProject
         /// Delete the all specific table
         /// </summary>
         /// <param name="tableName"> Auto/Moto </param>
-        public static void DropTable(string tableName)
+        public void DropTable(string tableName)
         {
             if (connStr != null)
             {
@@ -351,10 +343,28 @@ namespace CarShopDLLProject
                     string command = $"DROP TABLE {tableName}";
                     cmd.CommandText = command;
                     cmd.ExecuteNonQuery();
-                    Console.WriteLine($"\nTable {tableName} removed");
-                    System.Threading.Thread.Sleep(3000);
                 }
             }
+        }
+
+        /// <summary>
+        /// Create a backup of the db
+        /// </summary>
+        public void CreateBackup(string dbFilePath)
+        {
+            string backupDBFilePath = dbFilePath.Replace("CarShop.accdb", "BackupCarShop.accdb");
+            if (File.Exists(backupDBFilePath)) File.Delete(backupDBFilePath);
+            File.Copy(dbFilePath, backupDBFilePath);
+        }
+
+        /// <summary>
+        /// Restrore the db Backup
+        /// </summary>
+        public void RestoresBackup(string dbFilePath)
+        {
+            string backupDBFilePath = dbFilePath.Replace("CarShop.accdb", "BackupCarShop.accdb");
+            if (File.Exists(dbFilePath)) File.Delete(dbFilePath);
+            File.Copy(backupDBFilePath, dbFilePath);
         }
         #endregion
     }

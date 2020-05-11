@@ -32,13 +32,13 @@
             this.listBoxVeicoli = new System.Windows.Forms.ListBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbNuovo = new System.Windows.Forms.ToolStripButton();
-            this.tsbApri = new System.Windows.Forms.ToolStripButton();
             this.tsbSalva = new System.Windows.Forms.ToolStripButton();
             this.tsbCancella = new System.Windows.Forms.ToolStripButton();
             this.tsbModifica = new System.Windows.Forms.ToolStripButton();
             this.tsbStampa = new System.Windows.Forms.ToolStripButton();
             this.tsbWord = new System.Windows.Forms.ToolStripButton();
             this.tsbExcel = new System.Windows.Forms.ToolStripButton();
+            this.fbd = new System.Windows.Forms.FolderBrowserDialog();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,13 +58,12 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbNuovo,
-            this.tsbApri,
             this.tsbSalva,
             this.tsbCancella,
             this.tsbModifica,
-            this.tsbStampa,
             this.tsbWord,
-            this.tsbExcel});
+            this.tsbExcel,
+            this.tsbStampa});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(779, 27);
@@ -80,16 +79,6 @@
             this.tsbNuovo.Size = new System.Drawing.Size(29, 24);
             this.tsbNuovo.Text = "&Nuovo";
             this.tsbNuovo.Click += new System.EventHandler(this.tsmNuovo_Click);
-            // 
-            // tsbApri
-            // 
-            this.tsbApri.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbApri.Image = ((System.Drawing.Image)(resources.GetObject("tsbApri.Image")));
-            this.tsbApri.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbApri.Name = "tsbApri";
-            this.tsbApri.Size = new System.Drawing.Size(29, 24);
-            this.tsbApri.Text = "&Apri";
-            this.tsbApri.Click += new System.EventHandler(this.tsbApri_Click);
             // 
             // tsbSalva
             // 
@@ -174,13 +163,13 @@
         private System.Windows.Forms.ListBox listBoxVeicoli;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton tsbNuovo;
-        private System.Windows.Forms.ToolStripButton tsbApri;
         private System.Windows.Forms.ToolStripButton tsbSalva;
         private System.Windows.Forms.ToolStripButton tsbStampa;
         private System.Windows.Forms.ToolStripButton tsbCancella;
         private System.Windows.Forms.ToolStripButton tsbModifica;
         private System.Windows.Forms.ToolStripButton tsbWord;
         private System.Windows.Forms.ToolStripButton tsbExcel;
+        private System.Windows.Forms.FolderBrowserDialog fbd;
     }
 }
 

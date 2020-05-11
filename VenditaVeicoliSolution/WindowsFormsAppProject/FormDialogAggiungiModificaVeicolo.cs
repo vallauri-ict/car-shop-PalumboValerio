@@ -17,9 +17,10 @@ namespace WindowsFormsAppProject
     {
         #region Declaration
         List<Control> controls;
-        string veicolo;
+        string vehicle;
         FormMain formMain;
         private int selectedIndex;
+        private ErrorProviderUtilities erProv = new ErrorProviderUtilities();
         #endregion
 
         #region Form
@@ -29,7 +30,7 @@ namespace WindowsFormsAppProject
             Control[] aus = { txtMarca, txtModello, txtColore, nmuCilindrata, nmuPotenza, nmuKmPercorsi, nmuPrezzo, nmuAirbag };
             controls = new List<Control>(aus);
             this.formMain = formMain;
-            veicolo = "AUTO";
+            vehicle = "AUTO";
 
             Text = "AGGIUNGI VEICOLO";
             btnAggiungiModifica.Text = "AGGIUNGI";
@@ -46,23 +47,23 @@ namespace WindowsFormsAppProject
         {
             Text = "MODIFICA VEICOLO";
             cmbTipoVeicolo.Enabled = false;
-            txtMarca.Text = formMain.listaVeicoli[selectedIndex].Marca;
-            txtModello.Text = formMain.listaVeicoli[selectedIndex].Modello;
-            txtColore.Text = formMain.listaVeicoli[selectedIndex].Colore;
-            nmuCilindrata.Value = formMain.listaVeicoli[selectedIndex].Cilindrata;
-            nmuPotenza.Value = Convert.ToDecimal(formMain.listaVeicoli[selectedIndex].PotenzaKw);
-            dtpImmatricolazione.Value = formMain.listaVeicoli[selectedIndex].Immatricolazione;
-            chkUsato.Checked = formMain.listaVeicoli[selectedIndex].IsUsato;
-            chkKmZero.Checked = formMain.listaVeicoli[selectedIndex].IsKmZero;
-            nmuKmPercorsi.Value = formMain.listaVeicoli[selectedIndex].KmPercorsi;
-            nmuPrezzo.Value = Convert.ToDecimal(formMain.listaVeicoli[selectedIndex].Prezzo);
-            if (formMain.listaVeicoli[selectedIndex] is Moto)
+            txtMarca.Text = formMain.VehicleList[selectedIndex].Brand;
+            txtModello.Text = formMain.VehicleList[selectedIndex].Model;
+            txtColore.Text = formMain.VehicleList[selectedIndex].Color;
+            nmuCilindrata.Value = formMain.VehicleList[selectedIndex].Displacement;
+            nmuPotenza.Value = Convert.ToDecimal(formMain.VehicleList[selectedIndex].PowerKw);
+            dtpImmatricolazione.Value = formMain.VehicleList[selectedIndex].Matriculation;
+            chkUsato.Checked = formMain.VehicleList[selectedIndex].IsUsed;
+            chkKmZero.Checked = formMain.VehicleList[selectedIndex].IsKm0;
+            nmuKmPercorsi.Value = formMain.VehicleList[selectedIndex].KmDone;
+            nmuPrezzo.Value = Convert.ToDecimal(formMain.VehicleList[selectedIndex].Price);
+            if (formMain.VehicleList[selectedIndex] is Motorbikes)
             {
                 cmbTipoVeicolo.SelectedIndex = 1;
-                txtMarcaSella.Text = (formMain.listaVeicoli[selectedIndex] as Moto).MarcaSella;
+                txtMarcaSella.Text = (formMain.VehicleList[selectedIndex] as Motorbikes).SaddleBrand;
             }
             else
-                nmuAirbag.Value= (formMain.listaVeicoli[selectedIndex] as Auto).NumAirbag;
+                nmuAirbag.Value= (formMain.VehicleList[selectedIndex] as Cars).NumAirbag;
             btnAggiungiModifica.Text = "MODIFICA";
             this.selectedIndex = selectedIndex;
         }
@@ -78,15 +79,15 @@ namespace WindowsFormsAppProject
             {
                 corretto = controllo(controls[i]);
                 if (!corretto)
-                    ErProv.setError(error, controls[i], "You must fill in all the required fields!");
+                    erProv.setError(error, controls[i], "Devi completare tutti i campi richiesti!");
             }
             if (btnAggiungiModifica.Text == "AGGIUNGI")
             {
                 if (corretto)
                 {
-                    if (veicolo == "AUTO")
+                    if (vehicle == "AUTO")
                     {
-                        formMain.listaVeicoli.Add(new Auto(txtMarca.Text, txtModello.Text, txtColore.Text,
+                        formMain.VehicleList.Add(new Cars(txtMarca.Text, txtModello.Text, txtColore.Text,
                                                            Convert.ToInt32(nmuCilindrata.Value),
                                                            Convert.ToDouble(nmuPotenza.Value),
                                                            dtpImmatricolazione.Value, chkUsato.Checked,
@@ -96,7 +97,7 @@ namespace WindowsFormsAppProject
                     }
                     else
                     {
-                        formMain.listaVeicoli.Add(new Moto(txtMarca.Text, txtModello.Text, txtColore.Text,
+                        formMain.VehicleList.Add(new Motorbikes(txtMarca.Text, txtModello.Text, txtColore.Text,
                                                            Convert.ToInt32(nmuCilindrata.Value),
                                                            Convert.ToDouble(nmuPotenza.Value),
                                                            dtpImmatricolazione.Value, chkUsato.Checked,
@@ -110,22 +111,22 @@ namespace WindowsFormsAppProject
             }
             else
             {
-                if(corretto)
+                if(corretto && MessageBox.Show("Operazione non reversibile, vuoi procedere?", "Sei sicuro di voler modificare l'elemento selezionato?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    formMain.listaVeicoli[selectedIndex].Marca = txtMarca.Text;
-                    formMain.listaVeicoli[selectedIndex].Modello = txtModello.Text;
-                    formMain.listaVeicoli[selectedIndex].Colore = txtColore.Text;
-                    formMain.listaVeicoli[selectedIndex].Cilindrata = Convert.ToInt32(nmuCilindrata.Value);
-                    formMain.listaVeicoli[selectedIndex].PotenzaKw = Convert.ToDouble(nmuPotenza.Value);
-                    formMain.listaVeicoli[selectedIndex].Immatricolazione = dtpImmatricolazione.Value;
-                    formMain.listaVeicoli[selectedIndex].IsUsato = chkUsato.Checked;
-                    formMain.listaVeicoli[selectedIndex].IsKmZero = chkKmZero.Checked;
-                    formMain.listaVeicoli[selectedIndex].KmPercorsi = Convert.ToInt32(nmuKmPercorsi.Value);
-                    formMain.listaVeicoli[selectedIndex].Prezzo = Convert.ToInt32(nmuPrezzo.Value);
-                    if (formMain.listaVeicoli[selectedIndex] is Moto)
-                        (formMain.listaVeicoli[selectedIndex] as Moto).MarcaSella = txtMarcaSella.Text;
+                    formMain.VehicleList[selectedIndex].Brand = txtMarca.Text;
+                    formMain.VehicleList[selectedIndex].Model = txtModello.Text;
+                    formMain.VehicleList[selectedIndex].Color = txtColore.Text;
+                    formMain.VehicleList[selectedIndex].Displacement = Convert.ToInt32(nmuCilindrata.Value);
+                    formMain.VehicleList[selectedIndex].PowerKw = Convert.ToDouble(nmuPotenza.Value);
+                    formMain.VehicleList[selectedIndex].Matriculation = dtpImmatricolazione.Value;
+                    formMain.VehicleList[selectedIndex].IsUsed = chkUsato.Checked;
+                    formMain.VehicleList[selectedIndex].IsKm0 = chkKmZero.Checked;
+                    formMain.VehicleList[selectedIndex].KmDone = Convert.ToInt32(nmuKmPercorsi.Value);
+                    formMain.VehicleList[selectedIndex].Price = Convert.ToInt32(nmuPrezzo.Value);
+                    if (formMain.VehicleList[selectedIndex] is Motorbikes)
+                        (formMain.VehicleList[selectedIndex] as Motorbikes).SaddleBrand = txtMarcaSella.Text;
                     else
-                        (formMain.listaVeicoli[selectedIndex] as Auto).NumAirbag = Convert.ToInt32(nmuAirbag.Value);
+                        (formMain.VehicleList[selectedIndex] as Cars).NumAirbag = Convert.ToInt32(nmuAirbag.Value);
                     Close();
                 }               
             }
@@ -133,15 +134,15 @@ namespace WindowsFormsAppProject
 
         private void cmbTipoVeicolo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            veicolo = cmbTipoVeicolo.Text;
-            if (veicolo == "AUTO") setControlloAggiuntivo(true, false, nmuAirbag);
+            vehicle = cmbTipoVeicolo.Text;
+            if (vehicle == "AUTO") setControlloAggiuntivo(true, false, nmuAirbag);
             else setControlloAggiuntivo(false, true, txtMarcaSella);
             changeBarValue();
         }
 
         private void txt_TextChanged(object sender, EventArgs e)
         {
-            ErProv.resetError(error, sender as Control);
+            erProv.resetError(error, sender as Control);
             changeBarValue();
         }
         #endregion

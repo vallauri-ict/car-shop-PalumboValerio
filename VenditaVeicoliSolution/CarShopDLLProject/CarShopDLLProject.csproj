@@ -63,15 +63,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auto.cs" />
+    <Compile Include="Cars.cs" />
     <Compile Include="DBUtilities.cs" />
-    <Compile Include="FormUtilities.cs" />
-    <Compile Include="Moto.cs" />
+    <Compile Include="ListUtilities.cs" />
+    <Compile Include="Motorbikes.cs" />
     <Compile Include="OpenXMLExcelUtilities.cs" />
-    <Compile Include="OpenXMLGeneralUtilities.cs" />
+    <Compile Include="GeneralUtilities.cs" />
     <Compile Include="OpenXMLWordUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Veicoli.cs" />
+    <Compile Include="Vehicles.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -13,12 +13,13 @@ using X15 = DocumentFormat.OpenXml.Office2013.Excel;
 namespace CarShopDLLProject
 {
     #region OpenXMLExcell
-    public class OpenXMLExcell
+    public class OpenXMLExcelUtilities
     {
+        public OpenXMLExcelUtilities() { }
         /// <summary>
         /// Create Excell document part
         /// </summary>
-        public static void CreatePartsForExcel(SpreadsheetDocument document, TestModelList data)
+        public void CreatePartsForExcel(SpreadsheetDocument document, SerializableBindingList<Vehicles> data)
         {
             SheetData partSheetData = GenerateSheetdataForDetails(data);
 
@@ -35,7 +36,7 @@ namespace CarShopDLLProject
         /// <summary>
         /// Workbook part
         /// </summary>
-        private static void GenerateWorkbookPartContent(WorkbookPart workbookPart1)
+        private void GenerateWorkbookPartContent(WorkbookPart workbookPart1)
         {
             Workbook workbook1 = new Workbook();
             Sheets sheets1 = new Sheets();
@@ -48,7 +49,7 @@ namespace CarShopDLLProject
         /// <summary>
         /// Worksheet part
         /// </summary>
-        private static void GenerateWorksheetPartContent(WorksheetPart worksheetPart1, SheetData sheetData1)
+        private void GenerateWorksheetPartContent(WorksheetPart worksheetPart1, SheetData sheetData1)
         {
             Worksheet worksheet1 = new Worksheet() { MCAttributes = new MarkupCompatibilityAttributes() { Ignorable = "x14ac" } };
             worksheet1.AddNamespaceDeclaration("r", "http://schemas.openxmlformats.org/officeDocument/2006/relationships");
@@ -78,7 +79,7 @@ namespace CarShopDLLProject
         /// <summary>
         /// Workbook styles
         /// </summary>
-        private static void GenerateWorkbookStylesPartContent(WorkbookStylesPart workbookStylesPart1)
+        private void GenerateWorkbookStylesPartContent(WorkbookStylesPart workbookStylesPart1)
         {
             Stylesheet stylesheet1 = new Stylesheet() { MCAttributes = new MarkupCompatibilityAttributes() { Ignorable = "x14ac" } };
             stylesheet1.AddNamespaceDeclaration("mc", "http://schemas.openxmlformats.org/markup-compatibility/2006");
@@ -203,14 +204,14 @@ namespace CarShopDLLProject
         /// Sheet data
         /// </summary>
         /// <returns> Sheet data </returns>
-        private static SheetData GenerateSheetdataForDetails(TestModelList data)
+        private SheetData GenerateSheetdataForDetails(SerializableBindingList<Vehicles> data)
         {
             SheetData sheetData1 = new SheetData();
             sheetData1.Append(CreateHeaderRowForExcel());
 
-            foreach (TestModel testmodel in data.testData)
+            foreach (Vehicles v in data)
             {
-                Row partsRows = GenerateRowForChildPartDetail(testmodel);
+                Row partsRows = GenerateRowForChildPartDetail(v);
                 sheetData1.Append(partsRows);
             }
             return sheetData1;
@@ -220,26 +221,45 @@ namespace CarShopDLLProject
         /// Header row
         /// </summary>
         /// <returns> Row </returns>
-        private static Row CreateHeaderRowForExcel()
+        private Row CreateHeaderRowForExcel()
         {
             Row workRow = new Row();
-            workRow.Append(CreateCell("Test Id", 2U));
-            workRow.Append(CreateCell("Test Name", 2U));
-            workRow.Append(CreateCell("Test Description", 2U));
-            workRow.Append(CreateCell("Test Date", 2U));
+            workRow.Append(CreateCell("Marca", 2U));
+            workRow.Append(CreateCell("Modello", 2U));
+            workRow.Append(CreateCell("Colore", 2U));
+            workRow.Append(CreateCell("Cilindrata", 4U));
+            workRow.Append(CreateCell("Potenza", 2U));
+            workRow.Append(CreateCell("Immatricolazione", 5U));
+            workRow.Append(CreateCell("Usato", 2U));
+            workRow.Append(CreateCell("Km Zero", 2U));
+            workRow.Append(CreateCell("Km Percorsi", 4U));
+            workRow.Append(CreateCell("Prezzo", 2U));
+            workRow.Append(CreateCell("Numero Airbag/Marca sella", 7U));
             return workRow;
         }
 
         /// <summary>
         /// Row for child
         /// </summary>
-        private static Row GenerateRowForChildPartDetail(TestModel testmodel)
+        private Row GenerateRowForChildPartDetail(Vehicles v)
         {
             Row tRow = new Row();
-            tRow.Append(CreateCell(testmodel.TestId.ToString()));
-            tRow.Append(CreateCell(testmodel.TestName));
-            tRow.Append(CreateCell(testmodel.TestDesc));
-            tRow.Append(CreateCell(testmodel.TestDate.ToShortDateString()));
+            string used="Non usato";
+            string km0="Non km zero";
+            tRow.Append(CreateCell(v.Brand));
+            tRow.Append(CreateCell(v.Model));
+            tRow.Append(CreateCell(v.Color));
+            tRow.Append(CreateCell(v.Displacement.ToString()));
+            tRow.Append(CreateCell(v.PowerKw.ToString() + " kw"));
+            tRow.Append(CreateCell(v.Matriculation.ToShortDateString()));
+            if (v.IsUsed) used = "usato";
+            tRow.Append(CreateCell(used));
+            if (v.IsKm0) km0 = "km zero";
+            tRow.Append(CreateCell(km0));
+            tRow.Append(CreateCell(v.KmDone.ToString()));
+            tRow.Append(CreateCell(v.Price.ToString() + " €"));
+            if(v is Cars) tRow.Append(CreateCell((v as Cars).NumAirbag.ToString()));
+            else tRow.Append(CreateCell((v as Motorbikes).SaddleBrand));
 
             return tRow;
         }
@@ -248,7 +268,7 @@ namespace CarShopDLLProject
         /// Create cell
         /// </summary>
         /// <returns> Cell </returns>
-        private static Cell CreateCell(string text)
+        private Cell CreateCell(string text)
         {
             Cell cell = new Cell();
             cell.StyleIndex = 1U;
@@ -260,7 +280,7 @@ namespace CarShopDLLProject
         /// <summary>
         /// Create cell
         /// </summary>
-        private static Cell CreateCell(string text, uint styleIndex)
+        private Cell CreateCell(string text, uint styleIndex)
         {
             Cell cell = new Cell();
             cell.StyleIndex = styleIndex;
@@ -272,7 +292,7 @@ namespace CarShopDLLProject
         /// <summary>
         /// Resolve Cell Data Type
         /// </summary>
-        private static EnumValue<CellValues> ResolveCellDataTypeOnValue(string text)
+        private EnumValue<CellValues> ResolveCellDataTypeOnValue(string text)
         {
             int intVal;
             double doubleVal;
@@ -286,17 +306,5 @@ namespace CarShopDLLProject
             }
         }
     }
-    #endregion
-
-    #region TestModelList
-    public class TestModel
-    {
-        public int TestId { get; set; }
-        public string TestName { get; set; }
-        public string TestDesc { get; set; }
-        public DateTime TestDate { get; set; }
-    }
-
-    public class TestModelList { public List<TestModel> testData { get; set; } }
     #endregion
 }

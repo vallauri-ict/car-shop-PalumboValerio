@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
 using CarShopDLLProject;
@@ -17,6 +18,9 @@ namespace ConsoleAppProject
     class Program
     {
         #region Initializations
+        public static DBUtilities dbUtilities = new DBUtilities();
+
+        public static string dbFilePath = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\Data\\CarShop.accdb";
         public static string table, brand, model, color, saddleBrand;
         public static int id, displacement, kmDone, numAirbag;
         public static double powerKw, price;
@@ -36,32 +40,67 @@ namespace ConsoleAppProject
                 {
                     case '1':
                         table = vehicle();
-                        DBUtilities.CreateTable(table);
+                        if (table != "x")
+                        {
+                            dbUtilities.CreateTable(table);
+                            Console.WriteLine("\nTable created");
+                            Thread.Sleep(3000);
+                        }
                         break;
                     case '2':
                         table = vehicle();
-                        takeParameters();
-                        DBUtilities.AddNewItem(table, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price, numAirbag, saddleBrand);
+                        if (table != "x")
+                        {
+                            takeParameters();
+                            dbUtilities.AddNewItem(table, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price, numAirbag, saddleBrand);
+                            Console.WriteLine("\nNew item added corectly");
+                            Thread.Sleep(3000);
+                        }                            
                         break;
                     case '3':
                         table = vehicle();
-                        DBUtilities.ListTable(table);
+                        if (table != "x") dbUtilities.ListTable(table);
                         break;
                     case '4':
                         table = vehicle();
-                        id = takeId(table);
-                        takeParameters();
-                        DBUtilities.Update(table, id, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price, numAirbag, saddleBrand);
-                        id = 0;
+                        if (table != "x")
+                        {
+                            id = takeId(table);
+                            takeParameters();
+                            dbUtilities.Update(table, id, brand, model, color, displacement, powerKw, matriculation, isUsed, isKm0, kmDone, price, numAirbag, saddleBrand);
+                            id = 0;
+                            Console.WriteLine($"\nTable {table} updated");
+                            Thread.Sleep(3000);
+                        }
                         break;
                     case '5':
                         table = vehicle();
-                        id = takeId(table);
-                        DBUtilities.Delete(table, id);
+                        if (table != "x")
+                        {
+                            id = takeId(table);
+                            dbUtilities.Delete(table, id);
+                            id = 0;
+                            Console.WriteLine("\nItem removed corectly");
+                            Thread.Sleep(3000);
+                        }
                         break;
                     case '6':
                         table = vehicle();
-                        DBUtilities.DropTable(table);
+                        if (table != "x")
+                        {
+                            dbUtilities.DropTable(table);
+                            Console.WriteLine($"\nTable {table} removed");
+                            Thread.Sleep(3000);
+                        }
+                        break;
+                    case '7':
+                        dbUtilities.CreateBackup(dbFilePath);
+                        Console.WriteLine($"\nBackup created");
+                        Thread.Sleep(3000);
+                        break;
+                    case '8':
+                        dbUtilities.RestoresBackup(dbFilePath);
+                        Console.WriteLine($"\nBackup restored");
                         break;
                     default:
                         break;
@@ -84,7 +123,9 @@ namespace ConsoleAppProject
             Console.WriteLine("3 - LIST");
             Console.WriteLine("4 - UPDATE ITEM");
             Console.WriteLine("5 - DELETE ITEM");
-            Console.WriteLine("6 - DROP TABLE");
+            Console.WriteLine("6 - DROP TABLE"); 
+            Console.WriteLine("7 - CREATE DB BACKUP");
+            Console.WriteLine("8 - RESTORES DB BACKUP");
             Console.WriteLine("\nX - END\n\n");
         }
 
@@ -95,35 +136,35 @@ namespace ConsoleAppProject
         private static void takeParameters()
         {
             // Take brand parameter - string -
-            Console.Write("\nmarca: ");
+            Console.Write("\nBrand: ");
             brand = Console.ReadLine();
             // Take model parameter - string -
-            Console.Write("modello: ");
+            Console.Write("Model: ");
             model = Console.ReadLine();
             // Take color parameter - string -
-            Console.Write("colore: ");
+            Console.Write("Color: ");
             color = Console.ReadLine();
             // Take displacement parameter with a type controll - integer -
-            displacement = Convert.ToInt32(typeVerifier("cilindrata: "));
+            displacement = Convert.ToInt32(typeVerifier("Displacement: "));
             // Take powerKw parameter with a type controll - double -
-            powerKw = Convert.ToDouble(typeVerifier("potenzaKw: ", "double"));
+            powerKw = Convert.ToDouble(typeVerifier("Power: ", "double"));
             // Take matriculation parameter with a type controll - date -
-            matriculation = dateVerifier("immatricolazione: ");
+            matriculation = dateVerifier("Matriculation: ");
             // Take isUsed parameter with a type controll - bool -
-            isUsed = boolRequest("usato");
+            isUsed = boolRequest("Used");
             // Take isKm0 parameter with a type controll - bool -
-            isKm0 = boolRequest("kmZero");
+            isKm0 = boolRequest("Km Zero");
             // Take kmPercorsi parameter with a type controll - integer -
-            kmDone = Convert.ToInt32(typeVerifier("kmPercorsi: "));
+            kmDone = Convert.ToInt32(typeVerifier("Km Done: "));
             // Take price parameter with a type controll - integer -
-            price = Convert.ToInt32(typeVerifier("prezzo: ", "double"));
+            price = Convert.ToInt32(typeVerifier("Price: ", "double"));
             // Take the specific parameter depending on the type of vehicle - Auto/Moto -
             numAirbag = -1;
             saddleBrand = string.Empty;
             if (table == "Auto") numAirbag = Convert.ToInt32(typeVerifier("numAirbag: "));
             else
             {
-                Console.Write("marcaSella: ");
+                Console.Write("Saddle Brand: ");
                 saddleBrand = Console.ReadLine();
             }
         }
@@ -137,14 +178,16 @@ namespace ConsoleAppProject
             char table;
             do
             {
-                Console.WriteLine("\na- Auto");
-                Console.WriteLine("m- Moto");
+                Console.WriteLine("\na- Auto (Cars)");
+                Console.WriteLine("m- Moto (Motorbikes)");
+                Console.WriteLine("X - CANCEL\n");
                 Console.Write("Choose a table: ");
                 table = Console.ReadKey().KeyChar;
-            } while (table != 'a' && table != 'm');
+            } while (table != 'a' && table != 'm' && table!='x' && table!='X');
 
             if (table == 'a') return "Auto";
-            else return "Moto";
+            else if (table == 'm') return "Moto";
+            else return "x";
         }
 
         /// <summary>
@@ -195,7 +238,7 @@ namespace ConsoleAppProject
 
             if (answer == "Y" || answer == "y") return true;
             else if (answer == "N" || answer == "n") return false;
-            else return DBUtilities.takeActualValue(consoleWrite, table, id);
+            else return dbUtilities.takeActualValue(consoleWrite, table, id);
         }
 
         /// <summary>
@@ -232,7 +275,7 @@ namespace ConsoleAppProject
         /// <returns></returns>
         private static int takeId(string table)
         {
-            int maxId = DBUtilities.ItemsCounter(table);
+            int maxId = dbUtilities.ItemsCounter(table);
             int id;
             do
             {

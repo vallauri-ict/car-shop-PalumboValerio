@@ -1,24 +1,36 @@
 ﻿body{
-    background-color: lightcoral;
+	background-image: url("../../img/Background.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
     padding: 30px;
 }
 h2, h5{
     text-align: center;
+	color: white;
 }
 img {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border: 5px solid black;
 }
 .veicolo{
     display: inline-block;
-    width: 150px;
+    width: 200px;
     margin: 10px;
 }
 .titolo{
     font-size: 14pt;
+	font-weight:bold;
+	background-color:rgba(255, 255,255, 0.6);
 }
 .didascalia{
-    font-size: 9pt;
+    font-size: 11pt;
+	font-weight:normal;
+	background-color:rgba(255, 0,0, 0.6);
 	border: 5px solid red;
+}
+.container{
+	background-color: black;
+	height:100px;
 }
