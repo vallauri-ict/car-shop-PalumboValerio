@@ -146,7 +146,9 @@ namespace WindowsFormsAppProject
                 MessageBox.Show("Problemi con il documento. Se è aperto da un altro programma, chiudilo e riprova...");
             }
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Open the db
         /// </summary>
@@ -156,6 +158,10 @@ namespace WindowsFormsAppProject
             listUtilities.OpenDBInList(VehicleList, connStr);
         }
 
+        /// <summary>
+        /// Add a Paragraph easily
+        /// </summary>
+        /// <param name="body"> Body of word document </param>
         private void AddParagraph(Body body, string idStyle, string text, JustificationValues justification = JustificationValues.Left)
         {
             Paragraph headingPar = wordUtilities.CreateParagraphWithStyle(idStyle, justification);
@@ -163,6 +169,11 @@ namespace WindowsFormsAppProject
             body.AppendChild(headingPar);
         }
 
+        /// <summary>
+        /// Give at the user the confirm that the file creation is ended and start the file
+        /// </summary>
+        /// <param name="msg"> Message </param>
+        /// <param name="filepath"> Path of file that must be open </param>
         private void ProcedureCompleted(string msg, string filepath)
         {
             MessageBox.Show(msg);

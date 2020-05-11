@@ -11,6 +11,7 @@ namespace CarShopDLLProject
 {
     public class GeneralUtilities
     {
+        #region GeneralUtilities
         public GeneralUtilities() { }
         /// <summary>
         /// Select a path. If not set, the programs have the bin/debug default directory
@@ -42,10 +43,12 @@ namespace CarShopDLLProject
 
             return fileFullname;
         }
+        #endregion
     }
 
     public class ErrorProviderUtilities
     {
+        #region ErrorProviderUtilities
         public ErrorProviderUtilities() { }
         /// <summary>
         /// Set an Error
@@ -60,5 +63,6 @@ namespace CarShopDLLProject
         /// <param name="error"> Error Provider </param>
         /// <param name="control"> The control where the error must be removed </param>
         public void resetError(ErrorProvider error, Control control) { error.SetError(control, string.Empty); }
+        #endregion
     }
 }
