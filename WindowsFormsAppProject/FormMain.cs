@@ -165,9 +165,9 @@ namespace WindowsFormsAppProject
                     ProcedureCompleted("Il documento è pronto!", filepath);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Problemi con il documento. Se è aperto da un altro programma, chiudilo e riprova...");
             }
         }
         #endregion

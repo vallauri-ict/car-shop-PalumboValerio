@@ -209,9 +209,9 @@ namespace CarShopDLLProject
             SheetData sheetData1 = new SheetData();
             sheetData1.Append(CreateHeaderRowForExcel(header));
 
-            foreach (Dictionary<string, string> testData in data)
+            foreach (Dictionary<string, string> datas in data)
             {
-                Row partsRows = GenerateRowForChildPartDetail(testData);
+                Row partsRows = GenerateRowForChildPartDetail(datas);
                 sheetData1.Append(partsRows);
             }
             return sheetData1;
@@ -232,10 +232,10 @@ namespace CarShopDLLProject
         /// <summary>
         /// Row for child
         /// </summary>
-        private Row GenerateRowForChildPartDetail(Dictionary<string, string> testData)
+        private Row GenerateRowForChildPartDetail(Dictionary<string, string> datas)
         {
             Row tRow = new Row();
-            foreach (string item in testData.Values)
+            foreach (string item in datas.Values)
                 tRow.Append(CreateCell(item));
             
             return tRow;

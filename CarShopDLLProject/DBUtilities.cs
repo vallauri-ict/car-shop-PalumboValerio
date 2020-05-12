@@ -87,7 +87,7 @@ namespace CarShopDLLProject
                     cmd.Parameters.Add(new OleDbParameter("@color", OleDbType.VarChar, 255)).Value = color;
                     cmd.Parameters.Add("@displacement", OleDbType.Integer).Value = displacement;
                     cmd.Parameters.Add("@powerKw", OleDbType.Integer).Value = powerKw;
-                    cmd.Parameters.Add(new OleDbParameter("@matriculation", OleDbType.Date)).Value = matriculation.ToString("dd/MM/yyyy");
+                    cmd.Parameters.Add(new OleDbParameter("@matriculation", OleDbType.Date)).Value = matriculation.ToShortDateString();
                     cmd.Parameters.Add(new OleDbParameter("@isUsed", OleDbType.VarChar, 255)).Value = used;
                     cmd.Parameters.Add(new OleDbParameter("@isKm0", OleDbType.VarChar, 255)).Value = km0;
                     cmd.Parameters.Add("@kmDone", OleDbType.Integer).Value = kmDone;
@@ -126,7 +126,7 @@ namespace CarShopDLLProject
                         Console.WriteLine("\n");
                         while (rdr.Read())
                         {                            
-                            string matriculation = rdr.GetDateTime(6).ToString("dd/MM/yyyy");
+                            string matriculation = rdr.GetDateTime(6).ToShortDateString();
                             string boolean = ifElse(rdr.GetBoolean(7), "usato -", "non usato -");
                             boolean += ifElse(rdr.GetBoolean(8), " km zero", " non km zero");
 
@@ -208,7 +208,7 @@ namespace CarShopDLLProject
                     if (command.Contains("@powerKw"))
                         cmd.Parameters.Add("@powerKw", OleDbType.Integer).Value = powerKw;
                     if (command.Contains("@matriculation"))
-                        cmd.Parameters.Add(new OleDbParameter("@matriculation", OleDbType.Date)).Value = matriculation.ToString("dd/MM/yyyy");
+                        cmd.Parameters.Add(new OleDbParameter("@matriculation", OleDbType.Date)).Value = matriculation.ToShortDateString();
                     if (command.Contains("@isUsed"))
                         cmd.Parameters.Add(new OleDbParameter("@isUsed", OleDbType.VarChar, 255)).Value = used;
                     if (command.Contains("@isKm0"))
