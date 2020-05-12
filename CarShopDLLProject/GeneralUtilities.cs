@@ -65,4 +65,35 @@ namespace CarShopDLLProject
         public void resetError(ErrorProvider error, Control control) { error.SetError(control, string.Empty); }
         #endregion
     }
+
+    public class TestModel
+    {
+        private string brand;
+        public TestModel(string brand, string model, string color, string displacement, string powerKw, string matriculation, string isUsed, string isKm0, string kmDone, string price, string special)
+        {
+            Brand = brand;
+            Model = model;
+            Color = color;
+            Displacement = displacement;
+            PowerKw = powerKw;
+            Matriculation = matriculation;
+            IsUsed = isUsed;
+            IsKm0 = isKm0;
+            KmDone = kmDone;
+            Price = price;
+            Special = special;
+        }
+
+        public string Brand { get => brand.ToUpper(); set => brand = value; }
+        public string Model { get; set; }
+        public string Color { get; set; }
+        public string Displacement { get; set; }
+        public string PowerKw { get; set; }
+        public string Matriculation { get; set; }
+        public string IsUsed { get; set; }
+        public string IsKm0 { get; set; }
+        public string KmDone { get; set; }
+        public string Price { get; set; }
+        public string Special { get; set; }
+    }
 }

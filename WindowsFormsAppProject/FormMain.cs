@@ -134,16 +134,40 @@ namespace WindowsFormsAppProject
             try
             {
                 string filepath = generalUtilities.OutputFileName(generalUtilities.SelectPath(fbd), "xlsx");
+                
+                string[] header = { "Marca", "Modello", "Colore", "Cilindrata", "Potenza", "Immatricolazione", "Usato", "Km Zero", "Km Percorsi", "Prezzo", "Numero Airbag/Marca sella" };
+                List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
+                for (int i = 0; i < VehicleList.Count; i++)
+                {
+                    string used = VehicleList[i].IsUsed ? "Si" : "No";
+                    string km0 = VehicleList[i].IsKm0 ? "Si" : "No";
+                    Dictionary<string, string> excelContent = new Dictionary<string, string>();
+
+                    excelContent.Add("Marca", VehicleList[i].Brand);                    
+                    excelContent.Add("Modello", VehicleList[i].Model);
+                    excelContent.Add("Colore", VehicleList[i].Color);
+                    excelContent.Add("Cilindrata", VehicleList[i].Displacement.ToString());
+                    excelContent.Add("Potenza", VehicleList[i].PowerKw.ToString() + " kw");
+                    excelContent.Add("Immatricolazione", VehicleList[i].Matriculation.ToShortDateString());
+                    excelContent.Add("Usato", used);
+                    excelContent.Add("KmZero", km0);
+                    excelContent.Add("KmPercorsi", VehicleList[i].KmDone.ToString());
+                    excelContent.Add("Prezzo", VehicleList[i].Price.ToString() + " €");
+                    if ((VehicleList[i] is Cars)) excelContent.Add("Special", (VehicleList[i] as Cars).NumAirbag.ToString());
+                    else excelContent.Add("Special", (VehicleList[i] as Motorbikes).SaddleBrand);
+                    list.Add(excelContent);
+                }
                 using (SpreadsheetDocument package = SpreadsheetDocument.Create(filepath, SpreadsheetDocumentType.Workbook))
                 {
-                    excelUtilities.CreatePartsForExcel(package, VehicleList);
+
+                    excelUtilities.CreatePartsForExcel(package, list, header);
 
                     ProcedureCompleted("Il documento è pronto!", filepath);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Problemi con il documento. Se è aperto da un altro programma, chiudilo e riprova...");
+                MessageBox.Show(ex.Message);
             }
         }
         #endregion
