@@ -29,34 +29,34 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            this.listBoxVeicoli = new System.Windows.Forms.ListBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.listBoxVehicles = new System.Windows.Forms.ListBox();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.tsbNuovo = new System.Windows.Forms.ToolStripButton();
             this.tsbSalva = new System.Windows.Forms.ToolStripButton();
             this.tsbCancella = new System.Windows.Forms.ToolStripButton();
             this.tsbModifica = new System.Windows.Forms.ToolStripButton();
-            this.tsbStampa = new System.Windows.Forms.ToolStripButton();
             this.tsbWord = new System.Windows.Forms.ToolStripButton();
             this.tsbExcel = new System.Windows.Forms.ToolStripButton();
+            this.tsbStampa = new System.Windows.Forms.ToolStripButton();
             this.fbd = new System.Windows.Forms.FolderBrowserDialog();
-            this.toolStrip1.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // listBoxVeicoli
+            // listBoxVehicles
             // 
-            this.listBoxVeicoli.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxVeicoli.FormattingEnabled = true;
-            this.listBoxVeicoli.ItemHeight = 16;
-            this.listBoxVeicoli.Location = new System.Drawing.Point(0, 27);
-            this.listBoxVeicoli.Margin = new System.Windows.Forms.Padding(4);
-            this.listBoxVeicoli.Name = "listBoxVeicoli";
-            this.listBoxVeicoli.Size = new System.Drawing.Size(779, 417);
-            this.listBoxVeicoli.TabIndex = 0;
+            this.listBoxVehicles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxVehicles.FormattingEnabled = true;
+            this.listBoxVehicles.ItemHeight = 16;
+            this.listBoxVehicles.Location = new System.Drawing.Point(0, 27);
+            this.listBoxVehicles.Margin = new System.Windows.Forms.Padding(4);
+            this.listBoxVehicles.Name = "listBoxVehicles";
+            this.listBoxVehicles.Size = new System.Drawing.Size(779, 417);
+            this.listBoxVehicles.TabIndex = 0;
             // 
-            // toolStrip1
+            // toolStrip
             // 
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbNuovo,
             this.tsbSalva,
             this.tsbCancella,
@@ -64,11 +64,11 @@
             this.tsbWord,
             this.tsbExcel,
             this.tsbStampa});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(779, 27);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(779, 27);
+            this.toolStrip.TabIndex = 1;
+            this.toolStrip.Text = "toolStrip1";
             // 
             // tsbNuovo
             // 
@@ -110,6 +110,26 @@
             this.tsbModifica.Text = "&Modifica";
             this.tsbModifica.Click += new System.EventHandler(this.tsbModifica_Click);
             // 
+            // tsbWord
+            // 
+            this.tsbWord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbWord.Image = ((System.Drawing.Image)(resources.GetObject("tsbWord.Image")));
+            this.tsbWord.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbWord.Name = "tsbWord";
+            this.tsbWord.Size = new System.Drawing.Size(29, 24);
+            this.tsbWord.Text = "Crea Documento &Word";
+            this.tsbWord.Click += new System.EventHandler(this.tsbWord_Click);
+            // 
+            // tsbExcel
+            // 
+            this.tsbExcel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbExcel.Image = ((System.Drawing.Image)(resources.GetObject("tsbExcel.Image")));
+            this.tsbExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbExcel.Name = "tsbExcel";
+            this.tsbExcel.Size = new System.Drawing.Size(29, 24);
+            this.tsbExcel.Text = "Crea Document &Excel";
+            this.tsbExcel.Click += new System.EventHandler(this.tsbExcel_Click);
+            // 
             // tsbStampa
             // 
             this.tsbStampa.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -120,39 +140,19 @@
             this.tsbStampa.Text = "S&tampa";
             this.tsbStampa.Click += new System.EventHandler(this.tsbStampa_Click);
             // 
-            // tsbWord
-            // 
-            this.tsbWord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbWord.Image = ((System.Drawing.Image)(resources.GetObject("tsbWord.Image")));
-            this.tsbWord.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbWord.Name = "tsbWord";
-            this.tsbWord.Size = new System.Drawing.Size(29, 24);
-            this.tsbWord.Text = "Create &Word Document";
-            this.tsbWord.Click += new System.EventHandler(this.tsbWord_Click);
-            // 
-            // tsbExcel
-            // 
-            this.tsbExcel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbExcel.Image = ((System.Drawing.Image)(resources.GetObject("tsbExcel.Image")));
-            this.tsbExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbExcel.Name = "tsbExcel";
-            this.tsbExcel.Size = new System.Drawing.Size(29, 24);
-            this.tsbExcel.Text = "Create &Excel Document";
-            this.tsbExcel.Click += new System.EventHandler(this.tsbExcel_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 444);
-            this.Controls.Add(this.listBoxVeicoli);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.listBoxVehicles);
+            this.Controls.Add(this.toolStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.Text = "SALONE VEICOLI NUOVI E USATI";
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -160,8 +160,8 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBoxVeicoli;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ListBox listBoxVehicles;
+        private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton tsbNuovo;
         private System.Windows.Forms.ToolStripButton tsbSalva;
         private System.Windows.Forms.ToolStripButton tsbStampa;

@@ -265,13 +265,13 @@ namespace CarShopDLLProject
         /// <param name="justifications"> Type of justification </param>
         /// <param name="borderValues"> Border style </param>
         /// <returns></returns>
-        public Table createTable(MainDocumentPart mainPart, bool[] bolds, bool[] italics, bool[] underlines, string[] texts, JustificationValues[] justifications, int rows, int cell, string rgbColor = "000000", BorderValues borderValues = BorderValues.Thick)
+        public Table CreateTable(MainDocumentPart mainPart, bool[] bolds, bool[] italics, bool[] underlines, string[] texts, JustificationValues[] justifications, int rows, int cell, string rgbColor = "000000", BorderValues borderValues = BorderValues.Thick)
         {
             if (bolds.Length == italics.Length && italics.Length == underlines.Length && underlines.Length == texts.Length)
             {
                 Table table = new Table();
                 // set table properties
-                table.AppendChild(getTableProperties(rgbColor, borderValues));
+                table.AppendChild(GetTableProperties(rgbColor, borderValues));
 
                 // row 1
                 int y = 0;
@@ -303,7 +303,7 @@ namespace CarShopDLLProject
         /// </summary>
         /// <param name="borderValues"> Border style </param>
         /// <returns></returns>
-        private TableProperties getTableProperties(string rgbColor, BorderValues borderValues)
+        private TableProperties GetTableProperties(string rgbColor, BorderValues borderValues)
         {
             TableProperties tblProperties = new TableProperties();
             TableBorders tblBorders = new TableBorders();

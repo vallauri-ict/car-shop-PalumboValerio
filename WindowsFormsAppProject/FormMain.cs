@@ -36,7 +36,7 @@ namespace WindowsFormsAppProject
         {
             InitializeComponent();
             VehicleList = new SerializableBindingList<Vehicles>();
-            listBoxVeicoli.DataSource = VehicleList;
+            listBoxVehicles.DataSource = VehicleList;
             Start();
         }
         #endregion
@@ -44,7 +44,7 @@ namespace WindowsFormsAppProject
         #region Events
         private void tsmNuovo_Click(object sender, EventArgs e)
         {
-            FormDialogAggiungiModificaVeicolo dialogAggiungi = new FormDialogAggiungiModificaVeicolo(this);
+            FormDialogAddModifyVehicle dialogAggiungi = new FormDialogAddModifyVehicle(this);
             dialogAggiungi.ShowDialog();
         }
 
@@ -57,12 +57,12 @@ namespace WindowsFormsAppProject
         private void tsbCancella_Click(object sender, EventArgs e)
         {
             if(MessageBox.Show("Sei sicuro di voler eliminare l'elemento selezionato?", "CANCELLA VEICOLO", MessageBoxButtons.YesNo, MessageBoxIcon.Question)==DialogResult.Yes)
-                VehicleList.RemoveAt(listBoxVeicoli.SelectedIndex);
+                VehicleList.RemoveAt(listBoxVehicles.SelectedIndex);
         }
 
         private void tsbModifica_Click(object sender, EventArgs e)
         {
-            FormDialogAggiungiModificaVeicolo dialogAggiungi = new FormDialogAggiungiModificaVeicolo(this, listBoxVeicoli.SelectedIndex);
+            FormDialogAddModifyVehicle dialogAggiungi = new FormDialogAddModifyVehicle(this, listBoxVehicles.SelectedIndex);
             dialogAggiungi.ShowDialog();
             dbUtilities.CreateBackup(dbFilePath);
             listUtilities.UpdateDb(VehicleList, connStr);
