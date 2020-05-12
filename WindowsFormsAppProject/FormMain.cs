@@ -135,7 +135,6 @@ namespace WindowsFormsAppProject
             {
                 string filepath = generalUtilities.OutputFileName(generalUtilities.SelectPath(fbd), "xlsx");
                 
-                string[] header = { "Marca", "Modello", "Colore", "Cilindrata", "Potenza", "Immatricolazione", "Usato", "Km Zero", "Km Percorsi", "Prezzo", "Numero Airbag/Marca sella" };
                 List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
                 for (int i = 0; i < VehicleList.Count; i++)
                 {
@@ -150,17 +149,17 @@ namespace WindowsFormsAppProject
                     excelContent.Add("Potenza", VehicleList[i].PowerKw.ToString() + " kw");
                     excelContent.Add("Immatricolazione", VehicleList[i].Matriculation.ToShortDateString());
                     excelContent.Add("Usato", used);
-                    excelContent.Add("KmZero", km0);
-                    excelContent.Add("KmPercorsi", VehicleList[i].KmDone.ToString());
+                    excelContent.Add("Km Zero", km0);
+                    excelContent.Add("Km Percorsi", VehicleList[i].KmDone.ToString());
                     excelContent.Add("Prezzo", VehicleList[i].Price.ToString() + " €");
-                    if ((VehicleList[i] is Cars)) excelContent.Add("Special", (VehicleList[i] as Cars).NumAirbag.ToString());
-                    else excelContent.Add("Special", (VehicleList[i] as Motorbikes).SaddleBrand);
+                    if ((VehicleList[i] is Cars)) excelContent.Add("Numero Airbag/Marca sella", (VehicleList[i] as Cars).NumAirbag.ToString());
+                    else excelContent.Add("Numero Airbag/Marca sella", (VehicleList[i] as Motorbikes).SaddleBrand);
                     list.Add(excelContent);
                 }
                 using (SpreadsheetDocument package = SpreadsheetDocument.Create(filepath, SpreadsheetDocumentType.Workbook))
                 {
 
-                    excelUtilities.CreatePartsForExcel(package, list, header);
+                    excelUtilities.CreatePartsForExcel(package, list);
 
                     ProcedureCompleted("Il documento è pronto!", filepath);
                 }

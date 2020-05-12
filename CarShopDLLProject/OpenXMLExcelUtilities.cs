@@ -19,9 +19,9 @@ namespace CarShopDLLProject
         /// <summary>
         /// Create Excell document part
         /// </summary>
-        public void CreatePartsForExcel(SpreadsheetDocument document, List<Dictionary<string, string>> data, string[] header)
+        public void CreatePartsForExcel(SpreadsheetDocument document, List<Dictionary<string, string>> data)
         {
-            SheetData partSheetData = GenerateSheetdataForDetails(data, header);
+            SheetData partSheetData = GenerateSheetdataForDetails(data);
 
             WorkbookPart workbookPart1 = document.AddWorkbookPart();
             GenerateWorkbookPartContent(workbookPart1);
@@ -204,10 +204,10 @@ namespace CarShopDLLProject
         /// Sheet data
         /// </summary>
         /// <returns> Sheet data </returns>
-        private SheetData GenerateSheetdataForDetails(List<Dictionary<string, string>> data, string[] header)
+        private SheetData GenerateSheetdataForDetails(List<Dictionary<string, string>> data)
         {
             SheetData sheetData1 = new SheetData();
-            sheetData1.Append(CreateHeaderRowForExcel(header));
+            sheetData1.Append(CreateHeaderRowForExcel(data));
 
             foreach (Dictionary<string, string> datas in data)
             {
@@ -221,11 +221,12 @@ namespace CarShopDLLProject
         /// Header row
         /// </summary>
         /// <returns> Row </returns>
-        private Row CreateHeaderRowForExcel(string[] header)
+        private Row CreateHeaderRowForExcel(List<Dictionary<string, string>> header)
         {
             Row workRow = new Row();
-            for (int i = 0; i < header.Length; i++)
-                workRow.Append(CreateCell(header[i], 2U));
+            foreach (var key in header[0].Keys)
+                workRow.Append(CreateCell(key, 2U));
+                
             return workRow;
         }
 
