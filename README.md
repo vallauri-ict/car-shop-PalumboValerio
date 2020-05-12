@@ -3,7 +3,7 @@
 A carshop menagement software
 
 --------------------------------
-*Project version: __7.0.0__*
+*Project version: __7.0.5__*
 
 *Project specifics:*
 1. Windows Forms Project
@@ -30,6 +30,9 @@ public void OpenDBInList(SerializableBindingList<Vehicles> list, string connStr)
  public void UpdateDb(SerializableBindingList<Vehicles> list, string connStr){}
 public static void CreateHtml(SerializableBindingList<Veicoli> objectList, string pathName, string skeletonPathName = @".\www\index-skeleton.html"){}
 ```
+```diff
++ Level of completeness: 100%
+```
 
 ### DBUtilities
 ```csharp
@@ -44,6 +47,9 @@ public static void DropTable(string tableName){}
 public void CreateBackup(string dbFilePath){}
 public void RestoresBackup(string dbFilePath){}
 ```
+```diff
++ Level of completeness: 100%
+```
 
 ### OpenXMLWordUtilities
 ```csharp
@@ -55,10 +61,16 @@ public void CreateBulletNumberingPart(MainDocumentPart mainPart, string bulletCh
 public void CreateBulletOrNumberedList(int indentLeft, int indentHanging, List<Paragraph> paragraphs, string[] texts, bool isBullet = true){}
 public Table createTable(MainDocumentPart mainPart, bool[] bolds, bool[] italics, bool[] underlines, string[] texts, JustificationValues[] justifications, int rows, int cell, string rgbColor = "000000", BorderValues borderValues = BorderValues.Thick){}
 ```
+```diff
++ Level of completeness: 100%
+```
 
 ### OpenXMLExcelUtilities
 ```csharp
 public void CreatePartsForExcel(SpreadsheetDocument document, SerializableBindingList<Vehicles> data){}
+```
+```diff
++ Level of completeness: 100%
 ```
 
 ### GeneralUtilities
@@ -66,11 +78,17 @@ public void CreatePartsForExcel(SpreadsheetDocument document, SerializableBindin
 public string SelectPath(FolderBrowserDialog fbd){}
 public string OutputFileName(string OutputFileDirectory, string fileExtension){}
 ```
+```diff
++ Level of completeness: 100%
+```
 
 ### ErrorProviderUtilities
 ```csharp
 public void setError(ErrorProvider error, Control control, string msg){}
 public void resetError(ErrorProvider error, Control control){}
+```
+```diff
++ Level of completeness: 100%
 ```
 
 --------------------------------
