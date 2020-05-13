@@ -66,13 +66,15 @@ namespace CarShopDLLProject
                     {
                         list.Add(new Cars(rdr.GetString(1), rdr.GetString(2), rdr.GetString(3),
                             rdr.GetInt32(4), rdr.GetInt32(5), rdr.GetDateTime(6), used,
-                            km0, rdr.GetInt32(9), Convert.ToDouble(rdr.GetDecimal(10)), rdr.GetInt32(11)));
+                            km0, rdr.GetInt32(9), Convert.ToDouble(rdr.GetDecimal(10)), rdr.GetString(12),
+                            rdr.GetInt32(11)));
                     }
                     else
                     {
                         list.Add(new Motorbikes(rdr.GetString(1), rdr.GetString(2), rdr.GetString(3),
                             rdr.GetInt32(4), rdr.GetInt32(5), rdr.GetDateTime(6), used,
-                            km0, rdr.GetInt32(9), Convert.ToDouble(rdr.GetDecimal(10)), rdr.GetString(11)));
+                            km0, rdr.GetInt32(9), Convert.ToDouble(rdr.GetDecimal(10)), rdr.GetString(12),
+                            rdr.GetString(11)));
                     }                        
                 }
             }
@@ -109,7 +111,7 @@ namespace CarShopDLLProject
                                     list[i].Model, list[i].Color, list[i].Displacement,
                                     list[i].PowerKw, list[i].Matriculation,
                                     list[i].IsUsed, list[i].IsKm0, list[i].KmDone,
-                                    list[i].Price, (list[i] as Cars).NumAirbag, "");
+                                    list[i].Price, (list[i] as Cars).NumAirbag, "", list[i].Img);
                         }
                         else
                         {
@@ -117,7 +119,7 @@ namespace CarShopDLLProject
                                     list[i].Model, list[i].Color, list[i].Displacement,
                                     list[i].PowerKw, list[i].Matriculation,
                                     list[i].IsUsed, list[i].IsKm0, list[i].KmDone,
-                                    list[i].Price, 0, (list[i] as Motorbikes).SaddleBrand);
+                                    list[i].Price, 0, (list[i] as Motorbikes).SaddleBrand, list[i].Img);
                         }
                     }
                 }
@@ -154,27 +156,15 @@ namespace CarShopDLLProject
         /// <param name="i"> List data position </param>
         private void CreateBody(ref string mainContent, SerializableBindingList<Vehicles> list, int i)
         {
-            string vehicle;
-            string used;
+            string used = string.Empty;
             string km0 = string.Empty;
 
-            if (list[i].IsKm0)
-                km0 = "Chilometro zero,";
-                
+            if (list[i].IsKm0) km0 = "Chilometro zero,";               
 
-            if (list[i].IsUsed)
-                used = "Usato";
-            else
-                used = "Nuovo";
-
-            
-            if (list[i] is Motorbikes)
-                vehicle = "moto.jpg";
-            else
-                vehicle = "auto.jpg";
+            if (list[i].IsUsed) used = "Usato";
 
             mainContent += "<div class = \"veicolo\">";
-            mainContent += $"<img src = \"../img/{vehicle}\">";
+            mainContent += $"<img src = \"../img/{list[i].Img}\">";
             mainContent += $"<div class = \"titolo\">{list[i].Brand} {list[i].Model}";
             mainContent += $"<div class = \"didascalia\"> Colore: {list[i].Color}<br> Cilindrata: {list[i].Displacement}<br> Immatricolazione: {list[i].Matriculation.ToString("dd/MM/yyyy")}<br> {km0} {used} <br> Chilometri percorsi: {list[i].KmDone}<br> Potenza: {list[i].PowerKw} <br> Prezzo: {list[i].Price} € </div>";
             mainContent += "</div>";

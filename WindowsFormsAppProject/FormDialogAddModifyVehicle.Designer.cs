@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDialogAddModifyVehicle));
             this.cmbVehicleType = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAddModify = new System.Windows.Forms.Button();
@@ -57,12 +58,16 @@
             this.printDocument = new System.Drawing.Printing.PrintDocument();
             this.label8 = new System.Windows.Forms.Label();
             this.nmuPrice = new System.Windows.Forms.NumericUpDown();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.tlbUpload = new System.Windows.Forms.ToolStripButton();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.nmuDisplacement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmuPower)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmuAirbag)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.error)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmuKmDone)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmuPrice)).BeginInit();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmbVehicleType
@@ -404,12 +409,38 @@
             0,
             0});
             // 
+            // toolStrip
+            // 
+            this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlbUpload});
+            this.toolStrip.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(379, 27);
+            this.toolStrip.TabIndex = 13;
+            this.toolStrip.Text = "toolStrip1";
+            // 
+            // tlbUpload
+            // 
+            this.tlbUpload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tlbUpload.Image = ((System.Drawing.Image)(resources.GetObject("tlbUpload.Image")));
+            this.tlbUpload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tlbUpload.Name = "tlbUpload";
+            this.tlbUpload.Size = new System.Drawing.Size(29, 24);
+            this.tlbUpload.Text = "&Carica immagine";
+            this.tlbUpload.Click += new System.EventHandler(this.tlbUpload_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
+            // 
             // FormDialogAddModifyVehicle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(379, 525);
+            this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.nmuPrice);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.nmuKmDone);
@@ -448,6 +479,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.error)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmuKmDone)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmuPrice)).EndInit();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -483,5 +516,8 @@
         private System.Drawing.Printing.PrintDocument printDocument;
         private System.Windows.Forms.NumericUpDown nmuPrice;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripButton tlbUpload;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

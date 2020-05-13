@@ -41,8 +41,9 @@ namespace CarShopDLLProject
                                 colore VARCHAR(255), cilindrata INT, potenzaKw INT,
                                 immatricolazione DATE, usato VARCHAR(255), kmZero VARCHAR(255),
                                 kmPercorsi INT, prezzo MONEY,";
-                        if (tableName == "Auto") command += " numAirbag INT)";
-                        else command += " marcaSella VARCHAR(255))";
+                        if (tableName == "Auto") command += " numAirbag INT,";
+                        else command += " marcaSella VARCHAR(255),";
+                        command += " img VARCHAR(255))";
                         cmd.CommandText = command;
                         cmd.ExecuteNonQuery();
                     }
@@ -62,7 +63,7 @@ namespace CarShopDLLProject
         /// <param name="tableName"> Auto/Moto </param>
         /// <param name="numAirbag"> Only for Auto </param>
         /// <param name="saddleBrand"> Only for Moto </param>
-        public void AddNewItem(string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, int numAirbag, string saddleBrand)
+        public void AddNewItem(string tableName, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, int numAirbag, string saddleBrand, string img = "noImage.png")
         {
             if (connStr != null)
             {
@@ -75,9 +76,9 @@ namespace CarShopDLLProject
                     cmd.Connection = con;
                     string command = string.Empty;
                     if (tableName == "Auto")
-                        command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenzaKw, immatricolazione, usato, kmZero, kmPercorsi, prezzo, numAirbag) VALUES(@brand, @model, @color, @displacement, @powerKw, @matriculation, @isUsed, @isKm0, @kmDone, @price, @numAirbag)";
+                        command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenzaKw, immatricolazione, usato, kmZero, kmPercorsi, prezzo, numAirbag, img) VALUES(@brand, @model, @color, @displacement, @powerKw, @matriculation, @isUsed, @isKm0, @kmDone, @price, @numAirbag, @img)";
                     else
-                        command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenzaKw, immatricolazione, usato, kmZero, kmPercorsi, prezzo, marcaSella) VALUES(@brand, @model, @color, @displacement, @powerKw, @matriculation, @isUsed, @isKm0, @kmDone, @price, @saddleBrand)";
+                        command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenzaKw, immatricolazione, usato, kmZero, kmPercorsi, prezzo, marcaSella, img) VALUES(@brand, @model, @color, @displacement, @powerKw, @matriculation, @isUsed, @isKm0, @kmDone, @price, @saddleBrand, @img)";
                     cmd.CommandText = command;
 
                     string used = isUsed ? "Si" : "No";
@@ -96,6 +97,7 @@ namespace CarShopDLLProject
                         cmd.Parameters.Add("@numAirbag", OleDbType.Integer).Value = numAirbag;
                     else
                         cmd.Parameters.Add(new OleDbParameter("@saddleBrand", OleDbType.VarChar, 255)).Value = saddleBrand;
+                    cmd.Parameters.Add(new OleDbParameter("@img", OleDbType.VarChar, 255)).Value = img;
                     cmd.Prepare();
 
                     cmd.ExecuteNonQuery();
@@ -163,7 +165,7 @@ namespace CarShopDLLProject
         /// Update sql command
         /// </summary>
         /// <param name="id"> Identifier of the record that user wants to update </param>
-        public void Update(string tableName, int id, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, int numAirbag, string saddleBrand)
+        public void Update(string tableName, int id, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, int numAirbag, string saddleBrand, string img = "")
         {
             if (connStr != null)
             {
@@ -185,12 +187,13 @@ namespace CarShopDLLProject
                     set += " , usato=@isUsed";
                     set += " , kmZero=@isKm0";
                     set += parametersControl(kmDone != -1, " , kmPercorsi=@kmDone");
-                    set += parametersControl(price != -1, " , prezzo=@price");
-                    if(tableName=="Auto")
+                    set += parametersControl(price != -1, " , prezzo=@price");                   
+                    if (tableName=="Auto")
                         set += parametersControl(numAirbag != -1, " , numAirbag=@numAirbag");
                     else
                         set += parametersControl(saddleBrand != "-1", " , marcaSella=@saddleBrand");
-                    if(set.Contains("SET  ,"))
+                    set += parametersControl(img != "", " , img=@img");
+                    if (set.Contains("SET  ,"))
                         set = set.Replace("SET  ,", "SET");
                     command += $" {set} WHERE id={id}";
                     cmd.CommandText = command;
@@ -221,6 +224,8 @@ namespace CarShopDLLProject
                         cmd.Parameters.Add("@numAirbag", OleDbType.Integer).Value = numAirbag;
                     if (command.Contains("@saddleBrand"))
                         cmd.Parameters.Add(new OleDbParameter("@saddleBrand", OleDbType.VarChar, 255)).Value = saddleBrand;
+                    if (command.Contains("@img"))
+                        cmd.Parameters.Add(new OleDbParameter("@img", OleDbType.VarChar, 255)).Value = img;
                     cmd.Prepare();
 
                     cmd.ExecuteNonQuery();                   

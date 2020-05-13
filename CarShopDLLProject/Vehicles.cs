@@ -10,7 +10,7 @@ namespace CarShopDLLProject
     {
         #region Vehicles
         private string brand;
-        public Vehicles(string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price)
+        public Vehicles(string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, double price, string img)
         {
             Brand = brand;
             Model = model;
@@ -22,6 +22,7 @@ namespace CarShopDLLProject
             IsKm0 = isKm0;
             KmDone = kmDone;
             Price = price;
+            Img = img;
         }
 
         public string Brand { get => brand.ToUpper(); set => brand = value; }
@@ -34,6 +35,7 @@ namespace CarShopDLLProject
         public bool IsKm0 { get; set; }
         public int KmDone { get; set; }
         public double Price { get; set; }
+        public string Img { get; set; }
 
         public override string ToString() { return $" {Brand} - Modello: {Model} ({Matriculation.Year})"; }
         #endregion

@@ -63,10 +63,12 @@ namespace WindowsFormsAppProject
         private void tsbModifica_Click(object sender, EventArgs e)
         {
             FormDialogAddModifyVehicle dialogAggiungi = new FormDialogAddModifyVehicle(this, listBoxVehicles.SelectedIndex);
-            dialogAggiungi.ShowDialog();
-            dbUtilities.CreateBackup(dbFilePath);
-            listUtilities.UpdateDb(VehicleList, connStr);
-            Start();
+            if (dialogAggiungi.ShowDialog() == DialogResult.OK)
+            {
+                dbUtilities.CreateBackup(dbFilePath);
+                listUtilities.UpdateDb(VehicleList, connStr);
+                Start();
+            }
         }
 
         private void tsbStampa_Click(object sender, EventArgs e)
@@ -95,8 +97,8 @@ namespace WindowsFormsAppProject
                     mainPart.Document = new Document();
                     Body body = mainPart.Document.AppendChild(new Body());
 
-                    wordUtilities.AddStyle(mainPart, true, true, true, false, "MyHeading1", "Title", "Verdana", 20, "FF0000");
-                    wordUtilities.AddStyle(mainPart, true, false, false, false, "MyHeading2", "Subtitle", "Verdana", 20, "FF0000");
+                    wordUtilities.AddStyle(mainPart, true, true, true, false, "MyHeading1", "Title", "Verdana", 16, "FF0000");
+                    wordUtilities.AddStyle(mainPart, true, false, false, false, "MyHeading2", "Subtitle", "Verdana", 14, "FF0000");
                     wordUtilities.AddStyle(mainPart, false, false, false, false, "MyStartParagraph", "First", "Calibri", 15, "000000");
                     wordUtilities.AddStyle(mainPart, false, false, false, false, "MyParagraph2", "Second", "Calibri", 12, "000000");
 
