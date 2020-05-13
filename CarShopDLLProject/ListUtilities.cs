@@ -159,9 +159,11 @@ namespace CarShopDLLProject
             string used = string.Empty;
             string km0 = string.Empty;
 
-            if (list[i].IsKm0) km0 = "Chilometro zero,";               
+            if (list[i].IsKm0) km0 = "Chilometro zero,";
 
             if (list[i].IsUsed) used = "Usato";
+            else used = "Nuovo";
+
 
             mainContent += "<div class = \"veicolo\">";
             mainContent += $"<img src = \"../img/{list[i].Img}\">";
