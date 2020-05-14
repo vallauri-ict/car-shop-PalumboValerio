@@ -16,21 +16,6 @@ namespace CarShopDLLProject
         #region GeneralUtilities
         public GeneralUtilities() { }
         /// <summary>
-        /// Select a path. If not set, the programs have the bin/debug default directory
-        /// </summary>
-        /// <param name="fbd"> Folder Browser Dialog </param>
-        /// <returns></returns>
-        public string SelectPath(FolderBrowserDialog fbd)
-        {
-            string path = string.Empty;
-
-            if (fbd.ShowDialog() == DialogResult.OK) path = fbd.SelectedPath;
-            else path = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\Data";
-
-            return path;
-        }
-
-        /// <summary>
         /// Create the output file name string
         /// </summary>
         /// <returns></returns>

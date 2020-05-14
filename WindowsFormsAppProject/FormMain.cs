@@ -44,8 +44,8 @@ namespace WindowsFormsAppProject
         #region Events
         private void tsmNuovo_Click(object sender, EventArgs e)
         {
-            FormDialogAddModifyVehicle dialogAggiungi = new FormDialogAddModifyVehicle(this);
-            dialogAggiungi.ShowDialog();
+            FormDialogAddModifyVehicle dialogAddMod = new FormDialogAddModifyVehicle(this);
+            dialogAddMod.ShowDialog();
         }
 
         private void tsbSalva_Click(object sender, EventArgs e)
@@ -62,8 +62,8 @@ namespace WindowsFormsAppProject
 
         private void tsbModifica_Click(object sender, EventArgs e)
         {
-            FormDialogAddModifyVehicle dialogAggiungi = new FormDialogAddModifyVehicle(this, listBoxVehicles.SelectedIndex);
-            if (dialogAggiungi.ShowDialog() == DialogResult.OK)
+            FormDialogAddModifyVehicle dialogAddMod = new FormDialogAddModifyVehicle(this, listBoxVehicles.SelectedIndex);
+            if (dialogAddMod.ShowDialog() == DialogResult.OK)
             {
                 dbUtilities.CreateBackup(dbFilePath);
                 listUtilities.UpdateDb(VehicleList, connStr);
@@ -86,89 +86,95 @@ namespace WindowsFormsAppProject
 
         private void tsbWord_Click(object sender, EventArgs e)
         {
-            try
+            if (fbd.ShowDialog() == DialogResult.OK)
             {
-                string filepath = generalUtilities.OutputFileName(generalUtilities.SelectPath(fbd), "docx");
-
-                using (WordprocessingDocument doc = WordprocessingDocument.Create(filepath, WordprocessingDocumentType.Document))
+                try
                 {
-                    MainDocumentPart mainPart = doc.AddMainDocumentPart();
+                    string filepath = generalUtilities.OutputFileName(fbd.SelectedPath, "docx");
 
-                    mainPart.Document = new Document();
-                    Body body = mainPart.Document.AppendChild(new Body());
-
-                    wordUtilities.AddStyle(mainPart, true, true, true, false, "MyHeading1", "Title", "Verdana", 16, "FF0000");
-                    wordUtilities.AddStyle(mainPart, true, false, false, false, "MyHeading2", "Subtitle", "Verdana", 14, "FF0000");
-                    wordUtilities.AddStyle(mainPart, false, false, false, false, "MyStartParagraph", "First", "Calibri", 15, "000000");
-                    wordUtilities.AddStyle(mainPart, false, false, false, false, "MyParagraph2", "Second", "Calibri", 12, "000000");
-
-                    AddParagraph(body, "MyHeading1", "SALONE AUTOVALLAURI - VEICOLI NUOVI E USATI", JustificationValues.Center);
-                    AddParagraph(body, "MyHeading2", "Le migliori occasioni al miglior prezzo!", JustificationValues.Center);
-                    AddParagraph(body, "MyStartParagraph", "LISTA DEI VEICOLI DISPONIBILI:");
-
-                    wordUtilities.CreateBulletNumberingPart(mainPart, "•");
-                    for (int i = 0; i < VehicleList.Count; i++)
+                    using (WordprocessingDocument doc = WordprocessingDocument.Create(filepath, WordprocessingDocumentType.Document))
                     {
-                        AddParagraph(body, "MyParagraph2", $"{VehicleList[i].Brand} {VehicleList[i].Model}");
-                        string used = VehicleList[i].IsUsed ? "Si" : "No";
-                        string km0 = VehicleList[i].IsKm0 ? "Si" : "No";
-                        string[] elements = { $"Colore: {VehicleList[i].Color}", 
+                        MainDocumentPart mainPart = doc.AddMainDocumentPart();
+
+                        mainPart.Document = new Document();
+                        Body body = mainPart.Document.AppendChild(new Body());
+
+                        wordUtilities.AddStyle(mainPart, true, true, true, false, "MyHeading1", "Title", "Verdana", 16, "FF0000");
+                        wordUtilities.AddStyle(mainPart, true, false, false, false, "MyHeading2", "Subtitle", "Verdana", 14, "FF0000");
+                        wordUtilities.AddStyle(mainPart, false, false, false, false, "MyStartParagraph", "First", "Calibri", 15, "000000");
+                        wordUtilities.AddStyle(mainPart, false, false, false, false, "MyParagraph2", "Second", "Calibri", 12, "000000");
+
+                        AddParagraph(body, "MyHeading1", "SALONE AUTOVALLAURI - VEICOLI NUOVI E USATI", JustificationValues.Center);
+                        AddParagraph(body, "MyHeading2", "Le migliori occasioni al miglior prezzo!", JustificationValues.Center);
+                        AddParagraph(body, "MyStartParagraph", "LISTA DEI VEICOLI DISPONIBILI:");
+
+                        wordUtilities.CreateBulletNumberingPart(mainPart, "•");
+                        for (int i = 0; i < VehicleList.Count; i++)
+                        {
+                            AddParagraph(body, "MyParagraph2", $"{VehicleList[i].Brand} {VehicleList[i].Model}");
+                            string used = VehicleList[i].IsUsed ? "Si" : "No";
+                            string km0 = VehicleList[i].IsKm0 ? "Si" : "No";
+                            string[] elements = { $"Colore: {VehicleList[i].Color}",
                             $"Cilindrata: {VehicleList[i].Displacement}", $"Potenza: {VehicleList[i].Color} Kw",
                             $"Immatricolazione: {VehicleList[i].Matriculation.ToShortDateString()}",
                             $"Usato: {used}", $"Km zero: {km0}", $"Km Percorsi: {VehicleList[i].KmDone}",
                             $"Prezzo: {VehicleList[i].Price} €"};
-                        List<Paragraph> bulletList = new List<Paragraph>();
-                        wordUtilities.CreateBulletOrNumberedList(100, 200, bulletList, elements);
-                        foreach (Paragraph paragraph in bulletList)
-                            body.Append(paragraph);
-                    }                  
-                    ProcedureCompleted("Il documento è pronto!", filepath);
+                            List<Paragraph> bulletList = new List<Paragraph>();
+                            wordUtilities.CreateBulletOrNumberedList(100, 200, bulletList, elements);
+                            foreach (Paragraph paragraph in bulletList)
+                                body.Append(paragraph);
+                        }
+                        ProcedureCompleted("Il documento è pronto!", filepath);
+                    }
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Problemi con il documento. Se è aperto da un altro programma, chiudilo e riprova...");
+                catch (Exception)
+                {
+                    MessageBox.Show("Problemi con il documento. Se è aperto da un altro programma, chiudilo e riprova...");
+                }
             }
         }
 
         private void tsbExcel_Click(object sender, EventArgs e)
         {
-            try
+            if (fbd.ShowDialog() == DialogResult.OK)
             {
-                string filepath = generalUtilities.OutputFileName(generalUtilities.SelectPath(fbd), "xlsx");
-                
-                List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
-                for (int i = 0; i < VehicleList.Count; i++)
+                try
                 {
-                    string used = VehicleList[i].IsUsed ? "Si" : "No";
-                    string km0 = VehicleList[i].IsKm0 ? "Si" : "No";
-                    Dictionary<string, string> excelContent = new Dictionary<string, string>();
+                    string filepath = generalUtilities.OutputFileName(fbd.SelectedPath, "xlsx");
 
-                    excelContent.Add("Marca", VehicleList[i].Brand);                    
-                    excelContent.Add("Modello", VehicleList[i].Model);
-                    excelContent.Add("Colore", VehicleList[i].Color);
-                    excelContent.Add("Cilindrata", VehicleList[i].Displacement.ToString());
-                    excelContent.Add("Potenza", VehicleList[i].PowerKw.ToString() + " kw");
-                    excelContent.Add("Immatricolazione", VehicleList[i].Matriculation.ToShortDateString());
-                    excelContent.Add("Usato", used);
-                    excelContent.Add("Km Zero", km0);
-                    excelContent.Add("Km Percorsi", VehicleList[i].KmDone.ToString());
-                    excelContent.Add("Prezzo", VehicleList[i].Price.ToString() + " €");
-                    if ((VehicleList[i] is Cars)) excelContent.Add("Numero Airbag/Marca sella", (VehicleList[i] as Cars).NumAirbag.ToString());
-                    else excelContent.Add("Numero Airbag/Marca sella", (VehicleList[i] as Motorbikes).SaddleBrand);
-                    list.Add(excelContent);
+                    List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
+                    for (int i = 0; i < VehicleList.Count; i++)
+                    {
+                        string used = VehicleList[i].IsUsed ? "Si" : "No";
+                        string km0 = VehicleList[i].IsKm0 ? "Si" : "No";
+                        Dictionary<string, string> excelContent = new Dictionary<string, string>();
+
+                        excelContent.Add("Marca", VehicleList[i].Brand);
+                        excelContent.Add("Modello", VehicleList[i].Model);
+                        excelContent.Add("Colore", VehicleList[i].Color);
+                        excelContent.Add("Cilindrata", VehicleList[i].Displacement.ToString());
+                        excelContent.Add("Potenza", VehicleList[i].PowerKw.ToString() + " kw");
+                        excelContent.Add("Immatricolazione", VehicleList[i].Matriculation.ToShortDateString());
+                        excelContent.Add("Usato", used);
+                        excelContent.Add("Km Zero", km0);
+                        excelContent.Add("Km Percorsi", VehicleList[i].KmDone.ToString());
+                        excelContent.Add("Prezzo", VehicleList[i].Price.ToString() + " €");
+                        if ((VehicleList[i] is Cars)) excelContent.Add("Numero Airbag/Marca sella", (VehicleList[i] as Cars).NumAirbag.ToString());
+                        else excelContent.Add("Numero Airbag/Marca sella", (VehicleList[i] as Motorbikes).SaddleBrand);
+                        list.Add(excelContent);
+                    }
+                    using (SpreadsheetDocument package = SpreadsheetDocument.Create(filepath, SpreadsheetDocumentType.Workbook))
+                    {
+
+                        excelUtilities.CreatePartsForExcel(package, list);
+
+                        ProcedureCompleted("Il documento è pronto!", filepath);
+                    }
                 }
-                using (SpreadsheetDocument package = SpreadsheetDocument.Create(filepath, SpreadsheetDocumentType.Workbook))
+                catch (Exception)
                 {
-
-                    excelUtilities.CreatePartsForExcel(package, list);
-
-                    ProcedureCompleted("Il documento è pronto!", filepath);
+                    MessageBox.Show("Problemi con il documento. Se è aperto da un altro programma, chiudilo e riprova...");
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Problemi con il documento. Se è aperto da un altro programma, chiudilo e riprova...");
             }
         }
         #endregion

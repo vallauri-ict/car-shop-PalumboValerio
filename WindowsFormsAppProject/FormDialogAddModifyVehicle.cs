@@ -36,9 +36,8 @@ namespace WindowsFormsAppProject
             vehicle = "AUTO";
 
             Text = "AGGIUNGI VEICOLO";
-            btnAddModify.Text = "AGGIUNGI";
-            btnAddModify.DialogResult = DialogResult.OK;
-            btnCancel.DialogResult = DialogResult.Cancel;
+            btnAddModify.Text = "AGGIUNGI";            
+            btnCancel.DialogResult = DialogResult.Cancel;            
             cmbVehicleType.Enabled = true;
             cmbVehicleType.SelectedIndex = 0;
             lblSaddleBrand.Location = lblNAirbag.Location;
@@ -76,8 +75,6 @@ namespace WindowsFormsAppProject
         #endregion
 
         #region Events
-        private void btnCancel_Click(object sender, EventArgs e) { Close(); }
-
         private void btnAddModify_Click(object sender, EventArgs e)
         {
             bool correct = inputControl();
@@ -113,7 +110,7 @@ namespace WindowsFormsAppProject
             else
             {
                 if(correct && MessageBox.Show("Operazione non reversibile, vuoi procedere?", "Vuoi modificare l'elemento selezionato?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
+                {                    
                     formMain.VehicleList[selectedIndex].Brand = txtBrand.Text;
                     formMain.VehicleList[selectedIndex].Model = txtModel.Text;
                     formMain.VehicleList[selectedIndex].Color = txtColor.Text;
@@ -129,7 +126,8 @@ namespace WindowsFormsAppProject
                         (formMain.VehicleList[selectedIndex] as Motorbikes).SaddleBrand = txtSaddleBrand.Text;
                     else
                         (formMain.VehicleList[selectedIndex] as Cars).NumAirbag = Convert.ToInt32(nmuAirbag.Value);
-                    Close();
+
+                    DialogResult = DialogResult.OK;                    
                 }               
             }
         }
