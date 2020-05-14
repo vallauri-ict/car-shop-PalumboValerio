@@ -27,7 +27,7 @@ A carshop menagement software
 ### ListUtilities
 ```csharp
 public void OpenDBInList(SerializableBindingList<Vehicles> list, string connStr){}
- public void UpdateDb(SerializableBindingList<Vehicles> list, string connStr){}
+public void UpdateDb(SerializableBindingList<Vehicles> list, string connStr){}
 public static void CreateHtml(SerializableBindingList<Veicoli> objectList, string pathName, string skeletonPathName = @".\www\index-skeleton.html"){}
 ```
 ```diff
