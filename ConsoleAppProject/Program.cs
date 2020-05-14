@@ -118,7 +118,7 @@ namespace ConsoleAppProject
         private static void menu()
         {
             Console.Clear();
-            Console.WriteLine("*** SALONE VENDITA VEICOLI NUOVI E USATI - DB MANAGEMENT ***\n");
+            Console.WriteLine("*** AUTOPALU - DB MANAGEMENT ***\n");
             Console.WriteLine("1 - CREATE TABLE");
             Console.WriteLine("2 - ADD NEW ITEM");
             Console.WriteLine("3 - LIST");

@@ -136,7 +136,7 @@ namespace CarShopDLLProject
         {
             string html = File.ReadAllText(skeletonPathName);
             html = html.Replace("{{head-title}}", "AUTOVALLAURI");
-            html = html.Replace("{{body-title}}", "SALONE AUTOVALLAURI - VEICOLI NUOVI E USATI");
+            html = html.Replace("{{body-title}}", "AUTOPALU - VEICOLI NUOVI E USATI");
             html = html.Replace("{{body-subtitle}}", "Le migliori occasioni al miglior prezzo!");
             
 

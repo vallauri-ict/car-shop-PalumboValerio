@@ -104,7 +104,7 @@ namespace WindowsFormsAppProject
                         wordUtilities.AddStyle(mainPart, false, false, false, false, "MyStartParagraph", "First", "Calibri", 15, "000000");
                         wordUtilities.AddStyle(mainPart, false, false, false, false, "MyParagraph2", "Second", "Calibri", 12, "000000");
 
-                        AddParagraph(body, "MyHeading1", "SALONE AUTOVALLAURI - VEICOLI NUOVI E USATI", JustificationValues.Center);
+                        AddParagraph(body, "MyHeading1", "AUTOPALU - VEICOLI NUOVI E USATI", JustificationValues.Center);
                         AddParagraph(body, "MyHeading2", "Le migliori occasioni al miglior prezzo!", JustificationValues.Center);
                         AddParagraph(body, "MyStartParagraph", "LISTA DEI VEICOLI DISPONIBILI:");
 
