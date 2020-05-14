@@ -3,7 +3,7 @@
 A carshop menagement software
 
 --------------------------------
-*Project version: __7.0.5__*
+*Project version: __7.0.6__*
 
 *Project specifics:*
 1. Windows Forms Project
@@ -41,7 +41,7 @@ public static void AddNewItem(string tableName, string brand, string model, stri
 public static void ListTable(string tableName){}
 public static void Update(string tableName, int id, string brand, string model, string color, int displacement, double powerKw, DateTime matriculation, bool isUsed, bool isKm0, int kmDone, int price, int numAirbag, string saddleBrand){}
 public static void Delete(string tableName, int id){}
-public static bool takeActualValue(string parameter, string tableName, int id){}
+public static string takeActualValue(string parameter, string tableName, int id){}
 public static int ItemsCounter(string tableName){}
 public static void DropTable(string tableName){}
 public void CreateBackup(string dbFilePath){}
@@ -67,7 +67,7 @@ public Table createTable(MainDocumentPart mainPart, bool[] bolds, bool[] italics
 
 ### OpenXMLExcelUtilities
 ```csharp
-public void CreatePartsForExcel(SpreadsheetDocument document, SerializableBindingList<Vehicles> data){}
+public void CreatePartsForExcel(SpreadsheetDocument document, List<Dictionary<string, string>> data){}
 ```
 ```diff
 + Level of completeness: 100%
