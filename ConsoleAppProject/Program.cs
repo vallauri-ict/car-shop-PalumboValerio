@@ -184,10 +184,10 @@ namespace ConsoleAppProject
                 Console.WriteLine("X - CANCEL\n");
                 Console.Write("Choose a table: ");
                 table = Console.ReadKey().KeyChar;
-            } while (table != 'a' && table != 'm' && table!='x' && table!='X');
+            } while (table != 'a' && table != 'A' && table != 'm' && table != 'M' && table!='x' && table!='X');
 
-            if (table == 'a') return "Auto";
-            else if (table == 'm') return "Moto";
+            if (table == 'a' || table == 'A') return "Auto";
+            else if (table == 'm' || table == 'M') return "Moto";
             else return "x";
         }
 
