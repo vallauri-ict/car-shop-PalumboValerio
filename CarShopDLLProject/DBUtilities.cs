@@ -129,13 +129,11 @@ namespace CarShopDLLProject
                         while (rdr.Read())
                         {                            
                             string matriculation = rdr.GetDateTime(6).ToShortDateString();
-                            string boolean = ifElse(rdr.GetBoolean(7), "usato -", "non usato -");
-                            boolean += ifElse(rdr.GetBoolean(8), " km zero", " non km zero");
 
                             string output = $"{rdr.GetInt32(0)} - {rdr.GetString(1)} - {rdr.GetString(2)} - " +
                                             $"{rdr.GetString(3)} - {rdr.GetInt32(4)} - {rdr.GetInt32(5)} - " +
-                                            $"{matriculation} - {boolean} - {rdr.GetInt32(9)} - " +
-                                            $"{rdr.GetInt32(10)}";
+                                            $"{matriculation} - {rdr.GetString(7)} - {rdr.GetString(8)} - " +
+                                            $"{rdr.GetInt32(9)} - {rdr.GetDecimal(10)}";
                             if (tableName == "Auto") output += $" - {rdr.GetInt32(11)}";
                             else output += $" - {rdr.GetString(11)}";
                             Console.WriteLine(output);
@@ -146,19 +144,6 @@ namespace CarShopDLLProject
                 }
                 System.Threading.Thread.Sleep(5000);
             }
-        }
-
-        /// <summary>
-        /// A simple method to avoid repetitions in the code
-        /// </summary>
-        /// <param name="condition"> The if condition </param>
-        /// <param name="trueStr"> Returned string if condition is true </param>
-        /// <param name="falseStr"> Returned string if condition is false </param>
-        /// <returns></returns>
-        private string ifElse(bool condition, string trueStr, string falseStr)
-        {
-            if (condition) return trueStr;
-            else return falseStr;
         }
 
         /// <summary>
@@ -275,7 +260,7 @@ namespace CarShopDLLProject
         /// <param name="tableName"> Auto/Moto </param>
         /// <param name="id"> Identifier of the record that user wants to update </param>
         /// <returns></returns>
-        public bool takeActualValue(string parameter, string tableName, int id)
+        public string takeActualValue(string parameter, string tableName, int id)
         {
             if (connStr != null)
             {
@@ -292,14 +277,14 @@ namespace CarShopDLLProject
                     {
                         while (rdr.Read())
                         {
-                            return rdr.GetBoolean(0);
+                            return rdr.GetString(0);
                         }
                     }
                     else Console.WriteLine("\n\nNo rows found.");
                     rdr.Close();
                 }
             }
-            return false;
+            return "No";
         }
 
         /// <summary>

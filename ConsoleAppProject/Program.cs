@@ -101,6 +101,7 @@ namespace ConsoleAppProject
                     case '8':
                         dbUtilities.RestoresBackup(dbFilePath);
                         Console.WriteLine($"\nBackup restored");
+                        Thread.Sleep(3000);
                         break;
                     default:
                         break;
@@ -230,6 +231,9 @@ namespace ConsoleAppProject
         private static bool boolRequest(string consoleWrite)
         {
             string answer;
+            string parameter;
+            if (consoleWrite == "Used") parameter = "usato";
+            else parameter = "kmZero";
             do
             {
                 Console.Write($"{consoleWrite} Y/N: ");
@@ -238,7 +242,8 @@ namespace ConsoleAppProject
 
             if (answer == "Y" || answer == "y") return true;
             else if (answer == "N" || answer == "n") return false;
-            else return dbUtilities.takeActualValue(consoleWrite, table, id);
+            else if (dbUtilities.takeActualValue(parameter, table, id) == "Si") return true;
+            else return false;
         }
 
         /// <summary>
@@ -249,7 +254,7 @@ namespace ConsoleAppProject
         private static DateTime dateVerifier(string consoleWrite)
         {
             DateTime verifier = DateTime.Now;
-            bool correct = true;
+            bool correct;
             do
             {
                 Console.Write(consoleWrite);
@@ -258,6 +263,7 @@ namespace ConsoleAppProject
                     string aus = Console.ReadLine();
                     if (aus == "-1") aus = "01/01/9999";
                     verifier = Convert.ToDateTime(aus);
+                    correct = true;
                 }
                 catch (Exception)
                 {
